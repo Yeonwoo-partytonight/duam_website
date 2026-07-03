@@ -48,10 +48,22 @@
 | home | 홈 | hero / about / services / treatments / reviews / hours / access |
 | about | 병원소개 | greeting / doctors / facility / info / location / equipment / special-test |
 | spine | 척추관절 | herniated / degenerative / scoliosis / sprain / neck-disc / neck-deg / turtle |
-| rehab | 수술 후 재활 | exercise / chuna / manual / herb / inpatient / equipment |
+| rehab | 수술 후 재활 | chuna / manual / herb / inpatient / equipment |
 | accident | 교통사고클리닉 | overview / process / insurance / faq |
 | women | 여성·다이어트 | diet / postpartum / postdiet / menopause |
-| face | 안면비대칭·여드름 | asymmetry / lifting / acne |
 | fatigue | 만성피로 | fatigue / injection |
-| cancer | 암면역클리닉 | womencancer / pancreatic |
+| cancer | 암면역클리닉(암 자율신경 면역 클리닉) | overview |
 | news | 병원소식 | notice / media / price / inquiry / review |
+
+## Git 커밋 규칙
+
+- 이 저장소는 git으로 버전 관리한다. 의미 있는 수정을 마칠 때마다 커밋을 남긴다.
+- 커밋 단위: "한 가지 목적의 변경"으로 쪼갠다. (예: 콘텐츠 추가 / 스타일 수정 / 라우팅 변경을 한 커밋에 섞지 않는다)
+- 커밋 메시지 형식(한국어):
+    [카테고리] 한 줄 요약
+
+    - 무엇을 왜 바꿨는지 2~3줄
+  카테고리 예: 콘텐츠, 디자인, 레이아웃, 라우팅, 반응형, 접근성, 성능, 정보수정, 신규페이지
+- 작업 전 `git status`로 상태를 확인하고, 작업 후 변경 파일만 `git add` 하여 커밋한다.
+- "업데이트 보고" 요청 시에는 git 커밋 로그(`git log --since / --until`)를 1차 근거로 삼아 해당 날짜 변경사항을 정리한다.
+- 사실 정보(연락처 062-716-7160, 주소 갈마로 46, 진료시간)는 커밋 여부와 무관하게 임의 변경하지 않는다.
