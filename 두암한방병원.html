@@ -860,87 +860,8 @@ section { padding: 96px 28px; }
     </div>
   </div>
   <nav class="drawer-body">
-    <div class="drawer-section-label">진료 안내</div>
-    <div class="drawer-group">
-      <button class="drawer-parent" data-target="g1" data-page="about">병원소개
-        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
-      </button>
-      <div class="drawer-children" id="g1"><div class="drawer-children-inner">
-        <a href="#/about/greeting" class="drawer-child">인사말</a>
-        <a href="#/about/doctors" class="drawer-child">의료진 소개</a>
-        <a href="#/about/facility" class="drawer-child">시설 안내</a>
-        <a href="#/about/info" class="drawer-child">진료 안내</a>
-        <a href="#/about/location" class="drawer-child">오시는 길</a>
-        <a href="#/about/equipment" class="drawer-child">의료 장비</a>
-        <a href="#/about/special-test" class="drawer-child">특수진단검사</a>
-      </div></div>
-    </div>
-    <div class="drawer-group">
-      <button class="drawer-parent" data-target="g2" data-page="spine">척추관절
-        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
-      </button>
-      <div class="drawer-children" id="g2"><div class="drawer-children-inner">
-        <a href="#/spine/herniated" class="drawer-child">허리디스크</a>
-        <a href="#/spine/degenerative" class="drawer-child">퇴행성디스크</a>
-        <a href="#/spine/scoliosis" class="drawer-child">척추측만/전만/후만증</a>
-        <a href="#/spine/sprain" class="drawer-child">요추염좌</a>
-        <a href="#/spine/neck-disc" class="drawer-child">목디스크</a>
-        <a href="#/spine/neck-deg" class="drawer-child">퇴행성 목디스크</a>
-        <a href="#/spine/turtle" class="drawer-child">거북목, 일자목</a>
-      </div></div>
-    </div>
-    <div class="drawer-group">
-      <button class="drawer-parent" data-target="g3" data-page="rehab">수술 후 재활
-        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
-      </button>
-      <div class="drawer-children" id="g3"><div class="drawer-children-inner">
-        <a href="#/rehab/chuna" class="drawer-child">추나요법</a>
-        <a href="#/rehab/manual" class="drawer-child">도수치료</a>
-        <a href="#/rehab/herb" class="drawer-child">수술 후 맞춤 한약처방</a>
-        <a href="#/rehab/inpatient" class="drawer-child">입원집중치료</a>
-        <a href="#/rehab/equipment" class="drawer-child">장비소개</a>
-      </div></div>
-    </div>
-    <div class="drawer-group">
-      <a href="#/accident" class="drawer-solo">교통사고클리닉</a>
-    </div>
-    <div class="drawer-group">
-      <button class="drawer-parent" data-target="g5" data-page="women">여성 · 다이어트
-        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
-      </button>
-      <div class="drawer-children" id="g5"><div class="drawer-children-inner">
-        <a href="#/women/diet" class="drawer-child">다이어트</a>
-        <a href="#/women/postpartum" class="drawer-child">산후조리</a>
-        <a href="#/women/postdiet" class="drawer-child">산후다이어트</a>
-        <a href="#/women/menopause" class="drawer-child">갱년기</a>
-      </div></div>
-    </div>
-    <div class="drawer-group">
-      <button class="drawer-parent" data-target="g7" data-page="fatigue">만성피로
-        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
-      </button>
-      <div class="drawer-children" id="g7"><div class="drawer-children-inner">
-        <a href="#/fatigue/fatigue" class="drawer-child">만성피로</a>
-        <a href="#/fatigue/injection" class="drawer-child">주사요법</a>
-      </div></div>
-    </div>
-    <div class="drawer-group">
-      <a href="#/cancer" class="drawer-solo">암 자율신경 면역 클리닉</a>
-    </div>
-    <div class="drawer-div"></div>
-    <div class="drawer-section-label">병원 소식</div>
-    <div class="drawer-group">
-      <button class="drawer-parent" data-target="g9" data-page="news">공지사항
-        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
-      </button>
-      <div class="drawer-children" id="g9"><div class="drawer-children-inner">
-        <a href="#/news/notice" class="drawer-child">공지사항</a>
-        <a href="#/news/media" class="drawer-child">동영상 · 보도자료</a>
-        <a href="#/news/price" class="drawer-child">비급여 수가</a>
-        <a href="#/news/inquiry" class="drawer-child">진료 문의</a>
-        <a href="#/news/review" class="drawer-child">치료 후기</a>
-      </div></div>
-    </div>
+    <!-- 드로어 메뉴는 siteMap 기반으로 renderDrawerMenu()가 자동 생성 -->
+    <div id="drawerNav"></div>
     <a href="tel:062-716-7160" class="drawer-tel-cta">전화 예약 · 062-716-7160</a>
   </nav>
 </aside>
@@ -1198,7 +1119,7 @@ section { padding: 96px 28px; }
   </div>
 </section>
 </div>
-<div class="route" id="page-about" data-key="about"><div class="subnav"><div class="subnav-inner"><a href="#/about/greeting">인사말</a><a href="#/about/doctors">의료진 소개</a><a href="#/about/facility">시설 안내</a><a href="#/about/info">진료 안내</a><a href="#/about/location">오시는 길</a><a href="#/about/equipment">의료 장비</a><a href="#/about/special-test">특수진단검사</a></div></div>
+<div class="route" id="page-about" data-key="about">
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
@@ -1377,7 +1298,7 @@ section { padding: 96px 28px; }
     <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
   </div>
 </div></div>
-<div class="route" id="page-spine" data-key="spine"><div class="subnav"><div class="subnav-inner"><a href="#/spine/herniated">허리디스크</a><a href="#/spine/degenerative">퇴행성디스크</a><a href="#/spine/scoliosis">척추측만/전만/후만</a><a href="#/spine/sprain">요추염좌</a><a href="#/spine/neck-disc">목디스크</a><a href="#/spine/neck-deg">퇴행성 목디스크</a><a href="#/spine/turtle">거북목·일자목</a></div></div>
+<div class="route" id="page-spine" data-key="spine">
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
@@ -1482,7 +1403,7 @@ section { padding: 96px 28px; }
     <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
   </div>
 </div></div>
-<div class="route" id="page-rehab" data-key="rehab"><div class="subnav"><div class="subnav-inner"><a href="#/rehab/chuna">추나요법</a><a href="#/rehab/manual">도수치료</a><a href="#/rehab/herb">맞춤 한약처방</a><a href="#/rehab/inpatient">입원집중치료</a><a href="#/rehab/equipment">장비소개</a></div></div>
+<div class="route" id="page-rehab" data-key="rehab">
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
@@ -1580,7 +1501,7 @@ section { padding: 96px 28px; }
     <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
   </div>
 </div></div>
-<div class="route" id="page-accident" data-key="accident"><div class="subnav"><div class="subnav-inner"><a href="#/accident/overview">클리닉 안내</a><a href="#/accident/process">치료 과정</a><a href="#/accident/insurance">보험 처리</a><a href="#/accident/faq">자주 묻는 질문</a></div></div>
+<div class="route" id="page-accident" data-key="accident">
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
@@ -1648,7 +1569,7 @@ section { padding: 96px 28px; }
     <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
   </div>
 </div></div>
-<div class="route" id="page-women" data-key="women"><div class="subnav"><div class="subnav-inner"><a href="#/women/diet">다이어트</a><a href="#/women/postpartum">산후조리</a><a href="#/women/postdiet">산후다이어트</a><a href="#/women/menopause">갱년기</a></div></div>
+<div class="route" id="page-women" data-key="women">
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
@@ -1717,7 +1638,7 @@ section { padding: 96px 28px; }
     <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
   </div>
 </div></div>
-<div class="route" id="page-fatigue" data-key="fatigue"><div class="subnav"><div class="subnav-inner"><a href="#/fatigue/fatigue">만성피로</a><a href="#/fatigue/injection">주사요법</a></div></div>
+<div class="route" id="page-fatigue" data-key="fatigue">
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
@@ -1796,7 +1717,7 @@ section { padding: 96px 28px; }
     <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
   </div>
 </div></div>
-<div class="route" id="page-news" data-key="news"><div class="subnav"><div class="subnav-inner"><a href="#/news/notice">공지사항</a><a href="#/news/media">동영상·보도자료</a><a href="#/news/price">비급여 수가</a><a href="#/news/inquiry">진료 문의</a><a href="#/news/review">치료 후기</a></div></div>
+<div class="route" id="page-news" data-key="news">
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="breadcrumb">
@@ -1913,34 +1834,8 @@ section { padding: 96px 28px; }
           대표전화: 062-716-7160
         </div>
       </div>
-      <div class="footer-nav">
-        <div class="footer-nav-col">
-          <span class="fn-head">병원안내</span>
-          <a href="#/about/greeting">인사말</a>
-          <a href="#/about/doctors">의료진 소개</a>
-          <a href="#/about/facility">시설 안내</a>
-          <a href="#/about/location">오시는 길</a>
-        </div>
-        <div class="footer-nav-col">
-          <span class="fn-head">진료안내</span>
-          <a href="#/spine">척추관절</a>
-          <a href="#/rehab">수술 후 재활</a>
-          <a href="#/accident">교통사고클리닉</a>
-        </div>
-        <div class="footer-nav-col">
-          <span class="fn-head">클리닉</span>
-          <a href="#/women">여성 · 다이어트</a>
-          <a href="#/fatigue">만성피로</a>
-          <a href="#/cancer">암 자율신경 면역 클리닉</a>
-        </div>
-        <div class="footer-nav-col">
-          <span class="fn-head">소식</span>
-          <a href="#/news/notice">공지사항</a>
-          <a href="#/news/price">비급여 수가</a>
-          <a href="#/news/review">치료 후기</a>
-          <a href="#/news/inquiry">진료 문의</a>
-        </div>
-      </div>
+      <!-- 푸터 링크는 footerNav 설정 기반으로 renderFooterNav()가 자동 생성 -->
+      <div class="footer-nav" id="footerNav"></div>
       <div class="footer-tel">
         <div class="ft-num">062-716-7160</div>
         <div class="ft-sub">월~금 09:00–17:30 · 토 09:00–12:30</div>
@@ -1960,6 +1855,135 @@ section { padding: 96px 28px; }
 <script>
 (function(){
   'use strict';
+  // ================================================================
+  //  네비게이션 단일 소스 (siteMap)
+  //  드로어 메뉴 · 푸터 링크 · 각 페이지 subnav 를 여기서 자동 생성한다.
+  //  페이지/앵커 추가·수정 시 이 배열만 고치면 세 곳이 동시에 반영된다.
+  //  ※ 콘텐츠 route 컨테이너(page-KEY) 내부 섹션은 여기서 생성하지 않는다.
+  //
+  //  anchors 항목 형식: [앵커id, 라벨, subnav용라벨?]
+  //    - 라벨          : 드로어 자식 링크 텍스트
+  //    - subnav용라벨  : subnav에서만 다르게 보일 때 지정(생략 시 라벨 사용)
+  //  page 필드:
+  //    - group : 드로어 섹션 구분("care"=진료 안내 / "news"=병원 소식)
+  //    - solo  : true 면 아코디언 없는 단일 링크(.drawer-solo)
+  //    - nav:false 면 드로어/subnav 생성에서 제외(홈)
+  // ================================================================
+  var siteMap = [
+    { key:"home", title:"홈", nav:false, anchors:[] },
+    { key:"about", title:"병원소개", group:"care", anchors:[
+      ["greeting","인사말"],["doctors","의료진 소개"],["facility","시설 안내"],
+      ["info","진료 안내"],["location","오시는 길"],["equipment","의료 장비"],
+      ["special-test","특수진단검사"]
+    ]},
+    { key:"spine", title:"척추관절", group:"care", anchors:[
+      ["herniated","허리디스크"],["degenerative","퇴행성디스크"],
+      ["scoliosis","척추측만/전만/후만증","척추측만/전만/후만"],
+      ["sprain","요추염좌"],["neck-disc","목디스크"],["neck-deg","퇴행성 목디스크"],
+      ["turtle","거북목, 일자목","거북목·일자목"]
+    ]},
+    { key:"rehab", title:"수술 후 재활", group:"care", anchors:[
+      ["chuna","추나요법"],["manual","도수치료"],
+      ["herb","수술 후 맞춤 한약처방","맞춤 한약처방"],
+      ["inpatient","입원집중치료"],["equipment","장비소개"]
+    ]},
+    { key:"accident", title:"교통사고클리닉", group:"care", solo:true, anchors:[
+      ["overview","클리닉 안내"],["process","치료 과정"],
+      ["insurance","보험 처리"],["faq","자주 묻는 질문"]
+    ]},
+    { key:"women", title:"여성 · 다이어트", group:"care", anchors:[
+      ["diet","다이어트"],["postpartum","산후조리"],
+      ["postdiet","산후다이어트"],["menopause","갱년기"]
+    ]},
+    { key:"fatigue", title:"만성피로", group:"care", anchors:[
+      ["fatigue","만성피로"],["injection","주사요법"]
+    ]},
+    { key:"cancer", title:"암 자율신경 면역 클리닉", group:"care", solo:true, anchors:[] },
+    { key:"news", title:"공지사항", group:"news", anchors:[
+      ["notice","공지사항"],["media","동영상 · 보도자료","동영상·보도자료"],
+      ["price","비급여 수가"],["inquiry","진료 문의"],["review","치료 후기"]
+    ]}
+  ];
+  // 푸터는 페이지·앵커를 큐레이션한 별도 열 구성이라 siteMap 그대로 매핑되지 않는다.
+  // 링크는 [key] → #/key (제목), [key,anchor] → #/key/anchor (앵커 라벨) 로 siteMap에서 해석.
+  var footerNav = [
+    { head:"병원안내", links:[["about","greeting"],["about","doctors"],["about","facility"],["about","location"]] },
+    { head:"진료안내", links:[["spine"],["rehab"],["accident"]] },
+    { head:"클리닉", links:[["women"],["fatigue"],["cancer"]] },
+    { head:"소식", links:[["news","notice"],["news","price"],["news","review"],["news","inquiry"]] }
+  ];
+  var DRAWER_SECTIONS = { care:"진료 안내", news:"병원 소식" };
+
+  function findPage(key){ for(var i=0;i<siteMap.length;i++){ if(siteMap[i].key===key) return siteMap[i]; } return null; }
+  function anchorLabel(key,id){
+    var p=findPage(key); if(!p) return id;
+    for(var i=0;i<p.anchors.length;i++){ if(p.anchors[i][0]===id) return p.anchors[i][1]; }
+    return id;
+  }
+  var DRAWER_ARROW='<span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>';
+
+  // ---- 드로어 메뉴 자동 생성 (아코디언·active 로직과 100% 호환) ----
+  function renderDrawerMenu(){
+    var host=document.getElementById('drawerNav'); if(!host) return;
+    var out='', curGroup=null;
+    siteMap.forEach(function(p){
+      if(p.nav===false) return;
+      if(p.group!==curGroup){
+        if(curGroup!==null) out+='<div class="drawer-div"></div>';
+        out+='<div class="drawer-section-label">'+DRAWER_SECTIONS[p.group]+'</div>';
+        curGroup=p.group;
+      }
+      if(p.solo){
+        out+='<div class="drawer-group"><a href="#/'+p.key+'" class="drawer-solo">'+p.title+'</a></div>';
+        return;
+      }
+      var tid='dg-'+p.key;
+      out+='<div class="drawer-group">'
+        +'<button class="drawer-parent" data-target="'+tid+'" data-page="'+p.key+'">'+p.title+DRAWER_ARROW+'</button>'
+        +'<div class="drawer-children" id="'+tid+'"><div class="drawer-children-inner">';
+      p.anchors.forEach(function(a){
+        out+='<a href="#/'+p.key+'/'+a[0]+'" class="drawer-child">'+a[1]+'</a>';
+      });
+      out+='</div></div></div>';
+    });
+    host.innerHTML=out;
+  }
+
+  // ---- 푸터 링크 자동 생성 ----
+  function renderFooterNav(){
+    var host=document.getElementById('footerNav'); if(!host) return;
+    var out='';
+    footerNav.forEach(function(col){
+      out+='<div class="footer-nav-col"><span class="fn-head">'+col.head+'</span>';
+      col.links.forEach(function(l){
+        var key=l[0], id=l[1];
+        var href='#/'+key+(id?'/'+id:'');
+        var label=id?anchorLabel(key,id):(findPage(key)||{}).title||key;
+        out+='<a href="'+href+'">'+label+'</a>';
+      });
+      out+='</div>';
+    });
+    host.innerHTML=out;
+  }
+
+  // ---- 각 페이지 subnav 자동 주입 (콘텐츠 div는 그대로 두고 최상단에만 삽입) ----
+  function renderSubnavs(){
+    siteMap.forEach(function(p){
+      if(p.nav===false || !p.anchors.length) return;
+      var view=document.getElementById('page-'+p.key); if(!view) return;
+      var inner='';
+      p.anchors.forEach(function(a){
+        inner+='<a href="#/'+p.key+'/'+a[0]+'">'+(a[2]||a[1])+'</a>';
+      });
+      view.insertAdjacentHTML('afterbegin','<div class="subnav"><div class="subnav-inner">'+inner+'</div></div>');
+    });
+  }
+
+  // 라우터·아코디언 바인딩 이전에 마크업을 먼저 생성한다.
+  renderDrawerMenu();
+  renderFooterNav();
+  renderSubnavs();
+
   // ---- CURSOR ----
   var dot=document.getElementById('curDot'), ring=document.getElementById('curRing');
   if(dot&&ring&&window.matchMedia('(min-width:961px)').matches){
