@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두암한방병원 | 광주 동구 한방·일반 협진</title>
+<meta name="description" content="광주광역시 동구 두암한방병원. 한방+일반진료 협진, 교통사고 후유증, 척추관절 치료 전문. 062-716-7160">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   두암한방병원 — 공유 스타일시트
+   (단일 페이지 디자인에서 추출 + 내부 페이지 스타일 추가)
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #FAFCFF;
+  color: #3A5068;
+  overflow-x: hidden;
+  cursor: none;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+:root {
+  --sky:        #5BA4CF;
+  --sky2:       #3D89BD;
+  --sky-light:  #A8D4F0;
+  --sky-pale:   #E8F4FB;
+  --sky-ultra:  #F0F8FF;
+  --coral:      #F07B6E;
+  --coral2:     #E5614F;
+  --coral-light:#FBD7D3;
+  --coral-pale: #FFF0EE;
+  --mint:       #7DC4B8;
+  --mint-pale:  #E8F7F5;
+  --white:      #FFFFFF;
+  --pearl:      #FAFBFD;
+  --cloud:      #F2F7FC;
+  --text:       #2E4A63;
+  --text-mid:   #5D7B93;
+  --text-light: #92ABBE;
+  --border:     rgba(91,164,207,0.18);
+  --border2:    rgba(91,164,207,0.08);
+  --shadow-sm:  0 2px 12px rgba(61,137,189,0.10);
+  --shadow-md:  0 8px 32px rgba(61,137,189,0.14);
+  --shadow-lg:  0 20px 60px rgba(61,137,189,0.16);
+  --r-sm: 10px;
+  --r-md: 18px;
+  --r-lg: 28px;
+  --r-pill: 100px;
+}
+/* ============================================================
+   인라인 SVG 아이콘 (이모지 대체 — 모든 OS 동일 렌더링)
+============================================================ */
+.icon {
+  width: 1em; height: 1em;
+  display: inline-block; vertical-align: -0.14em;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.svc-icon .icon { color: var(--sky2); }
+.ic-icon .icon { color: var(--sky2); }
+.hc-icon .icon { stroke-width: 1.7; }
+.hc-icon.blue .icon { color: var(--sky2); }
+.hc-icon.coral .icon { color: var(--coral2); }
+.hc-icon.mint .icon { color: var(--mint); }
+.ai-icon .icon { width: 18px; height: 18px; color: var(--sky2); }
+.notice-item .icon { vertical-align: -0.18em; margin-right: 2px; }
+.visual-panel .vp-emoji { color: var(--sky2); }
+.visual-panel .vp-emoji .icon { stroke-width: 1.3; }
+.nav-tel .icon, .btn-primary .icon, .cta-band-btn .icon { vertical-align: -0.16em; }
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+.cur-dot {
+  position: fixed; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--sky);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: background 0.2s;
+}
+.cur-ring {
+  position: fixed; width: 32px; height: 32px;
+  border-radius: 50%; border: 1.5px solid var(--sky);
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s;
+  opacity: 0.6;
+}
+.cur-ring.hovered { width: 50px; height: 50px; border-color: var(--coral); opacity: 0.4; }
+/* ============================================================
+   NAV
+============================================================ */
+#mainNav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 900;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px; height: 66px;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo .logo-mark {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--sky), var(--mint));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo .logo-mark svg { width: 20px; height: 20px; fill: white; }
+.nav-logo .logo-text { font-family: 'Noto Serif KR', serif; font-size: 1rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+.nav-logo .logo-sub { font-size: 0.68rem; color: var(--text-mid); letter-spacing: 0.05em; display: block; }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-tel {
+  font-size: 0.78rem; font-weight: 500; color: var(--sky2);
+  background: var(--sky-pale); border-radius: var(--r-pill);
+  padding: 6px 14px; letter-spacing: 0.02em;
+  transition: background 0.2s;
+}
+.nav-tel:hover { background: var(--sky-light); }
+.nav-cta {
+  background: var(--coral); color: white;
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.03em;
+  padding: 8px 18px; border-radius: var(--r-pill);
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--coral2); transform: translateY(-1px); }
+.nav-burger {
+  width: 40px; height: 40px; border: none; background: none;
+  cursor: none; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 5px;
+}
+.nav-burger span {
+  display: block; height: 1.5px; background: var(--text);
+  transition: all 0.3s; border-radius: 2px;
+}
+.nav-burger span:nth-child(1) { width: 22px; }
+.nav-burger span:nth-child(2) { width: 16px; }
+.nav-burger span:nth-child(3) { width: 22px; }
+.nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 22px; }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 22px; }
+/* DRAWER */
+.drawer-overlay {
+  position: fixed; inset: 0; background: rgba(46,74,99,0.28);
+  backdrop-filter: blur(4px); z-index: 950;
+  opacity: 0; pointer-events: none; transition: opacity 0.35s;
+}
+.drawer-overlay.open { opacity: 1; pointer-events: all; }
+.drawer-panel {
+  position: fixed; top: 0; right: 0; width: 295px; height: 100%;
+  background: #F7FAFD; z-index: 960;
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.25,0.8,0.25,1);
+  overflow-y: auto; display: flex; flex-direction: column;
+  box-shadow: -6px 0 36px rgba(46,74,99,0.13);
+}
+.drawer-panel.open { transform: translateX(0); }
+.drawer-top {
+  flex-shrink: 0;
+  background: linear-gradient(145deg, var(--sky2) 0%, #4FA8D8 100%);
+  padding: 28px 22px 22px;
+}
+.drawer-hospital-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.05rem; font-weight: 600;
+  color: white; letter-spacing: -0.01em; margin-bottom: 5px;
+}
+.drawer-tel-bar { font-size: 0.8rem; color: rgba(255,255,255,0.75); letter-spacing: 0.04em; }
+.drawer-top-tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+.drawer-top-tag {
+  font-size: 0.66rem; font-weight: 500;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+  padding: 3px 10px; border-radius: var(--r-pill);
+  border: 1px solid rgba(255,255,255,0.18); letter-spacing: 0.02em;
+}
+.drawer-body { padding: 10px 14px 40px; flex: 1; }
+.drawer-section-label {
+  font-size: 0.63rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-light); padding: 16px 4px 6px;
+}
+.drawer-group { margin-bottom: 1px; }
+.drawer-parent {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 10px 10px 10px 12px;
+  background: none; border: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.875rem; font-weight: 500;
+  color: var(--text); text-align: left;
+  border-radius: 8px; cursor: none;
+  transition: background 0.14s, color 0.14s;
+}
+.drawer-parent:hover  { background: rgba(91,164,207,0.08); color: var(--sky2); }
+.drawer-parent.active { background: rgba(91,164,207,0.10); color: var(--sky2); }
+.dpar-arrow {
+  width: 20px; height: 20px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.25s;
+}
+.dpar-arrow svg {
+  width: 10px; height: 10px;
+  stroke: var(--text-light); fill: none;
+  stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke 0.14s;
+}
+.drawer-parent:hover  .dpar-arrow svg { stroke: var(--sky); }
+.drawer-parent.active .dpar-arrow svg { stroke: var(--sky2); }
+.drawer-parent.active .dpar-arrow     { transform: rotate(180deg); }
+.drawer-children { max-height: 0; overflow: hidden; transition: max-height 0.30s ease; }
+.drawer-children-inner {
+  padding: 2px 0 6px 10px;
+  margin: 1px 0 3px 8px;
+  border-left: 1.5px solid rgba(91,164,207,0.2);
+}
+.drawer-child {
+  display: block; padding: 7px 10px 7px 12px;
+  font-size: 0.8rem; color: var(--text-mid);
+  border-radius: 6px; cursor: none;
+  transition: background 0.12s, color 0.12s;
+  position: relative;
+}
+.drawer-child:hover { background: white; color: var(--sky2); }
+.drawer-solo {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 10px 10px 10px 12px; margin-bottom: 1px;
+  background: none; border: none; border-radius: 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.875rem; font-weight: 600;
+  color: var(--coral); text-align: left; cursor: none;
+  transition: background 0.14s;
+}
+.drawer-solo::after {
+  content: '';
+  display: block; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--coral-light);
+  flex-shrink: 0;
+}
+.drawer-solo:hover { background: rgba(240,123,110,0.07); }
+.drawer-div { height: 1px; background: var(--border); margin: 8px 2px; }
+.drawer-tel-cta {
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 20px;
+  background: var(--coral); color: white;
+  border-radius: var(--r-pill); padding: 12px 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.83rem; font-weight: 600; letter-spacing: 0.03em;
+  box-shadow: 0 4px 16px rgba(240,123,110,0.28);
+  transition: background 0.2s;
+}
+.drawer-tel-cta:hover { background: var(--coral2); }
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+.rv { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.rv.in { opacity: 1; transform: none; }
+.rv-l { opacity: 0; transform: translateX(-22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.rv-l.in { opacity: 1; transform: none; }
+.rv-r { opacity: 0; transform: translateX(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.rv-r.in { opacity: 1; transform: none; }
+/* ============================================================
+   HERO (홈)
+============================================================ */
+#hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 66px; overflow: hidden; }
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 60px 60px 80px;
+  background: var(--white); position: relative; z-index: 1;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--sky-pale); border: 1px solid var(--sky-light);
+  border-radius: var(--r-pill); padding: 5px 14px;
+  font-size: 0.73rem; font-weight: 500; color: var(--sky2);
+  letter-spacing: 0.04em; margin-bottom: 26px;
+  width: fit-content; animation: fadeUp 0.7s 0.1s both;
+}
+.hero-badge::before { content: ''; display: block; width: 6px; height: 6px; background: var(--sky); border-radius: 50%; }
+.hero-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 600; line-height: 1.35;
+  color: var(--text); letter-spacing: -0.02em;
+  margin-bottom: 20px; animation: fadeUp 0.7s 0.2s both;
+}
+.hero-title em { font-style: normal; color: var(--sky2); }
+.hero-title .accent { color: var(--coral); }
+.hero-desc {
+  font-size: 0.95rem; line-height: 1.8; color: var(--text-mid);
+  max-width: 380px; margin-bottom: 36px; animation: fadeUp 0.7s 0.3s both;
+}
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; animation: fadeUp 0.7s 0.4s both; }
+.btn-primary {
+  background: var(--sky); color: white;
+  padding: 13px 28px; border-radius: var(--r-pill);
+  font-size: 0.88rem; font-weight: 500;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(91,164,207,0.35);
+}
+.btn-primary:hover { background: var(--sky2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(91,164,207,0.4); }
+.btn-outline {
+  background: transparent; color: var(--sky2);
+  padding: 13px 28px; border-radius: var(--r-pill);
+  font-size: 0.88rem; font-weight: 500;
+  border: 1.5px solid var(--sky-light);
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-outline:hover { background: var(--sky-pale); border-color: var(--sky); }
+.hero-stats {
+  display: flex; gap: 28px; margin-top: 44px;
+  padding-top: 32px; border-top: 1px solid var(--border);
+  animation: fadeUp 0.7s 0.5s both;
+}
+.hero-stat-item { text-align: left; }
+.hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--sky2); line-height: 1; margin-bottom: 4px; }
+.hero-stat-label { font-size: 0.72rem; color: var(--text-light); letter-spacing: 0.03em; }
+.hero-right {
+  background: linear-gradient(145deg, var(--sky-pale) 0%, #D5ECFB 50%, var(--mint-pale) 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; padding: 60px 40px;
+}
+.hero-right::before {
+  content: ''; position: absolute; width: 360px; height: 360px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.hero-cards { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; z-index: 1; }
+.hero-card {
+  background: white; border-radius: var(--r-md); padding: 18px 22px;
+  box-shadow: var(--shadow-md);
+  display: flex; align-items: flex-start; gap: 14px;
+  animation: slideCard 0.6s both;
+}
+.hero-card:nth-child(1) { animation-delay: 0.5s; margin-left: 0; }
+.hero-card:nth-child(2) { animation-delay: 0.65s; margin-left: 28px; }
+.hero-card:nth-child(3) { animation-delay: 0.8s; margin-left: 0; }
+@keyframes slideCard { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.hc-icon {
+  width: 40px; height: 40px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 1.1rem;
+}
+.hc-icon.blue { background: var(--sky-pale); }
+.hc-icon.coral { background: var(--coral-pale); }
+.hc-icon.mint { background: var(--mint-pale); }
+.hc-title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.hc-desc { font-size: 0.75rem; color: var(--text-mid); line-height: 1.5; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+/* ============================================================
+   NOTICE BANNER
+============================================================ */
+.notice-banner { background: var(--sky); overflow: hidden; padding: 0; }
+.notice-inner { display: flex; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 46px; }
+.notice-label {
+  background: rgba(255,255,255,0.2); color: white;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 3px 10px; border-radius: var(--r-pill);
+  flex-shrink: 0; margin-right: 16px;
+}
+.notice-scroll { flex: 1; overflow: hidden; height: 100%; display: flex; align-items: center; }
+.notice-track { display: flex; gap: 60px; white-space: nowrap; animation: marquee 28s linear infinite; }
+.notice-item { font-size: 0.8rem; color: rgba(255,255,255,0.9); }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* ============================================================
+   SECTION COMMONS
+============================================================ */
+section { padding: 96px 28px; }
+.container { max-width: 1200px; margin: 0 auto; }
+.sec-label {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--sky2);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.sec-label::before { content: ''; display: block; width: 18px; height: 1.5px; background: var(--sky-light); }
+.sec-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 600; color: var(--text);
+  line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.sec-sub { font-size: 0.95rem; color: var(--text-mid); line-height: 1.75; }
+/* ============================================================
+   ABOUT (홈)
+============================================================ */
+#about { background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+.about-visual { position: relative; }
+.about-main-card {
+  background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%);
+  border-radius: var(--r-lg); padding: 40px; aspect-ratio: 4/3;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative; overflow: hidden;
+}
+.about-main-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235BA4CF' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.about-big-num {
+  font-family: 'DM Serif Display', serif; font-size: 5rem;
+  color: var(--sky); opacity: 0.25; line-height: 1;
+  position: absolute; top: 24px; right: 28px;
+}
+.about-card-text { position: relative; z-index: 1; }
+.about-card-kw { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--sky2); margin-bottom: 8px; }
+.about-card-title { font-family: 'Noto Serif KR', serif; font-size: 1.3rem; font-weight: 600; color: var(--text); line-height: 1.5; }
+.about-mini-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.about-mini { background: white; border: 1px solid var(--border); border-radius: var(--r-md); padding: 18px 16px; transition: box-shadow 0.2s, transform 0.2s; }
+.about-mini:hover { box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+.am-num { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--coral); }
+.am-label { font-size: 0.75rem; color: var(--text-mid); margin-top: 2px; }
+.about-content .sec-label { margin-bottom: 10px; }
+.about-points { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+.about-point { display: flex; gap: 14px; align-items: flex-start; }
+.ap-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky-light); margin-top: 7px; flex-shrink: 0; }
+.ap-text strong { display: block; font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.ap-text span { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
+/* ============================================================
+   SERVICES — TAB SYSTEM
+============================================================ */
+#services { background: var(--cloud); }
+.services-tabs { display: flex; gap: 0; margin: 36px 0 32px; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+.stab-btn {
+  padding: 11px 22px; font-size: 0.85rem; font-weight: 500;
+  color: var(--text-mid); background: none; border: none;
+  cursor: none; position: relative; transition: color 0.2s;
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+}
+.stab-btn:hover { color: var(--sky2); }
+.stab-btn.active { color: var(--sky2); border-bottom-color: var(--sky); }
+.stab-panel { display: none; }
+.stab-panel.active { display: block; }
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.svc-card {
+  background: white; border-radius: var(--r-md); padding: 22px 18px;
+  border: 1px solid var(--border2);
+  transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s; cursor: default;
+}
+.svc-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-4px); border-color: var(--sky-light); }
+.svc-icon { font-size: 1.5rem; margin-bottom: 12px; }
+.svc-name { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.svc-note { font-size: 0.75rem; color: var(--text-light); }
+/* ============================================================
+   TREATMENTS (홈)
+============================================================ */
+#treatments { background: var(--white); }
+.treat-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; flex-wrap: wrap; gap: 16px; }
+.treat-scroll-wrap { overflow-x: auto; margin: 0 -28px; padding: 4px 28px 20px; scrollbar-width: thin; scrollbar-color: var(--sky-light) transparent; }
+.treat-scroll-wrap::-webkit-scrollbar { height: 4px; }
+.treat-scroll-wrap::-webkit-scrollbar-thumb { background: var(--sky-light); border-radius: 2px; }
+.treat-track { display: flex; gap: 16px; min-width: max-content; }
+.treat-card { width: 220px; border-radius: var(--r-md); overflow: hidden; flex-shrink: 0; background: var(--cloud); border: 1px solid var(--border); transition: box-shadow 0.22s, transform 0.22s; }
+.treat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-5px); }
+.treat-card-top { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; }
+.treat-card-top.sky-bg { background: linear-gradient(135deg, var(--sky-pale), #c7e6f7); }
+.treat-card-top.coral-bg { background: linear-gradient(135deg, var(--coral-pale), #ffd5d0); }
+.treat-card-top.mint-bg { background: linear-gradient(135deg, var(--mint-pale), #b5e5de); }
+.treat-card-body { padding: 16px 16px; }
+.tc-name { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.tc-desc { font-size: 0.75rem; color: var(--text-mid); line-height: 1.5; }
+/* ============================================================
+   REVIEWS (홈)
+============================================================ */
+#reviews { background: var(--sky-pale); }
+.reviews-top { display: flex; align-items: center; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
+.reviews-score { background: white; border-radius: var(--r-md); padding: 24px 28px; text-align: center; box-shadow: var(--shadow-sm); min-width: 140px; }
+.rs-num { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--coral); line-height: 1; }
+.rs-stars { color: #F5C842; font-size: 1.1rem; margin: 6px 0; letter-spacing: 2px; }
+.rs-source { font-size: 0.72rem; color: var(--text-light); }
+.reviews-desc .sec-title { font-size: 1.4rem; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.review-card { background: white; border-radius: var(--r-md); padding: 24px 22px; box-shadow: var(--shadow-sm); transition: box-shadow 0.22s, transform 0.22s; }
+.review-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.rc-stars { color: #F5C842; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 12px; }
+.rc-text { font-size: 0.85rem; line-height: 1.75; color: var(--text-mid); margin-bottom: 16px; }
+.rc-author { font-size: 0.78rem; font-weight: 500; color: var(--text-light); }
+/* ============================================================
+   HOURS (홈)
+============================================================ */
+#hours { background: var(--white); }
+.hours-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+.hours-table { width: 100%; border-collapse: collapse; margin-top: 28px; }
+.hours-table thead tr { border-bottom: 2px solid var(--sky-light); }
+.hours-table th { text-align: left; padding: 10px 14px; font-size: 0.75rem; font-weight: 600; color: var(--text-mid); letter-spacing: 0.04em; }
+.hours-table tbody tr { border-bottom: 1px solid var(--border2); transition: background 0.15s; }
+.hours-table tbody tr:hover { background: var(--sky-ultra); }
+.hours-table td { padding: 13px 14px; font-size: 0.85rem; color: var(--text-mid); }
+.hours-table td:first-child { font-weight: 600; color: var(--text); }
+.tag-open { display: inline-block; background: var(--sky-pale); color: var(--sky2); font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: var(--r-pill); letter-spacing: 0.03em; }
+.tag-closed { display: inline-block; background: #FFF0EE; color: var(--coral); font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: var(--r-pill); }
+.tag-holiday { background: #FFF7E0; color: #C89520; font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: var(--r-pill); }
+.hours-cta-panel { background: linear-gradient(140deg, var(--sky), var(--sky2)); border-radius: var(--r-lg); padding: 36px 32px; color: white; margin-top: 28px; }
+.hcp-label { font-size: 0.75rem; letter-spacing: 0.08em; opacity: 0.8; margin-bottom: 10px; }
+.hcp-tel { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 6px; }
+.hcp-sub { font-size: 0.82rem; opacity: 0.75; margin-bottom: 22px; }
+.hcp-btn { display: inline-block; background: white; color: var(--sky2); font-size: 0.85rem; font-weight: 600; padding: 11px 24px; border-radius: var(--r-pill); transition: opacity 0.2s; }
+.hcp-btn:hover { opacity: 0.9; }
+.hours-info ul { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+.hours-info li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.83rem; color: var(--text-mid); line-height: 1.5; }
+.hours-info li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--sky-light); margin-top: 7px; flex-shrink: 0; }
+/* ============================================================
+   ACCESS (홈)
+============================================================ */
+#access { background: var(--cloud); }
+.access-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 36px; }
+.access-map { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); aspect-ratio: 4/3; border: 1px solid var(--border); }
+.access-map iframe { width: 100%; height: 100%; display: block; border: none; }
+.access-info { display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+.ai-card { background: white; border-radius: var(--r-md); padding: 20px 22px; border: 1px solid var(--border); display: flex; gap: 14px; align-items: flex-start; transition: box-shadow 0.2s; }
+.ai-card:hover { box-shadow: var(--shadow-sm); }
+.ai-icon { width: 38px; height: 38px; border-radius: var(--r-sm); background: var(--sky-pale); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.ai-title { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.ai-body { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; }
+/* ============================================================
+   FOOTER
+============================================================ */
+#footer { background: var(--text); color: rgba(255,255,255,0.6); padding: 48px 28px 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 28px; }
+.footer-brand .fb-name { font-family: 'Noto Serif KR', serif; font-size: 1rem; color: white; font-weight: 600; margin-bottom: 4px; }
+.footer-brand .fb-addr { font-size: 0.78rem; line-height: 1.7; }
+.footer-nav { display: flex; gap: 36px; flex-wrap: wrap; }
+.footer-nav-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-nav-col .fn-head { font-size: 0.76rem; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
+.footer-nav-col a { font-size: 0.74rem; color: rgba(255,255,255,0.5); transition: color 0.15s; }
+.footer-nav-col a:hover { color: var(--sky-light); }
+.footer-tel { text-align: right; }
+.footer-tel .ft-num { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--sky-light); }
+.footer-tel .ft-sub { font-size: 0.72rem; margin-top: 2px; }
+.footer-divider { height: 1px; background: rgba(255,255,255,0.08); }
+.footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.72rem; }
+/* ============================================================
+   FLOATING BUTTON
+============================================================ */
+.float-btn {
+  position: fixed; bottom: 30px; right: 30px;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: var(--coral); color: white;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 24px rgba(240,123,110,0.4);
+  z-index: 800; font-size: 1.3rem;
+  transition: transform 0.2s, box-shadow 0.2s; cursor: none;
+}
+.float-btn:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(240,123,110,0.5); }
+.float-btn-label {
+  position: absolute; right: 62px;
+  background: var(--text); color: white;
+  font-size: 0.75rem; font-weight: 500; padding: 5px 12px;
+  border-radius: var(--r-pill); white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.float-btn:hover .float-btn-label { opacity: 1; }
+/* ============================================================
+   내부 페이지 (서브페이지)
+============================================================ */
+.page-hero {
+  margin-top: 66px;
+  background: linear-gradient(145deg, var(--sky-pale) 0%, #D5ECFB 55%, var(--mint-pale) 100%);
+  padding: 72px 28px 64px; position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 70%);
+  top: -120px; right: -80px;
+}
+.page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.74rem; color: var(--text-mid); margin-bottom: 18px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-mid); transition: color 0.15s; }
+.breadcrumb a:hover { color: var(--sky2); }
+.breadcrumb .sep { color: var(--sky-light); }
+.breadcrumb .cur { color: var(--sky2); font-weight: 600; }
+.page-hero-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky2); margin-bottom: 12px; }
+.page-hero-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 600; color: var(--text); line-height: 1.32; letter-spacing: -0.02em; margin-bottom: 14px; }
+.page-hero-desc { font-size: 0.95rem; color: var(--text-mid); line-height: 1.8; max-width: 600px; }
+/* 페이지 내 앵커 탭 (서브 메뉴 바) */
+.subnav { position: sticky; top: 66px; z-index: 800; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.subnav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 4px; padding: 0 28px; overflow-x: auto; scrollbar-width: none; }
+.subnav-inner::-webkit-scrollbar { display: none; }
+.subnav-inner a {
+  flex-shrink: 0; padding: 15px 16px; font-size: 0.82rem; font-weight: 500;
+  color: var(--text-mid); border-bottom: 2px solid transparent;
+  transition: color 0.18s, border-color 0.18s; white-space: nowrap; cursor: none;
+}
+.subnav-inner a:hover { color: var(--sky2); }
+.subnav-inner a.active { color: var(--sky2); border-bottom-color: var(--sky); }
+/* 본문 블록 */
+.page-section { padding: 72px 28px; scroll-margin-top: 130px; }
+.page-section:nth-of-type(even) { background: var(--white); }
+.page-section:nth-of-type(odd) { background: var(--cloud); }
+.ps-inner { max-width: 1200px; margin: 0 auto; }
+.ps-head { margin-bottom: 32px; }
+.ps-head .sec-label { margin-bottom: 12px; }
+.ps-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.45rem, 2.4vw, 1.9rem); font-weight: 600; color: var(--text); line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 12px; }
+.ps-lead { font-size: 0.95rem; color: var(--text-mid); line-height: 1.85; max-width: 760px; }
+.ps-body { font-size: 0.9rem; color: var(--text-mid); line-height: 1.9; max-width: 820px; }
+.ps-body p { margin-bottom: 16px; }
+.ps-body strong { color: var(--text); font-weight: 600; }
+/* 2열 레이아웃 */
+.ps-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; margin-top: 8px; }
+/* 정보 카드 그리드 */
+.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+.info-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.info-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.info-card { background: white; border: 1px solid var(--border); border-radius: var(--r-md); padding: 26px 24px; transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s; }
+.info-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-4px); border-color: var(--sky-light); }
+.ic-icon { font-size: 1.7rem; margin-bottom: 14px; }
+.ic-title { font-size: 0.98rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.ic-desc { font-size: 0.84rem; color: var(--text-mid); line-height: 1.7; }
+/* 시설 사진 카드 */
+.photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
+.photo-card { margin: 0; position: relative; aspect-ratio: 3/4; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); transition: box-shadow 0.22s, transform 0.22s; }
+.photo-card:hover { box-shadow: 0 8px 24px rgba(61,137,189,0.18); transform: translateY(-4px); }
+.photo-card img { width: 100%; height: 100%; object-fit: cover; }
+.photo-card:hover img { transform: scale(1.05); }
+.photo-card img { transition: transform 0.45s ease; }
+.pc-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--sky2); opacity: 0.55; }
+.pc-ph .icon { width: 34px; height: 34px; }
+.pc-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px 18px 20px; background: linear-gradient(to top, rgba(20,40,55,0.78) 0%, rgba(20,40,55,0.30) 45%, rgba(20,40,55,0) 100%); }
+.pc-title { color: #fff; font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.pc-desc { color: rgba(255,255,255,0.9); font-size: 0.82rem; line-height: 1.6; }
+.ic-tag { display: inline-block; margin-top: 12px; font-size: 0.7rem; font-weight: 600; color: var(--sky2); background: var(--sky-pale); padding: 3px 10px; border-radius: var(--r-pill); }
+/* 증상/체크 리스트 */
+.check-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.check-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; background: white; border: 1px solid var(--border2); border-radius: var(--r-sm); padding: 14px 18px; }
+.check-list li::before { content: '✓'; color: var(--sky2); font-weight: 700; flex-shrink: 0; }
+/* 단계 (process) */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 8px; }
+.step-card { background: white; border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px 20px; position: relative; }
+.step-num { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--sky-light); line-height: 1; margin-bottom: 12px; }
+.step-title { font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.step-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; }
+/* 비주얼 패널 */
+.visual-panel { background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); border-radius: var(--r-lg); padding: 40px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.visual-panel .vp-emoji { font-size: 5rem; opacity: 0.85; }
+.visual-panel .vp-num { font-family: 'DM Serif Display', serif; font-size: 6rem; color: var(--sky); opacity: 0.22; position: absolute; bottom: 16px; right: 28px; line-height: 1; }
+/* 콜아웃 박스 */
+.callout { border-radius: var(--r-md); padding: 22px 26px; margin-top: 24px; border: 1px solid var(--border); }
+.callout.sky { background: var(--sky-pale); border-color: var(--sky-light); }
+.callout.coral { background: var(--coral-pale); border-color: var(--coral-light); }
+.callout-head { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.callout.coral .callout-head { color: var(--coral2); }
+.callout-body { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; }
+/* CTA 밴드 */
+.cta-band { background: linear-gradient(140deg, var(--sky), var(--sky2)); padding: 56px 28px; }
+.cta-band-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.cta-band-text .cbt-label { font-size: 0.74rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.75); margin-bottom: 8px; }
+.cta-band-text .cbt-title { font-family: 'Noto Serif KR', serif; font-size: 1.5rem; font-weight: 600; color: white; line-height: 1.4; }
+.cta-band-text .cbt-tel { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: white; margin-top: 6px; }
+.cta-band-btn { background: white; color: var(--sky2); font-size: 0.9rem; font-weight: 600; padding: 14px 30px; border-radius: var(--r-pill); transition: opacity 0.2s, transform 0.15s; }
+.cta-band-btn:hover { opacity: 0.92; transform: translateY(-2px); }
+/* 공지/목록 (news) */
+.notice-list { display: flex; flex-direction: column; margin-top: 8px; border-top: 1px solid var(--border); }
+.notice-row { display: flex; align-items: center; gap: 18px; padding: 18px 8px; border-bottom: 1px solid var(--border); transition: background 0.15s; cursor: none; }
+.notice-row:hover { background: var(--sky-ultra); }
+.nr-badge { font-size: 0.68rem; font-weight: 600; color: var(--sky2); background: var(--sky-pale); padding: 3px 10px; border-radius: var(--r-pill); flex-shrink: 0; }
+.nr-badge.new { color: var(--coral2); background: var(--coral-pale); }
+.nr-title { flex: 1; font-size: 0.9rem; color: var(--text); font-weight: 500; }
+.nr-date { font-size: 0.78rem; color: var(--text-light); flex-shrink: 0; }
+/* 비급여 수가 테이블 */
+.price-table { width: 100%; border-collapse: collapse; margin-top: 8px; background: white; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+.price-table thead tr { background: var(--sky-pale); }
+.price-table th { text-align: left; padding: 14px 18px; font-size: 0.78rem; font-weight: 600; color: var(--sky2); }
+.price-table td { padding: 14px 18px; font-size: 0.85rem; color: var(--text-mid); border-top: 1px solid var(--border2); }
+.price-table td:first-child { font-weight: 600; color: var(--text); }
+.price-table td:last-child { text-align: right; font-weight: 600; color: var(--text); }
+/* 문의 폼 */
+.inquiry-form { background: white; border: 1px solid var(--border); border-radius: var(--r-lg); padding: 32px; max-width: 640px; }
+.inquiry-form .field { margin-bottom: 18px; }
+.inquiry-form label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.inquiry-form input, .inquiry-form textarea {
+  width: 100%; border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 12px 14px; font-family: inherit; font-size: 0.88rem; color: var(--text);
+  background: var(--pearl); transition: border-color 0.18s, background 0.18s; cursor: none;
+}
+.inquiry-form input:focus, .inquiry-form textarea:focus { outline: none; border-color: var(--sky); background: white; }
+.inquiry-form textarea { min-height: 120px; resize: vertical; }
+.inquiry-form .form-note { font-size: 0.76rem; color: var(--text-light); margin-top: 6px; }
+.inquiry-form button {
+  background: var(--sky); color: white; border: none;
+  padding: 13px 30px; border-radius: var(--r-pill); font-family: inherit;
+  font-size: 0.88rem; font-weight: 600; cursor: none; transition: background 0.2s, transform 0.15s;
+}
+.inquiry-form button:hover { background: var(--sky2); transform: translateY(-2px); }
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 960px) {
+  #hero { grid-template-columns: 1fr; min-height: auto; padding-top: 66px; }
+  .hero-left { padding: 50px 28px 36px; order: 2; }
+  .hero-right { order: 1; min-height: 280px; padding: 40px 28px; }
+  .hero-cards { flex-direction: row; max-width: 100%; flex-wrap: wrap; }
+  .hero-card:nth-child(2) { margin-left: 0; }
+  .hero-card { width: calc(50% - 7px); }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-visual { order: 2; }
+  .about-content { order: 1; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .hours-layout { grid-template-columns: 1fr; }
+  .access-layout { grid-template-columns: 1fr; }
+  .access-map { aspect-ratio: 16/9; }
+  .footer-top { flex-direction: column; }
+  .footer-tel { text-align: left; }
+  .ps-grid2 { grid-template-columns: 1fr; }
+  .info-grid, .info-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .cta-band-inner { flex-direction: column; align-items: flex-start; }
+  body { cursor: auto; }
+  .cur-dot, .cur-ring { display: none; }
+  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row { cursor: auto; }
+}
+@media (max-width: 560px) {
+  section { padding: 64px 20px; }
+  .nav-inner { padding: 0 18px; }
+  .hero-left { padding: 40px 20px 30px; }
+  .hero-right { padding: 30px 20px; }
+  .hero-card { width: 100%; }
+  .hero-stats { gap: 20px; flex-wrap: wrap; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-mini-cards { grid-template-columns: 1fr 1fr; }
+  .page-section { padding: 52px 20px; }
+  .page-hero { padding: 52px 20px 44px; }
+  .info-grid, .info-grid.cols-2, .info-grid.cols-4 { grid-template-columns: 1fr; }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .steps { grid-template-columns: 1fr; }
+  .nav-tel { display: none; }
+}
+/* 긴 문장형 텍스트 줄바꿈 보정
+   - 공통(전 화면): overflow-wrap으로 긴 토큰 가로 넘침만 최소 보정
+   - 데스크톱(960px↑): word-break: keep-all 로 어절 단위 줄바꿈 고정(단어 중간 끊김 방지)
+   - 태블릿/모바일(960px 미만): 기존 동작 유지(별도 강제 없음) */
+.page-hero-desc, .hero-desc, .ps-lead, .ps-body, .ps-body p,
+.callout-head, .callout-body, .ai-body, .ic-desc, .pc-desc, .hc-desc, .tc-desc,
+.step-desc, .svc-note, .form-note, .treat-card-body, .rc-text,
+.about-card-text, .ap-text, .cta-band-text .cbt-title,
+.page-hero-title, .ps-title, .sec-title, .ic-title, .pc-title {
+  overflow-wrap: break-word;
+}
+@media (min-width: 961px) {
+  .page-hero-desc, .hero-desc, .ps-lead, .ps-body, .ps-body p,
+  .callout-head, .callout-body, .ai-body, .ic-desc, .pc-desc, .hc-desc, .tc-desc,
+  .step-desc, .svc-note, .form-note, .treat-card-body, .rc-text,
+  .about-card-text, .ap-text, .cta-band-text .cbt-title,
+  .page-hero-title, .ps-title, .sec-title, .ic-title, .pc-title {
+    word-break: keep-all;
+  }
+}
+/* 단일 파일 라우팅 */
+.route{display:none;}
+.route.active{display:block;}
+</style>
+</head>
+<body>
+<!-- ============================================================
+     SVG 아이콘 스프라이트 (이모지 대체용) — 화면에 보이지 않음
+     사용: <svg class="icon"><use href="#i-NAME"/></svg>
+============================================================ -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5C9.6 22.7 3.3 16.4 3.5 5.6A1.5 1.5 0 0 1 5 4z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.3 7-11a7 7 0 1 0-14 0c0 5.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-syringe" viewBox="0 0 24 24"><path d="M13 5l6 6"/><path d="M16.5 8.5l-7.8 7.8a2 2 0 0 1-1 .5l-3.2.7.7-3.2a2 2 0 0 1 .5-1l7.8-7.8z"/><path d="M9 10l2 2"/><path d="M6.5 12.5l2 2"/><path d="M3 21l3-3"/></symbol>
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M4 12h16"/><path d="M7 5V3h10v2"/><circle cx="8" cy="20" r="1.3"/><circle cx="16" cy="20" r="1.3"/></symbol>
+  <symbol id="i-parking" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.5 17V8h3.2a2.6 2.6 0 0 1 0 5.2H9.5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16"/><path d="M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-13 0 9-5 14-14 13z"/><path d="M5 19c4-4 6-6 9-7.5"/></symbol>
+  <symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="7" r="2.4"/><circle cx="7" cy="11" r="2.4"/><circle cx="17" cy="11" r="2.4"/><circle cx="9" cy="16.5" r="2.4"/><circle cx="15" cy="16.5" r="2.4"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="i-needle" viewBox="0 0 24 24"><path d="M4 20l11-11"/><path d="M13 6l5 5"/><path d="M15 4l5 5"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-5 3 10 2-7 2 2h5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-9.6a4 4 0 0 1 7-2.6 4 4 0 0 1 7 2.6c0 5-7 9.6-7 9.6z"/></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V15a3 3 0 0 0 4 2.8A2.5 2.5 0 0 0 12 19V5.5A2 2 0 0 0 9 4z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8V15a3 3 0 0 1-4 2.8A2.5 2.5 0 0 1 12 19"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-ear" viewBox="0 0 24 24"><path d="M8 8a4 4 0 0 1 8 0c0 2-2 3-2 5a3 3 0 0 1-6 0"/><path d="M11 8a1.5 1.5 0 0 1 3 0c0 1.5-1.5 1.5-1.5 3"/></symbol>
+  <symbol id="i-bone" viewBox="0 0 24 24"><path d="M14.5 9.5l-5 5"/><circle cx="7.5" cy="16" r="2"/><circle cx="6" cy="13.5" r="2"/><circle cx="16.5" cy="8" r="2"/><circle cx="18" cy="10.5" r="2"/></symbol>
+  <symbol id="i-lungs" viewBox="0 0 24 24"><path d="M12 4v7"/><path d="M12 8c-1 0-1.5 1-1.5 2.5 0 0-2-1-3 .5S6 16 6 18a2 2 0 0 0 3.8.9C10.5 17 10.5 14 10.5 12"/><path d="M12 8c1 0 1.5 1 1.5 2.5 0 0 2-1 3 .5S18 16 18 18a2 2 0 0 1-3.8.9C13.5 17 13.5 14 13.5 12"/></symbol>
+  <symbol id="i-leg" viewBox="0 0 24 24"><path d="M10 3v8l-2 4 3 6"/><path d="M10 11h4l-1 4 2 5"/></symbol>
+  <symbol id="i-muscle" viewBox="0 0 24 24"><path d="M6 6h4a3 3 0 0 1 3 3c2-1 4 0 4.5 2 .5 2-1 4-3.5 4H7a2 2 0 0 1-2-2V8a2 2 0 0 1 1-2z"/></symbol>
+  <symbol id="i-spine" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M9 5h6M8.5 8h7M8 11h8M8.5 14h7M9 17h6M10 20h4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 13h6l-1 8 8-11h-6z"/></symbol>
+  <symbol id="i-bee" viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="4" ry="5"/><path d="M9 12.5h6M9 15.5h6"/><circle cx="12" cy="7" r="2"/><path d="M11 8.5C8 6 5.5 6.5 6 9M13 8.5C16 6 18.5 6.5 18 9"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-1.5.8-3 2-4 .3 1 1 1.5 1.7 1.7C10 7 11 5 12 3z"/></symbol>
+  <symbol id="i-cupping" viewBox="0 0 24 24"><circle cx="12" cy="14" r="5.5"/><circle cx="10.5" cy="13" r="1.2"/><circle cx="14" cy="15" r="1"/><path d="M12 4v3"/></symbol>
+  <symbol id="i-hands" viewBox="0 0 24 24"><path d="M12 6.5a2.5 2.5 0 0 1 4.3 2.6c-.7 1.5-4.3 3.9-4.3 3.9s-3.6-2.4-4.3-3.9A2.5 2.5 0 0 1 12 6.5z"/><path d="M4 14c1.5-.5 3 0 4.5 1.2L11 17h3a1.2 1.2 0 0 0 0-2.4h-3"/></symbol>
+  <symbol id="i-arrows-v" viewBox="0 0 24 24"><path d="M12 4v16M12 4l-3 3M12 4l3 3M12 20l-3-3M12 20l3-3"/></symbol>
+  <symbol id="i-burst" viewBox="0 0 24 24"><path d="M12 3l1.8 4.2L18 5.5l-1.7 4.3L21 12l-4.7 2.2L18 18.5l-4.2-1.7L12 21l-1.8-4.2L6 18.5l1.7-4.3L3 12l4.7-2.2L6 5.5l4.2 1.7z"/></symbol>
+  <symbol id="i-stethoscope" viewBox="0 0 24 24"><path d="M6 4v5a4 4 0 0 0 8 0V4"/><path d="M6 4H4.5M14 4h1.5"/><path d="M10 13v2a4 4 0 0 0 8 0v-1"/><circle cx="18" cy="10" r="2"/></symbol>
+  <symbol id="i-xray" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 6v12M9 8c2 1 4 1 6 0M9 16c2-1 4-1 6 0"/></symbol>
+  <symbol id="i-thermometer" viewBox="0 0 24 24"><path d="M10 14V6a2 2 0 0 1 4 0v8a4 4 0 1 1-4 0z"/><path d="M12 14V9"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-4.5 8a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 9V3"/><path d="M8 15h8"/></symbol>
+  <symbol id="i-bandage" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(45 12 12)"/><path d="M10 10h.01M12 12h.01M14 14h.01M14 10h.01M10 14h.01"/></symbol>
+  <symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.2"/><path d="M10.5 6.5h.01M13.5 6.5h.01"/><path d="M7 21v-2a5 5 0 0 1 10 0v2"/><path d="M10.5 8.5c.8.7 2.2.7 3 0"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 13l1.5-4.5A2 2 0 0 1 7.4 7h9.2a2 2 0 0 1 1.9 1.5L20 13"/><rect x="3" y="13" width="18" height="4" rx="1"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10"/><path d="M5 7l14-1M12 5l-7 1 7-1 7-1"/><path d="M5 7l-2.3 5a2.8 2.8 0 0 0 4.6 0zM19 6l-2.3 5a2.8 2.8 0 0 0 4.6 0z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 4l1.6 5.4L19 11l-5.4 1.6L12 18l-1.6-5.4L6 11l5.4-1.6z"/></symbol>
+  <symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18M8 4l-2 5 6 11M16 4l2 5-6 11"/></symbol>
+  <symbol id="i-ribbon" viewBox="0 0 24 24"><path d="M12 11c-2 3.5-4 7-5 9.5L12 18l5 2.5C16 18 14 14.5 12 11z"/><path d="M9 13L7 9a5 5 0 0 1 10 0l-2 4"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="3" y="8" width="16" height="9" rx="2"/><path d="M21 11v3"/><path d="M11 9.5L8.5 13H12l-2.5 3.5"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="16" rx="2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 11h6M9 15h6"/></symbol>
+  <symbol id="i-document" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h5M9.5 15h5"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-hospital" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="1.5"/><path d="M9 7V4h6v3"/><path d="M12 10v5M9.5 12.5h5"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 7v12M3 12h13a4 4 0 0 1 4 4v3M3 16h17"/><circle cx="7.5" cy="11" r="1.8"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h3M4 14h3M17 9h3M17 14h3M8 4v16M16 4v16"/></symbol>
+  <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 5h13v14a2 2 0 0 0 2-2V8h-2"/><path d="M4 5v14a2 2 0 0 0 2 2h11"/><path d="M7 8h7M7 11h7M7 14h4"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-2h5L16 7"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-run" viewBox="0 0 24 24"><circle cx="14" cy="5" r="2"/><path d="M13 8l-3 3 1 4-3 4M11 11l4 1 2 4M10 11l-4 1"/></symbol>
+  <symbol id="i-angle" viewBox="0 0 24 24"><path d="M5 19V5l14 14z"/><path d="M5 13a6 6 0 0 1 6 6"/></symbol>
+  <symbol id="i-doctor" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.2"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/><path d="M12 13v3M10.5 14.5h3"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></symbol>
+  <symbol id="i-face" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M8.5 14a4 4 0 0 0 7 0"/></symbol>
+</svg>
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#/home" class="nav-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+        </svg>
+      </div>
+      <div>
+        <span class="logo-text">두암한방병원</span>
+        <span class="logo-sub">DUAM ORIENTAL MEDICINE</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <a href="tel:062-716-7160" class="nav-tel"><svg class="icon"><use href="#i-phone"/></svg> 062-716-7160</a>
+      <a href="tel:062-716-7160" class="nav-cta">전화 예약</a>
+      <button class="nav-burger" id="megaBtn" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="drawer-overlay" id="megaOverlay"></div>
+<aside class="drawer-panel" id="megaDrawer" aria-hidden="true">
+  <div class="drawer-top">
+    <div class="drawer-hospital-name">두암한방병원</div>
+    <div class="drawer-tel-bar">062-716-7160</div>
+    <div class="drawer-top-tags">
+      <span class="drawer-top-tag">개원 9년차</span>
+      <span class="drawer-top-tag">한방+일반 협진</span>
+      <span class="drawer-top-tag">토요일 진료</span>
+    </div>
+  </div>
+  <nav class="drawer-body">
+    <div class="drawer-section-label">진료 안내</div>
+    <div class="drawer-group">
+      <button class="drawer-parent" data-target="g1" data-page="about">병원소개
+        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+      </button>
+      <div class="drawer-children" id="g1"><div class="drawer-children-inner">
+        <a href="#/about/greeting" class="drawer-child">인사말</a>
+        <a href="#/about/doctors" class="drawer-child">의료진 소개</a>
+        <a href="#/about/facility" class="drawer-child">시설 안내</a>
+        <a href="#/about/info" class="drawer-child">진료 안내</a>
+        <a href="#/about/location" class="drawer-child">오시는 길</a>
+        <a href="#/about/equipment" class="drawer-child">의료 장비</a>
+        <a href="#/about/special-test" class="drawer-child">특수진단검사</a>
+      </div></div>
+    </div>
+    <div class="drawer-group">
+      <button class="drawer-parent" data-target="g2" data-page="spine">척추관절
+        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+      </button>
+      <div class="drawer-children" id="g2"><div class="drawer-children-inner">
+        <a href="#/spine/herniated" class="drawer-child">허리디스크</a>
+        <a href="#/spine/degenerative" class="drawer-child">퇴행성디스크</a>
+        <a href="#/spine/scoliosis" class="drawer-child">척추측만/전만/후만증</a>
+        <a href="#/spine/sprain" class="drawer-child">요추염좌</a>
+        <a href="#/spine/neck-disc" class="drawer-child">목디스크</a>
+        <a href="#/spine/neck-deg" class="drawer-child">퇴행성 목디스크</a>
+        <a href="#/spine/turtle" class="drawer-child">거북목, 일자목</a>
+      </div></div>
+    </div>
+    <div class="drawer-group">
+      <button class="drawer-parent" data-target="g3" data-page="rehab">수술 후 재활
+        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+      </button>
+      <div class="drawer-children" id="g3"><div class="drawer-children-inner">
+        <a href="#/rehab/chuna" class="drawer-child">추나요법</a>
+        <a href="#/rehab/manual" class="drawer-child">도수치료</a>
+        <a href="#/rehab/herb" class="drawer-child">수술 후 맞춤 한약처방</a>
+        <a href="#/rehab/inpatient" class="drawer-child">입원집중치료</a>
+        <a href="#/rehab/equipment" class="drawer-child">장비소개</a>
+      </div></div>
+    </div>
+    <div class="drawer-group">
+      <a href="#/accident" class="drawer-solo">교통사고클리닉</a>
+    </div>
+    <div class="drawer-group">
+      <button class="drawer-parent" data-target="g5" data-page="women">여성 · 다이어트
+        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+      </button>
+      <div class="drawer-children" id="g5"><div class="drawer-children-inner">
+        <a href="#/women/diet" class="drawer-child">다이어트</a>
+        <a href="#/women/postpartum" class="drawer-child">산후조리</a>
+        <a href="#/women/postdiet" class="drawer-child">산후다이어트</a>
+        <a href="#/women/menopause" class="drawer-child">갱년기</a>
+      </div></div>
+    </div>
+    <div class="drawer-group">
+      <button class="drawer-parent" data-target="g7" data-page="fatigue">만성피로
+        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+      </button>
+      <div class="drawer-children" id="g7"><div class="drawer-children-inner">
+        <a href="#/fatigue/fatigue" class="drawer-child">만성피로</a>
+        <a href="#/fatigue/injection" class="drawer-child">주사요법</a>
+      </div></div>
+    </div>
+    <div class="drawer-group">
+      <a href="#/cancer" class="drawer-solo">암 자율신경 면역 클리닉</a>
+    </div>
+    <div class="drawer-div"></div>
+    <div class="drawer-section-label">병원 소식</div>
+    <div class="drawer-group">
+      <button class="drawer-parent" data-target="g9" data-page="news">공지사항
+        <span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+      </button>
+      <div class="drawer-children" id="g9"><div class="drawer-children-inner">
+        <a href="#/news/notice" class="drawer-child">공지사항</a>
+        <a href="#/news/media" class="drawer-child">동영상 · 보도자료</a>
+        <a href="#/news/price" class="drawer-child">비급여 수가</a>
+        <a href="#/news/inquiry" class="drawer-child">진료 문의</a>
+        <a href="#/news/review" class="drawer-child">치료 후기</a>
+      </div></div>
+    </div>
+    <a href="tel:062-716-7160" class="drawer-tel-cta">전화 예약 · 062-716-7160</a>
+  </nav>
+</aside>
+<main>
+<div class="route" id="page-home" data-key="home">
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">개원 9년차 · 한방+일반 협진 병원</div>
+    <h1 class="hero-title">
+      몸과 마음을<br>
+      <em>바르게</em> 세우는<br>
+      <span class="accent">두암한방병원</span>
+    </h1>
+    <p class="hero-desc">
+      한방과 일반진료의 협진 시스템으로<br>
+      2대째 이어온 치료 노하우를 바탕으로<br>
+      광주 동구에서 여러분의 건강을 지킵니다.
+    </p>
+    <div class="hero-btns">
+      <a href="tel:062-716-7160" class="btn-primary"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+      <a href="#/about" class="btn-outline">병원 소개 보기</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item"><div class="hero-stat-num">9년</div><div class="hero-stat-label">개원 연차</div></div>
+      <div class="hero-stat-item"><div class="hero-stat-num">4.5</div><div class="hero-stat-label">네이버 평점</div></div>
+      <div class="hero-stat-item"><div class="hero-stat-num">13개</div><div class="hero-stat-label">진료 과목</div></div>
+      <div class="hero-stat-item"><div class="hero-stat-num">2대</div><div class="hero-stat-label">가문 노하우</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-cards">
+      <a href="#/about" class="hero-card">
+        <div class="hc-icon blue"><svg class="icon"><use href="#i-leaf"/></svg></div>
+        <div><div class="hc-title">한방 · 일반 협진</div><div class="hc-desc">두 진료의 장점을 결합한<br>통합 치료 시스템</div></div>
+      </a>
+      <a href="#/accident" class="hero-card">
+        <div class="hc-icon coral"><svg class="icon"><use href="#i-car"/></svg></div>
+        <div><div class="hc-title">교통사고 전문</div><div class="hc-desc">후유증 치료부터<br>서류 발급까지</div></div>
+      </a>
+      <a href="#/about/info" class="hero-card">
+        <div class="hc-icon mint"><svg class="icon"><use href="#i-calendar"/></svg></div>
+        <div><div class="hc-title">토요일 진료</div><div class="hc-desc">오전 9시 ~ 12시 30분<br>주말에도 방문 가능</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+<div class="notice-banner">
+  <div class="notice-inner">
+    <span class="notice-label">NOTICE</span>
+    <div class="notice-scroll">
+      <div class="notice-track" id="noticeTrack">
+        <span class="notice-item"><svg class="icon"><use href="#i-info"/></svg> 공휴일 진료 여부는 사전 전화 문의 바랍니다</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약: 062-716-7160</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 진료 마감 17:00, 토요일 마감 12:00</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동)</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-syringe"/></svg> 독감 · 대상포진 · 폐렴구균 예방접종 가능</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-info"/></svg> 공휴일 진료 여부는 사전 전화 문의 바랍니다</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약: 062-716-7160</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 진료 마감 17:00, 토요일 마감 12:00</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동)</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-syringe"/></svg> 독감 · 대상포진 · 폐렴구균 예방접종 가능</span>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual rv-l">
+        <div class="about-main-card">
+          <div class="about-big-num">9</div>
+          <div class="about-card-text">
+            <div class="about-card-kw">SINCE 2016 · 동구 산수동</div>
+            <div class="about-card-title">지역과 함께 성장한<br>믿음직한 한방병원</div>
+          </div>
+        </div>
+        <div class="about-mini-cards">
+          <div class="about-mini rv"><div class="am-num" style="color:var(--sky2)">한방</div><div class="am-label">8개 진료과</div></div>
+          <div class="about-mini rv"><div class="am-num" style="color:var(--coral)">일반</div><div class="am-label">5개 진료과</div></div>
+          <div class="about-mini rv"><div class="am-num" style="color:var(--mint)">4.5</div><div class="am-label">네이버 평점</div></div>
+          <div class="about-mini rv"><div class="am-num" style="color:var(--sky2)">2대</div><div class="am-label">가문 노하우</div></div>
+        </div>
+      </div>
+      <div class="about-content rv-r">
+        <div class="sec-label">병원 소개</div>
+        <h2 class="sec-title">한방과 현대의학의<br>조화로운 협진</h2>
+        <p class="sec-sub">두암한방병원은 한방 치료와 일반 진료를 함께 운영하는 협진 시스템으로, 환자 한 분 한 분에게 맞는 최적의 치료를 제공합니다.</p>
+        <div class="about-points">
+          <div class="about-point"><div class="ap-dot" style="background:var(--sky)"></div><div class="ap-text"><strong>한방 + 일반 협진 시스템</strong><span>두 분야의 장점을 결합하여 더 빠르고 효과적인 치료를 실현합니다.</span></div></div>
+          <div class="about-point"><div class="ap-dot" style="background:var(--coral)"></div><div class="ap-text"><strong>교통사고 후유증 치료 전문</strong><span>사고 후 통증, 근골격계 손상을 한방과 재활치료로 빠르게 회복합니다.</span></div></div>
+          <div class="about-point"><div class="ap-dot" style="background:var(--mint)"></div><div class="ap-text"><strong>2대째 이어온 한방 노하우</strong><span>대를 이어 축적된 임상 경험과 처방 노하우로 신뢰를 드립니다.</span></div></div>
+          <div class="about-point"><div class="ap-dot" style="background:var(--sky)"></div><div class="ap-text"><strong>토요일 오전 진료 운영</strong><span>바쁜 평일을 피해 토요일 오전에도 편하게 방문하실 수 있습니다.</span></div></div>
+        </div>
+        <div style="margin-top:28px"><a href="#/about" class="btn-primary">병원 소개 자세히 보기</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="services">
+  <div class="container">
+    <div class="rv">
+      <div class="sec-label">진료 과목</div>
+      <h2 class="sec-title">한방부터 일반진료까지<br>통합 진료 서비스</h2>
+    </div>
+    <div class="services-tabs rv">
+      <button class="stab-btn active" data-tab="hanbang">한방 진료</button>
+      <button class="stab-btn" data-tab="general">일반 진료</button>
+      <button class="stab-btn" data-tab="vaccine">예방접종</button>
+      <button class="stab-btn" data-tab="docs">의료 서류</button>
+    </div>
+    <div class="stab-panel active" id="tab-hanbang">
+      <div class="services-grid">
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-needle"/></svg></div><div class="svc-name">침구과</div><div class="svc-note">침·뜸 치료</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-pulse"/></svg></div><div class="svc-name">한방내과</div><div class="svc-note">소화기·순환기</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-flower"/></svg></div><div class="svc-name">한방부인과</div><div class="svc-note">여성 질환</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-baby"/></svg></div><div class="svc-name">한방소아과</div><div class="svc-note">소아 질환</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-brain"/></svg></div><div class="svc-name">한방신경정신과</div><div class="svc-note">신경·정신</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-eye"/></svg></div><div class="svc-name">한방안이비인후</div><div class="svc-note">눈·귀·코</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-bone"/></svg></div><div class="svc-name">한방재활의학과</div><div class="svc-note">재활치료</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-scale"/></svg></div><div class="svc-name">사상체질과</div><div class="svc-note">체질 진단</div></div>
+      </div>
+    </div>
+    <div class="stab-panel" id="tab-general">
+      <div class="services-grid">
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-home"/></svg></div><div class="svc-name">가정의학과</div><div class="svc-note">일반 건강</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-heart"/></svg></div><div class="svc-name">내과</div><div class="svc-note">내과 질환</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-bone"/></svg></div><div class="svc-name">정형외과</div><div class="svc-note">근골격계</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-sparkle"/></svg></div><div class="svc-name">피부과</div><div class="svc-note">피부 질환</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-ear"/></svg></div><div class="svc-name">이비인후과</div><div class="svc-note">귀·코·목</div></div>
+      </div>
+    </div>
+    <div class="stab-panel" id="tab-vaccine">
+      <div class="services-grid">
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-syringe"/></svg></div><div class="svc-name">독감 예방접종</div><div class="svc-note">인플루엔자 예방</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-shield"/></svg></div><div class="svc-name">대상포진 예방접종</div><div class="svc-note">대상포진 예방</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-lungs"/></svg></div><div class="svc-name">폐렴구균 예방접종</div><div class="svc-note">폐렴 예방</div></div>
+      </div>
+    </div>
+    <div class="stab-panel" id="tab-docs">
+      <div class="services-grid">
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-clipboard"/></svg></div><div class="svc-name">진단서</div><div class="svc-note">일반 진단서</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-shield"/></svg></div><div class="svc-name">병사용 진단서</div><div class="svc-note">입영 관련</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-bandage"/></svg></div><div class="svc-name">상해 진단서</div><div class="svc-note">사고·상해</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-hospital"/></svg></div><div class="svc-name">입퇴원 확인서</div><div class="svc-note">입원 서류</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-calendar"/></svg></div><div class="svc-name">통원 확인서</div><div class="svc-note">통원 기록</div></div>
+        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-folder"/></svg></div><div class="svc-name">진료 기록 사본</div><div class="svc-note">의료 기록</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="treatments">
+  <div class="container">
+    <div class="treat-header">
+      <div class="rv">
+        <div class="sec-label">치료 방법</div>
+        <h2 class="sec-title">다양한 치료법으로<br>근본적인 회복</h2>
+      </div>
+      <a href="tel:062-716-7160" class="btn-primary rv" style="white-space:nowrap">치료 문의하기</a>
+    </div>
+    <div class="treat-scroll-wrap rv">
+      <div class="treat-track">
+        <div class="treat-card"><div class="treat-card-top sky-bg"><svg class="icon"><use href="#i-needle"/></svg></div><div class="treat-card-body"><div class="tc-name">침 치료</div><div class="tc-desc">경혈을 자극하여 기혈순환 개선</div></div></div>
+        <div class="treat-card"><div class="treat-card-top coral-bg"><svg class="icon"><use href="#i-bolt"/></svg></div><div class="treat-card-body"><div class="tc-name">전기침 치료</div><div class="tc-desc">전기 자극으로 치료 효과 강화</div></div></div>
+        <div class="treat-card"><div class="treat-card-top mint-bg"><svg class="icon"><use href="#i-syringe"/></svg></div><div class="treat-card-body"><div class="tc-name">약침 치료</div><div class="tc-desc">한약 성분을 직접 경혈에 주입</div></div></div>
+        <div class="treat-card"><div class="treat-card-top sky-bg"><svg class="icon"><use href="#i-bee"/></svg></div><div class="treat-card-body"><div class="tc-name">봉침 치료</div><div class="tc-desc">벌침으로 면역·항염 효과</div></div></div>
+        <div class="treat-card"><div class="treat-card-top coral-bg"><svg class="icon"><use href="#i-flame"/></svg></div><div class="treat-card-body"><div class="tc-name">뜸 치료</div><div class="tc-desc">온열로 혈액순환 촉진</div></div></div>
+        <div class="treat-card"><div class="treat-card-top mint-bg"><svg class="icon"><use href="#i-cupping"/></svg></div><div class="treat-card-body"><div class="tc-name">부항 치료</div><div class="tc-desc">음압으로 어혈 제거</div></div></div>
+        <div class="treat-card"><div class="treat-card-top sky-bg"><svg class="icon"><use href="#i-leaf"/></svg></div><div class="treat-card-body"><div class="tc-name">한약 처방</div><div class="tc-desc">체질에 맞는 개인화 처방</div></div></div>
+        <div class="treat-card"><div class="treat-card-top coral-bg"><svg class="icon"><use href="#i-hands"/></svg></div><div class="treat-card-body"><div class="tc-name">도수치료</div><div class="tc-desc">수기로 척추·관절 교정</div></div></div>
+        <div class="treat-card"><div class="treat-card-top mint-bg"><svg class="icon"><use href="#i-arrows-v"/></svg></div><div class="treat-card-body"><div class="tc-name">신장분사치료</div><div class="tc-desc">척추 감압으로 디스크 치료</div></div></div>
+        <div class="treat-card"><div class="treat-card-top sky-bg"><svg class="icon"><use href="#i-burst"/></svg></div><div class="treat-card-body"><div class="tc-name">체외충격파</div><div class="tc-desc">음파로 만성통증 해소</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="reviews">
+  <div class="container">
+    <div class="reviews-top rv">
+      <div class="reviews-score">
+        <div class="rs-num">4.5</div>
+        <div class="rs-stars">★★★★★</div>
+        <div class="rs-source">네이버 지도 기준</div>
+      </div>
+      <div class="reviews-desc">
+        <div class="sec-label">환자 후기</div>
+        <h2 class="sec-title">직접 경험하신<br>환자분들의 이야기</h2>
+        <p class="sec-sub">친절한 의료진과 효과적인 치료로<br>높은 만족도를 유지하고 있습니다.</p>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card rv"><div class="rc-stars">★★★★★</div><p class="rc-text">교통사고 이후 목과 어깨 통증이 심했는데, 침 치료와 도수치료를 병행하며 빠르게 회복됐어요. 의사 선생님께서 꼼꼼하게 설명해 주셔서 신뢰가 갔습니다.</p><div class="rc-author">김** 님 · 교통사고 후유증</div></div>
+      <div class="review-card rv"><div class="rc-stars">★★★★★</div><p class="rc-text">허리 통증으로 여러 병원을 다녀봤는데 이곳이 제일 효과가 좋았어요. 대기 시간도 짧고 직원분들 모두 친절해서 편하게 다니고 있습니다.</p><div class="rc-author">이** 님 · 허리디스크</div></div>
+      <div class="review-card rv"><div class="rc-stars">★★★★☆</div><p class="rc-text">토요일에도 진료해 주셔서 정말 편해요. 한방 치료와 함께 생활 습관까지 상담해 주셔서 전반적인 건강이 많이 좋아졌어요.</p><div class="rc-author">박** 님 · 체질 개선</div></div>
+    </div>
+    <div style="margin-top:28px"><a href="#/news/review" class="btn-outline">치료 후기 더 보기</a></div>
+  </div>
+</section>
+<section id="hours">
+  <div class="container">
+    <div class="hours-layout">
+      <div class="rv-l">
+        <div class="sec-label">진료 안내</div>
+        <h2 class="sec-title">진료 시간</h2>
+        <table class="hours-table">
+          <thead><tr><th>요일</th><th>진료 시간</th><th>접수 마감</th><th>상태</th></tr></thead>
+          <tbody>
+            <tr><td>월 ~ 금</td><td>09:00 – 17:30<br><small style="color:var(--text-light);font-size:0.72rem">점심 12:00–14:00</small></td><td>17:00</td><td><span class="tag-open">진료</span></td></tr>
+            <tr><td>토요일</td><td>09:00 – 12:30</td><td>12:00</td><td><span class="tag-open">진료</span></td></tr>
+            <tr><td>일요일</td><td>—</td><td>—</td><td><span class="tag-closed">휴진</span></td></tr>
+            <tr><td>공휴일</td><td>사전 문의</td><td>—</td><td><span class="tag-holiday">문의</span></td></tr>
+          </tbody>
+        </table>
+        <div class="hours-info"><ul>
+          <li>점심시간(12:00 ~ 14:00)에는 진료가 중단됩니다</li>
+          <li>공휴일 진료 여부는 사전에 전화로 확인해 주세요</li>
+          <li>토요일은 오전 진료만 운영합니다</li>
+        </ul></div>
+      </div>
+      <div class="rv-r">
+        <div style="margin-top:42px">
+          <div class="hcp-label" style="color:var(--text-mid);font-size:0.78rem;letter-spacing:0.06em;margin-bottom:8px">전화 예약</div>
+          <div class="hours-cta-panel">
+            <div class="hcp-label">RESERVATION</div>
+            <div class="hcp-tel">062-716-7160</div>
+            <div class="hcp-sub">전화로 간편하게 예약하세요</div>
+            <a href="tel:062-716-7160" class="hcp-btn">지금 전화하기</a>
+          </div>
+          <div style="margin-top:16px;background:var(--coral-pale);border-radius:var(--r-md);padding:18px 20px;border:1px solid var(--coral-light)">
+            <div style="font-size:0.8rem;font-weight:600;color:var(--coral2);margin-bottom:8px"><svg class="icon"><use href="#i-car"/></svg> 교통사고 전용 안내</div>
+            <p style="font-size:0.78rem;color:var(--text-mid);line-height:1.7">교통사고 후 72시간 이내 내원 시 자동차보험 처리가 원활합니다. 치료비 걱정 없이 방문해 주세요. <a href="#/accident" style="color:var(--coral2);font-weight:600">교통사고클리닉 보기 →</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="access">
+  <div class="container">
+    <div class="rv">
+      <div class="sec-label">오시는 길</div>
+      <h2 class="sec-title">찾아오시는 방법</h2>
+    </div>
+    <div class="access-layout">
+      <div class="access-map rv-l">
+        <iframe src="https://maps.google.com/maps?q=광주광역시+동구+갈마로+46&hl=ko&z=16&output=embed" allowfullscreen loading="lazy" title="두암한방병원 위치"></iframe>
+      </div>
+      <div class="access-info rv-r">
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-pin"/></svg></div><div><div class="ai-title">주소</div><div class="ai-body">광주광역시 동구 갈마로 46 (산수동)<br>두암3동 행정복지센터, 광주은행 인근</div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-phone"/></svg></div><div><div class="ai-title">전화</div><div class="ai-body"><a href="tel:062-716-7160" style="color:var(--sky2);font-weight:600">062-716-7160</a></div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-bus"/></svg></div><div><div class="ai-title">대중교통</div><div class="ai-body">버스 정류장 '산수동' 하차 후 도보 이동<br>광주 도심에서 접근 편리</div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-parking"/></svg></div><div><div class="ai-title">주차</div><div class="ai-body">병원 인근 공용주차장 이용 가능</div></div></div>
+        <a href="tel:062-716-7160" class="btn-primary" style="width:100%;text-align:center;display:block"><svg class="icon"><use href="#i-phone"/></svg> 062-716-7160 전화 예약</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<div class="route" id="page-about" data-key="about"><div class="subnav"><div class="subnav-inner"><a href="#/about/greeting">인사말</a><a href="#/about/doctors">의료진 소개</a><a href="#/about/facility">시설 안내</a><a href="#/about/info">진료 안내</a><a href="#/about/location">오시는 길</a><a href="#/about/equipment">의료 장비</a><a href="#/about/special-test">특수진단검사</a></div></div>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">병원소개</span>
+    </div>
+    <div class="page-hero-label">ABOUT</div>
+    <h1 class="page-hero-title">한방과 현대의학이 만나는 곳<br>두암한방병원</h1>
+    <p class="page-hero-desc">2대째 이어온 한방 노하우와 일반진료 협진 시스템으로, 광주 동구에서 환자 한 분 한 분에게 맞는 치료를 제공합니다.</p>
+  </div>
+</section>
+<section class="page-section" id="about-greeting">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">인사말</div>
+      <h2 class="ps-title">따뜻한 마음으로 진료하겠습니다</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>안녕하십니까. 두암한방병원 홈페이지를 찾아주셔서 감사합니다.</p><p>저희 병원은 <strong>한방 진료와 일반 진료를 함께 운영하는 협진 시스템</strong>을 통해 환자분의 증상을 다각도로 살피고, 가장 효과적인 치료 방향을 함께 고민합니다. 2대에 걸쳐 축적된 한방 임상 경험과 처방 노하우를 바탕으로, 단순히 통증을 완화하는 데 그치지 않고 <strong>근본적인 회복</strong>을 목표로 합니다.</p><p>척추·관절 질환, 교통사고 후유증, 여성 질환, 만성피로에 이르기까지 폭넓은 진료를 제공하며, 바쁜 분들을 위해 토요일 오전 진료도 운영하고 있습니다. 언제나 환자의 입장에서 듣고, 정성껏 치료하겠습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-hands"/></svg></span><span class="vp-num">9</span></div>
+</div>
+  </div>
+</section>
+<section class="page-section" id="about-doctors">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">의료진 소개</div>
+      <h2 class="ps-title">경험과 신뢰의 의료진</h2>
+    </div>
+    <div class="info-grid">
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-doctor"/></svg></div>
+      <div class="ic-title">한방 진료 원장</div>
+      <div class="ic-desc">2대째 이어온 한방 임상 경험을 바탕으로 침구·한약·추나 치료를 담당합니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-stethoscope"/></svg></div>
+      <div class="ic-title">일반 진료 원장</div>
+      <div class="ic-desc">정형·내과 협진을 통해 정확한 진단과 통합 치료 계획을 수립합니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-person"/></svg></div>
+      <div class="ic-title">치료 전담 스태프</div>
+      <div class="ic-desc">물리치료사·운동치료사 등 전문 인력이 1:1 맞춤 재활을 지원합니다.</div>
+    </div></div>
+  </div>
+</section>
+<section class="page-section" id="about-facility">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">시설 안내</div>
+      <h2 class="ps-title">편안한 치료 환경</h2>
+    </div>
+    <div class="photo-grid">
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
+      <img src="두암한방병원/facility-waiting.jpg" alt="두암한방병원 쾌적한 대기실" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">쾌적한 대기실</div>
+        <div class="pc-desc">넓고 밝은 대기 공간에서 편안하게 진료를 기다리실 수 있습니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
+      <img src="두암한방병원/facility-ward.jpg" alt="두암한방병원 입원 병실" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">입원 병실</div>
+        <div class="pc-desc">집중 치료가 필요한 환자를 위한 입원실을 갖추고 있습니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-hands"/></svg></div>
+      <img src="두암한방병원/facility-physical.jpg" alt="두암한방병원 물리치료실" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">물리치료실</div>
+        <div class="pc-desc">온열·전기·견인 등 다양한 물리치료 장비를 운영합니다.</div>
+      </figcaption>
+    </figure></div>
+  </div>
+</section>
+<section class="page-section" id="about-info">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">진료 안내</div>
+      <h2 class="ps-title">진료 시간 및 과목</h2>
+    </div>
+    <table class="hours-table rv">
+      <thead><tr><th>요일</th><th>진료 시간</th><th>접수 마감</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>월 ~ 금</td><td>09:00 – 17:30 <small style="color:var(--text-light)">(점심 12:00–14:00)</small></td><td>17:00</td><td><span class="tag-open">진료</span></td></tr>
+        <tr><td>토요일</td><td>09:00 – 12:30</td><td>12:00</td><td><span class="tag-open">진료</span></td></tr>
+        <tr><td>일요일</td><td>—</td><td>—</td><td><span class="tag-closed">휴진</span></td></tr>
+        <tr><td>공휴일</td><td>사전 문의</td><td>—</td><td><span class="tag-holiday">문의</span></td></tr>
+      </tbody></table><div class="callout sky rv"><div class="callout-head">진료 과목</div><div class="callout-body">한방(침구과·한방내과·한방부인과·한방재활의학과 등 8개과)과 일반진료(가정의학과·내과·정형외과·피부과·이비인후과 5개과)를 함께 운영합니다. 예방접종 및 각종 의료 서류 발급도 가능합니다.</div></div>
+  </div>
+</section>
+<section class="page-section" id="about-location">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">오시는 길</div>
+      <h2 class="ps-title">찾아오시는 방법</h2>
+    </div>
+    <div class="ps-grid2">
+      <div class="access-map rv-l" style="aspect-ratio:4/3"><iframe src="https://maps.google.com/maps?q=광주광역시+동구+갈마로+46&hl=ko&z=16&output=embed" allowfullscreen loading="lazy" title="두암한방병원 위치"></iframe></div>
+      <div class="access-info rv-r">
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-pin"/></svg></div><div><div class="ai-title">주소</div><div class="ai-body">광주광역시 동구 갈마로 46 (산수동)<br>두암3동 행정복지센터, 광주은행 인근</div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-bus"/></svg></div><div><div class="ai-title">대중교통</div><div class="ai-body">버스 정류장 '산수동' 하차 후 도보 이동</div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-parking"/></svg></div><div><div class="ai-title">주차</div><div class="ai-body">병원 인근 공용주차장 이용 가능</div></div></div>
+      </div></div>
+  </div>
+</section>
+<section class="page-section" id="about-equipment">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">의료 장비</div>
+      <h2 class="ps-title">정밀한 진단과 치료 장비</h2>
+    </div>
+    <div class="info-grid">
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-xray"/></svg></div>
+      <div class="ic-title">디지털 X-ray</div>
+      <div class="ic-desc">척추·관절 상태를 정확하게 촬영해 진단의 기초로 활용합니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-burst"/></svg></div>
+      <div class="ic-title">체외충격파</div>
+      <div class="ic-desc">음파 에너지로 만성 통증과 염증 부위를 치료합니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-arrows-v"/></svg></div>
+      <div class="ic-title">척추 견인기</div>
+      <div class="ic-desc">감압 견인으로 디스크 압력을 줄여 통증을 완화합니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-bolt"/></svg></div>
+      <div class="ic-title">전기 자극 치료기</div>
+      <div class="ic-desc">근육 이완과 통증 완화를 돕는 물리치료 장비입니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-thermometer"/></svg></div>
+      <div class="ic-title">온열 치료기</div>
+      <div class="ic-desc">심부열로 혈액순환을 촉진해 회복을 돕습니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-leg"/></svg></div>
+      <div class="ic-title">운동치료 기구</div>
+      <div class="ic-desc">재활 단계별 맞춤 운동치료를 위한 전문 기구를 갖췄습니다.</div>
+    </div></div>
+  </div>
+</section>
+<section class="page-section" id="about-special-test">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">특수진단검사</div>
+      <h2 class="ps-title">숨은 원인까지 살피는 정밀 검사</h2>
+    </div>
+    <div class="info-grid cols-2">
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-bone"/></svg></div>
+      <div class="ic-title">골밀도검사</div>
+      <div class="ic-desc">뼈의 밀도를 측정해 골다공증 위험과 뼈 건강 상태를 확인합니다. 갱년기 이후 골밀도 변화를 살피는 데 활용합니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-pulse"/></svg></div>
+      <div class="ic-title">초음파</div>
+      <div class="ic-desc">초음파로 근육·관절·연부조직의 상태를 살펴 진단에 참고합니다. 방사선 노출 없이 검사할 수 있습니다.</div>
+    </div></div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">RESERVATION</div>
+      <div class="cbt-title">진료 예약 및 문의는 전화로</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+<div class="route" id="page-spine" data-key="spine"><div class="subnav"><div class="subnav-inner"><a href="#/spine/herniated">허리디스크</a><a href="#/spine/degenerative">퇴행성디스크</a><a href="#/spine/scoliosis">척추측만/전만/후만</a><a href="#/spine/sprain">요추염좌</a><a href="#/spine/neck-disc">목디스크</a><a href="#/spine/neck-deg">퇴행성 목디스크</a><a href="#/spine/turtle">거북목·일자목</a></div></div>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">척추관절</span>
+    </div>
+    <div class="page-hero-label">SPINE & JOINT</div>
+    <h1 class="page-hero-title">통증의 근본 원인을 바로잡는<br>척추·관절 치료</h1>
+    <p class="page-hero-desc">침·약침·추나요법과 도수·물리치료를 결합한 비수술 통합 치료로 척추와 관절의 균형을 회복합니다.</p>
+  </div>
+</section>
+<section class="page-section" id="spine-herniated">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">척추관절</div>
+      <h2 class="ps-title">허리디스크 (요추 추간판탈출증)</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>허리디스크는 척추뼈 사이의 추간판(디스크)이 밀려 나와 신경을 압박하면서 통증을 일으키는 질환입니다.</p><p>두암한방병원은 <strong>약침·침 치료로 염증을 가라앉히고</strong>, 추나요법과 견인 치료로 디스크에 가해지는 압력을 줄여 비수술적으로 회복을 돕습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-bone"/></svg></span><span class="vp-num">01</span></div>
+</div><ul class="check-list rv"><li>허리에서 다리로 뻗치는 방사통</li><li>오래 앉아 있으면 심해지는 통증</li><li>다리 저림·감각 저하</li><li>기침·재채기 시 통증 악화</li></ul><div class="callout sky rv"><div class="callout-head">치료 방법</div><div class="callout-body">약침·봉침으로 염증 완화 → 추나·도수로 정렬 교정 → 척추 견인 및 운동치료로 재발 방지</div></div>
+  </div>
+</section>
+<section class="page-section" id="spine-degenerative">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">척추관절</div>
+      <h2 class="ps-title">퇴행성 디스크</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>나이가 들면서 디스크의 수분이 줄고 탄력이 떨어져 발생하는 만성 통증 질환입니다. 갑작스러운 통증보다 <strong>은근하고 지속적인 뻐근함</strong>이 특징입니다.</p><p>퇴행이 진행된 척추는 무리한 자극보다 꾸준한 관리가 중요합니다. 한약·뜸으로 기혈을 보강하고 운동치료로 주변 근육을 강화합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-spine"/></svg></span><span class="vp-num">02</span></div>
+</div><ul class="check-list rv"><li>아침에 특히 뻣뻣한 허리</li><li>오래 서 있거나 걸으면 심해지는 통증</li><li>자세를 바꿀 때 느껴지는 불편감</li></ul>
+  </div>
+</section>
+<section class="page-section" id="spine-scoliosis">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">척추관절</div>
+      <h2 class="ps-title">척추측만 · 전만 · 후만증</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>척추가 옆으로 휘거나(측만), 앞뒤 곡선이 무너진(전만·후만) 상태로, 자세 불균형과 통증의 원인이 됩니다.</p><p><strong>추나요법으로 틀어진 척추와 골반을 교정</strong>하고, 자세 교정 운동을 병행해 균형을 회복합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-angle"/></svg></span><span class="vp-num">03</span></div>
+</div><ul class="check-list rv"><li>양쪽 어깨·골반 높이가 다름</li><li>서 있을 때 한쪽으로 기우는 느낌</li><li>장시간 자세 유지가 어려움</li></ul>
+  </div>
+</section>
+<section class="page-section" id="spine-sprain">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">척추관절</div>
+      <h2 class="ps-title">요추염좌 (삔 허리)</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>무리한 동작이나 잘못된 자세로 허리 근육·인대가 손상된 상태입니다. 급성기에는 빠른 염증 관리가 회복 속도를 좌우합니다.</p><p>침·부항으로 긴장된 근육을 풀고 어혈을 제거하며, 물리치료로 빠른 회복을 돕습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-bandage"/></svg></span><span class="vp-num">04</span></div>
+</div><ul class="check-list rv"><li>갑자기 삐끗한 후 움직이기 힘든 허리</li><li>특정 동작에서 날카로운 통증</li><li>허리를 굽히거나 펴기 어려움</li></ul>
+  </div>
+</section>
+<section class="page-section" id="spine-neck-disc">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">척추관절</div>
+      <h2 class="ps-title">목디스크 (경추 추간판탈출증)</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>경추 디스크가 신경을 눌러 목·어깨·팔로 이어지는 통증과 저림을 유발합니다. 스마트폰·컴퓨터 사용 증가로 젊은 층에서도 흔합니다.</p><p>약침과 추나로 경추 정렬을 바로잡고, 어깨·목 주변 근육의 긴장을 풀어줍니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-spine"/></svg></span><span class="vp-num">05</span></div>
+</div><ul class="check-list rv"><li>목에서 어깨·팔로 퍼지는 통증</li><li>손가락 저림·감각 이상</li><li>목을 돌릴 때 뻐근함과 통증</li></ul>
+  </div>
+</section>
+<section class="page-section" id="spine-neck-deg">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">척추관절</div>
+      <h2 class="ps-title">퇴행성 목디스크</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>경추의 퇴행으로 디스크 간격이 좁아지고 뼈가 변형되며 만성적인 목 통증과 두통을 동반하는 질환입니다.</p><p>한약·뜸으로 기혈을 보강하고, 꾸준한 자세 교정과 운동치료로 진행을 늦춥니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-spine"/></svg></span><span class="vp-num">06</span></div>
+</div><ul class="check-list rv"><li>만성적인 목·뒷머리 통증</li><li>오후로 갈수록 심해지는 뻐근함</li><li>목 움직임의 제한</li></ul>
+  </div>
+</section>
+<section class="page-section" id="spine-turtle">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">척추관절</div>
+      <h2 class="ps-title">거북목 · 일자목</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>장시간 고개를 숙이는 생활습관으로 경추의 정상 곡선이 사라진 상태입니다. 방치하면 목디스크로 진행될 수 있습니다.</p><p><strong>추나·도수치료로 경추 곡선을 회복</strong>하고, 생활 습관 교정과 스트레칭을 함께 지도합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-spine"/></svg></span><span class="vp-num">07</span></div>
+</div><ul class="check-list rv"><li>옆에서 보면 앞으로 나온 목</li><li>어깨와 뒷목의 만성 결림</li><li>쉽게 피로해지는 목과 눈</li></ul>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">CONSULT</div>
+      <div class="cbt-title">척추·관절 통증, 정확한 진단부터 시작하세요</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+<div class="route" id="page-rehab" data-key="rehab"><div class="subnav"><div class="subnav-inner"><a href="#/rehab/chuna">추나요법</a><a href="#/rehab/manual">도수치료</a><a href="#/rehab/herb">맞춤 한약처방</a><a href="#/rehab/inpatient">입원집중치료</a><a href="#/rehab/equipment">장비소개</a></div></div>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">수술 후 재활</span>
+    </div>
+    <div class="page-hero-label">REHABILITATION</div>
+    <h1 class="page-hero-title">수술 그 이후,<br>온전한 회복을 위한 재활</h1>
+    <p class="page-hero-desc">수술로 끝나지 않는 회복. 한방 치료와 체계적인 재활 프로그램으로 일상으로의 복귀를 돕습니다.</p>
+  </div>
+</section>
+<section class="page-section" id="rehab-chuna">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">수술 후 재활</div>
+      <h2 class="ps-title">추나요법</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>한의사가 손과 기구를 이용해 틀어진 척추와 관절, 근육을 바로잡는 한방 수기 치료입니다. 수술 후 무너진 신체 균형을 회복하는 데 효과적입니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-hands"/></svg></span><span class="vp-num">01</span></div>
+</div><div class="callout sky rv"><div class="callout-head">추나요법이 도움이 되는 경우</div><div class="callout-body">수술 후 비대칭 자세, 보상 작용으로 인한 근골격 불균형, 관절 가동 제한 등</div></div>
+  </div>
+</section>
+<section class="page-section" id="rehab-manual">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">수술 후 재활</div>
+      <h2 class="ps-title">도수치료</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>관절과 연부조직을 직접 다루어 통증을 줄이고 기능을 회복시키는 도수 치료입니다. 굳은 관절을 부드럽게 풀고 정상 움직임을 되찾도록 돕습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-muscle"/></svg></span><span class="vp-num">02</span></div>
+</div><ul class="check-list rv"><li>수술 부위 주변의 관절 강직 완화</li><li>연부조직 유착 개선</li><li>통증 없는 정상 가동 범위 회복</li></ul>
+  </div>
+</section>
+<section class="page-section" id="rehab-herb">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">수술 후 재활</div>
+      <h2 class="ps-title">수술 후 맞춤 한약처방</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>수술로 약해진 기력과 회복력을 보강하기 위해 <strong>개인 체질과 회복 상태에 맞춘 한약을 처방</strong>합니다. 어혈 제거, 면역력 회복, 조직 재생에 도움을 줍니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-leaf"/></svg></span><span class="vp-num">03</span></div>
+</div><div class="callout coral rv"><div class="callout-head">처방 전 상담</div><div class="callout-body">체질 진단과 회복 상태 확인 후 처방하므로, 내원 상담을 권장합니다.</div></div>
+  </div>
+</section>
+<section class="page-section" id="rehab-inpatient">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">수술 후 재활</div>
+      <h2 class="ps-title">입원집중치료</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>통원이 어렵거나 집중적인 재활이 필요한 환자를 위해 <strong>입원 치료 프로그램</strong>을 운영합니다. 침·한약·물리·운동치료를 하루 일정으로 집중 제공합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-bed"/></svg></span><span class="vp-num">04</span></div>
+</div><ul class="check-list rv"><li>하루 단위 집중 재활 프로그램</li><li>교통사고·수술 후 회복기 환자 적합</li><li>자동차보험·실손보험 상담 가능</li></ul>
+  </div>
+</section>
+<section class="page-section" id="rehab-equipment">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">수술 후 재활</div>
+      <h2 class="ps-title">재활 장비 소개</h2>
+    </div>
+    <div class="info-grid cols-4">
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-arrows-v"/></svg></div>
+      <div class="ic-title">척추 견인기</div>
+      <div class="ic-desc">감압 견인으로 디스크 부담을 줄입니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-burst"/></svg></div>
+      <div class="ic-title">체외충격파</div>
+      <div class="ic-desc">만성 통증·염증 부위를 음파로 치료합니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-bolt"/></svg></div>
+      <div class="ic-title">전기 자극 치료기</div>
+      <div class="ic-desc">근육 이완과 통증 완화를 돕습니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-leg"/></svg></div>
+      <div class="ic-title">운동치료 기구</div>
+      <div class="ic-desc">단계별 근력·균형 회복을 위한 전문 기구</div>
+    </div></div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">REHAB</div>
+      <div class="cbt-title">체계적인 재활, 지금 상담하세요</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+<div class="route" id="page-accident" data-key="accident"><div class="subnav"><div class="subnav-inner"><a href="#/accident/overview">클리닉 안내</a><a href="#/accident/process">치료 과정</a><a href="#/accident/insurance">보험 처리</a><a href="#/accident/faq">자주 묻는 질문</a></div></div>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">교통사고클리닉</span>
+    </div>
+    <div class="page-hero-label">CAR ACCIDENT</div>
+    <h1 class="page-hero-title">교통사고 후유증,<br>초기 치료가 중요합니다</h1>
+    <p class="page-hero-desc">사고 후 남는 통증과 후유증. 한방과 재활치료를 결합해 자동차보험으로 부담 없이 치료받으실 수 있습니다.</p>
+  </div>
+</section>
+<section class="page-section" id="accident-overview">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">교통사고클리닉</div>
+      <h2 class="ps-title">겉으로 드러나지 않는 후유증까지</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>교통사고 후에는 X-ray에 나타나지 않는 <strong>근육·인대 손상과 어혈</strong>이 남아 시간이 지나며 통증·두통·저림으로 이어질 수 있습니다.</p><p>두암한방병원은 침·약침·부항으로 어혈을 제거하고, 추나·물리치료로 틀어진 몸의 균형을 바로잡아 후유증을 최소화합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-car"/></svg></span><span class="vp-num"></span></div>
+</div><ul class="check-list rv"><li>목·어깨·허리 통증과 결림</li><li>두통·어지러움·메스꺼움</li><li>팔다리 저림과 감각 이상</li><li>불면·피로 등 사고 후 전신 증상</li></ul>
+  </div>
+</section>
+<section class="page-section" id="accident-process">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">교통사고클리닉</div>
+      <h2 class="ps-title">치료 과정</h2>
+    </div>
+    <div class="steps">
+      <div class="step-card rv"><div class="step-num">01</div><div class="step-title">내원 · 접수</div><div class="step-desc">사고 사실과 보험 정보를 알려주시면 접수가 진행됩니다.</div></div>
+      <div class="step-card rv"><div class="step-num">02</div><div class="step-title">진단 · 상담</div><div class="step-desc">X-ray 및 문진으로 손상 부위와 후유증을 정확히 파악합니다.</div></div>
+      <div class="step-card rv"><div class="step-num">03</div><div class="step-title">맞춤 치료</div><div class="step-desc">침·약침·추나·물리치료를 결합한 통합 치료를 진행합니다.</div></div>
+      <div class="step-card rv"><div class="step-num">04</div><div class="step-title">회복 · 관리</div><div class="step-desc">증상 호전까지 꾸준히 관리하며 필요 서류를 발급합니다.</div></div>
+    </div>
+  </div>
+</section>
+<section class="page-section" id="accident-insurance">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">교통사고클리닉</div>
+      <h2 class="ps-title">자동차보험 처리 안내</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>교통사고 치료는 <strong>자동차보험으로 처리</strong>되어 본인 부담 없이 치료받으실 수 있습니다. 복잡한 절차는 병원에서 안내해 드립니다.</p><p>사고 접수번호만 있으면 되며, 접수번호가 없어도 먼저 내원해 상담하실 수 있습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-document"/></svg></span><span class="vp-num"></span></div>
+</div><div class="callout coral rv"><div class="callout-head">사고 후 72시간</div><div class="callout-body">사고 후 72시간 이내 내원 시 보험 처리와 후유증 관리가 더욱 원활합니다. 증상이 가볍더라도 빠른 검진을 권장합니다.</div></div>
+  </div>
+</section>
+<section class="page-section" id="accident-faq">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">교통사고클리닉</div>
+      <h2 class="ps-title">자주 묻는 질문</h2>
+    </div>
+    <div class="callout sky rv"><div class="callout-head">Q. 접수번호가 없어도 치료가 되나요?</div><div class="callout-body">네, 먼저 내원해 상담 후 보험사 접수를 진행할 수 있습니다.</div></div><div class="callout sky rv"><div class="callout-head">Q. 한방 치료도 보험 처리가 되나요?</div><div class="callout-body">침·약침·추나·한약 등 교통사고 한방 치료도 자동차보험 적용 대상입니다.</div></div><div class="callout sky rv"><div class="callout-head">Q. 통원 치료만 가능한가요?</div><div class="callout-body">통원과 입원 모두 가능하며, 증상에 따라 의료진과 상의해 결정합니다.</div></div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">CAR ACCIDENT</div>
+      <div class="cbt-title">교통사고, 미루지 말고 바로 상담하세요</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+<div class="route" id="page-women" data-key="women"><div class="subnav"><div class="subnav-inner"><a href="#/women/diet">다이어트</a><a href="#/women/postpartum">산후조리</a><a href="#/women/postdiet">산후다이어트</a><a href="#/women/menopause">갱년기</a></div></div>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">여성 · 다이어트</span>
+    </div>
+    <div class="page-hero-label">WOMEN'S CARE</div>
+    <h1 class="page-hero-title">여성의 건강과 아름다움을<br>한방으로 케어합니다</h1>
+    <p class="page-hero-desc">체질에 맞춘 한방 다이어트부터 산후조리, 갱년기 관리까지. 여성의 생애주기별 건강을 세심하게 돌봅니다.</p>
+  </div>
+</section>
+<section class="page-section" id="women-diet">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">여성·다이어트</div>
+      <h2 class="ps-title">한방 다이어트</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>굶는 다이어트가 아닌, <strong>체질과 몸 상태에 맞춘 건강한 감량</strong>을 돕습니다. 한약으로 식욕과 신진대사를 조절하고, 체성분 분석으로 변화를 관리합니다.</p><p>요요 없이 건강하게, 무너진 몸의 균형을 함께 회복합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-leaf"/></svg></span><span class="vp-num">01</span></div>
+</div><ul class="check-list rv"><li>체질별 맞춤 한약 처방</li><li>체성분 분석 기반 관리</li><li>식욕·대사 조절로 요요 방지</li></ul>
+  </div>
+</section>
+<section class="page-section" id="women-postpartum">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">여성·다이어트</div>
+      <h2 class="ps-title">산후조리</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>출산 후 약해진 기혈을 보강하고 <strong>부종·관절 통증·산후풍을 예방</strong>하는 한방 관리입니다. 산모의 빠른 회복과 체력 보강을 돕습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-baby"/></svg></span><span class="vp-num">02</span></div>
+</div><div class="callout sky rv"><div class="callout-head">산후조리 시기</div><div class="callout-body">출산 후 회복 상태에 따라 처방이 달라지므로, 내원 상담을 통해 시작 시기를 정하는 것이 좋습니다.</div></div>
+  </div>
+</section>
+<section class="page-section" id="women-postdiet">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">여성·다이어트</div>
+      <h2 class="ps-title">산후 다이어트</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>출산 후 늘어난 체중과 변화된 체형을 <strong>건강을 해치지 않는 범위에서</strong> 회복하도록 돕습니다. 수유 여부를 고려한 맞춤 관리를 제공합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-baby"/></svg></span><span class="vp-num">03</span></div>
+</div><ul class="check-list rv"><li>수유 상태를 고려한 안전한 관리</li><li>골반·체형 교정 병행</li><li>산후 부종 개선</li></ul>
+  </div>
+</section>
+<section class="page-section" id="women-menopause">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">여성·다이어트</div>
+      <h2 class="ps-title">갱년기 관리</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>호르몬 변화로 인한 <strong>안면홍조·불면·우울감·피로</strong> 등 갱년기 증상을 한약과 침 치료로 완화합니다. 몸과 마음의 균형을 되찾도록 돕습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-flower"/></svg></span><span class="vp-num">04</span></div>
+</div><ul class="check-list rv"><li>안면홍조·식은땀 완화</li><li>불면·불안·우울감 개선</li><li>기력 저하와 만성피로 회복</li></ul>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">WOMEN</div>
+      <div class="cbt-title">여성 건강, 한방으로 세심하게</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+<div class="route" id="page-fatigue" data-key="fatigue"><div class="subnav"><div class="subnav-inner"><a href="#/fatigue/fatigue">만성피로</a><a href="#/fatigue/injection">주사요법</a></div></div>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">만성피로</span>
+    </div>
+    <div class="page-hero-label">CHRONIC FATIGUE</div>
+    <h1 class="page-hero-title">쉬어도 풀리지 않는 피로,<br>몸의 균형을 회복하세요</h1>
+    <p class="page-hero-desc">충분히 쉬어도 회복되지 않는 만성피로. 한약·침 치료와 영양 주사요법으로 떨어진 활력을 되찾도록 돕습니다.</p>
+  </div>
+</section>
+<section class="page-section" id="fatigue-fatigue">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">만성피로</div>
+      <h2 class="ps-title">만성피로 클리닉</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>만성피로는 단순한 피곤함이 아니라 <strong>기혈 부족, 면역 저하, 자율신경 불균형</strong> 등 몸의 신호일 수 있습니다. 원인을 살펴 체질에 맞는 한약과 침 치료로 근본적인 회복을 돕습니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-battery"/></svg></span><span class="vp-num">01</span></div>
+</div><ul class="check-list rv"><li>자고 일어나도 개운하지 않음</li><li>오후만 되면 급격히 떨어지는 기력</li><li>집중력 저하와 잦은 두통</li><li>면역력 저하로 자주 아픔</li></ul>
+  </div>
+</section>
+<section class="page-section" id="fatigue-injection">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">만성피로</div>
+      <h2 class="ps-title">주사요법</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>비타민·영양 성분을 직접 공급하는 주사요법으로 <strong>빠른 활력 회복과 면역 보강</strong>을 돕습니다. 한방 치료와 병행해 시너지를 높입니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-syringe"/></svg></span><span class="vp-num">02</span></div>
+</div><div class="callout sky rv"><div class="callout-head">이런 분께 권합니다</div><div class="callout-body">장기간 피로가 누적된 분, 환절기 면역 관리가 필요한 분, 회복기 체력 보강이 필요한 분</div></div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">ENERGY</div>
+      <div class="cbt-title">떨어진 활력, 다시 채워드립니다</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+<div class="route" id="page-cancer" data-key="cancer">
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">암 자율신경 면역 클리닉</span>
+    </div>
+    <div class="page-hero-label">IMMUNE CARE</div>
+    <h1 class="page-hero-title">자율신경의 균형을 살피는<br>한방 면역 관리</h1>
+    <p class="page-hero-desc">암 치료 과정에서 떨어지는 체력과 면역, 흐트러지기 쉬운 자율신경의 균형을 한방으로 보강합니다. 표준 치료를 돕는 보조적 관리에 집중합니다.</p>
+  </div>
+</section>
+<section class="page-section" id="cancer-overview">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">암 자율신경 면역 클리닉</div>
+      <h2 class="ps-title">치료 과정을 견디는 힘을 더합니다</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>항암·방사선 치료 과정에서 나타나는 <strong>피로·소화장애·면역 저하</strong>와 흐트러진 자율신경의 균형을 한방으로 관리합니다. 환자 개인의 체질과 회복 상태에 맞춰 침·뜸·한약 처방으로 컨디션 유지를 돕습니다.</p><p>치료가 까다로운 환자의 체력 보강과 증상 완화를 함께 살피며, 식욕 저하와 전신 쇠약을 세심하게 관리합니다.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-leaf"/></svg></span><span class="vp-num">01</span></div>
+</div><ul class="check-list rv"><li>항암·방사선 치료 중 체력·식욕 관리</li><li>소화 장애 및 전신 증상 완화</li><li>자율신경 균형과 면역 컨디션 관리</li><li>개인 상태에 맞춘 한약 처방</li></ul>
+  <div class="callout coral rv"><div class="callout-head">안내</div><div class="callout-body">한방 면역 관리는 표준 암 치료를 대체하지 않으며, 주치의의 치료와 병행하는 보조적 관리입니다. 반드시 상담 후 진행합니다.</div></div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">IMMUNE</div>
+      <div class="cbt-title">면역 관리, 전문 상담이 먼저입니다</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+<div class="route" id="page-news" data-key="news"><div class="subnav"><div class="subnav-inner"><a href="#/news/notice">공지사항</a><a href="#/news/media">동영상·보도자료</a><a href="#/news/price">비급여 수가</a><a href="#/news/inquiry">진료 문의</a><a href="#/news/review">치료 후기</a></div></div>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="#/home">홈</a><span class="sep">/</span><span class="cur">병원소식</span>
+    </div>
+    <div class="page-hero-label">NEWS</div>
+    <h1 class="page-hero-title">두암한방병원 소식</h1>
+    <p class="page-hero-desc">진료 일정, 공지사항, 비급여 수가 안내와 치료 후기까지 — 병원의 새로운 소식을 전해드립니다.</p>
+  </div>
+</section>
+<section class="page-section" id="news-notice">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">병원소식</div>
+      <h2 class="ps-title">공지사항</h2>
+    </div>
+    <div class="notice-list"><div class="notice-row rv"><span class="nr-badge new">공지</span><span class="nr-title">공휴일 진료 일정 안내 — 방문 전 전화 문의 부탁드립니다</span><span class="nr-date">2025.05.20</span></div><div class="notice-row rv"><span class="nr-badge">안내</span><span class="nr-title">독감·대상포진·폐렴구균 예방접종 시행 안내</span><span class="nr-date">2025.04.15</span></div><div class="notice-row rv"><span class="nr-badge">안내</span><span class="nr-title">토요일 오전 진료 운영 안내 (09:00~12:30)</span><span class="nr-date">2025.03.02</span></div><div class="notice-row rv"><span class="nr-badge">공지</span><span class="nr-title">점심시간(12:00~14:00) 진료 중단 안내</span><span class="nr-date">2025.02.10</span></div></div>
+  </div>
+</section>
+<section class="page-section" id="news-media">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">병원소식</div>
+      <h2 class="ps-title">동영상 · 보도자료</h2>
+    </div>
+    <div class="info-grid">
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-film"/></svg></div>
+      <div class="ic-title">치료 소개 영상</div>
+      <div class="ic-desc">주요 치료법과 진료 과정을 영상으로 안내합니다. (준비 중)</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-news"/></svg></div>
+      <div class="ic-title">건강 칼럼</div>
+      <div class="ic-desc">척추·관절 건강과 한방 상식을 담은 칼럼을 연재할 예정입니다.</div>
+    </div>
+    <div class="info-card rv">
+      <div class="ic-icon"><svg class="icon"><use href="#i-camera"/></svg></div>
+      <div class="ic-title">병원 소식</div>
+      <div class="ic-desc">병원 행사와 새로운 소식을 사진으로 전합니다.</div>
+    </div></div>
+  </div>
+</section>
+<section class="page-section" id="news-price">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">병원소식</div>
+      <h2 class="ps-title">비급여 진료 수가 안내</h2>
+    </div>
+    <table class="price-table rv">
+      <thead><tr><th>항목</th><th>설명</th><th>비용</th></tr></thead>
+      <tbody>
+        <tr><td>한약 (첩약)</td><td>체질 맞춤 처방, 1개월 기준</td><td>상담 후 안내</td></tr>
+        <tr><td>약침 치료</td><td>경혈 약침 시술</td><td>상담 후 안내</td></tr>
+        <tr><td>추나요법</td><td>척추·관절 교정 (보험 적용 항목 별도)</td><td>상담 후 안내</td></tr>
+        <tr><td>매선 리프팅</td><td>안면 매선 시술</td><td>상담 후 안내</td></tr>
+        <tr><td>제증명서</td><td>진단서·통원확인서 등</td><td>항목별 상이</td></tr>
+      </tbody></table><div class="callout sky rv"><div class="callout-head">안내</div><div class="callout-body">비급여 수가는 환자의 상태와 처방 내용에 따라 달라집니다. 정확한 비용은 내원 상담 시 안내해 드립니다. (실제 게시 금액은 병원 정책에 맞게 수정해 주세요.)</div></div>
+  </div>
+</section>
+<section class="page-section" id="news-inquiry">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">병원소식</div>
+      <h2 class="ps-title">진료 문의</h2>
+    </div>
+    <div class="ps-grid2">
+      <div class="rv-l">
+        <p class="ps-lead">궁금한 점을 남겨주시면 확인 후 연락드립니다. 빠른 상담은 전화를 이용해 주세요.</p>
+        <div class="callout sky" style="margin-top:20px"><div class="callout-head">전화 문의</div><div class="callout-body">062-716-7160 (월~금 09:00–17:30 · 토 09:00–12:30)</div></div>
+      </div>
+      <form class="inquiry-form rv-r" onsubmit="alert('문의가 접수되었습니다. (데모 폼)');return false;">
+        <div class="field"><label>이름</label><input type="text" placeholder="성함을 입력해 주세요" required></div>
+        <div class="field"><label>연락처</label><input type="tel" placeholder="010-0000-0000" required></div>
+        <div class="field"><label>문의 내용</label><textarea placeholder="증상이나 궁금한 점을 적어주세요" required></textarea></div>
+        <p class="form-note">※ 본 양식은 데모이며 실제 전송 기능은 연동이 필요합니다.</p>
+        <button type="submit">문의 남기기</button>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="page-section" id="news-review">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">병원소식</div>
+      <h2 class="ps-title">치료 후기</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card rv"><div class="rc-stars">★★★★★</div><p class="rc-text">교통사고 후유증으로 고생했는데 침과 도수치료를 함께 받고 많이 좋아졌어요. 친절하게 설명해 주셔서 믿고 다녔습니다.</p><div class="rc-author">김** 님 · 교통사고 후유증</div></div>
+      <div class="review-card rv"><div class="rc-stars">★★★★★</div><p class="rc-text">허리디스크로 여러 곳을 다녀봤지만 여기가 제일 효과 좋았어요. 대기 시간도 짧고 만족합니다.</p><div class="rc-author">이** 님 · 허리디스크</div></div>
+      <div class="review-card rv"><div class="rc-stars">★★★★☆</div><p class="rc-text">토요일 진료가 있어 직장인에게 정말 편해요. 한약 먹고 만성피로가 한결 나아졌습니다.</p><div class="rc-author">박** 님 · 만성피로</div></div>
+    </div>
+    <div class="callout sky rv" style="margin-top:24px"><div class="callout-head">후기 안내</div><div class="callout-body">위 후기는 예시이며, 실제 환자 후기로 교체하실 수 있습니다. 네이버 지도 리뷰와 연동도 가능합니다.</div></div>
+  </div>
+</section>
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-band-text">
+      <div class="cbt-label">CONTACT</div>
+      <div class="cbt-title">궁금한 점은 언제든 전화 주세요</div>
+      <div class="cbt-tel">062-716-7160</div>
+    </div>
+    <a href="tel:062-716-7160" class="cta-band-btn"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약하기</a>
+  </div>
+</div></div>
+</main>
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="fb-name">두암한방병원</div>
+        <div class="fb-addr">
+          광주광역시 동구 갈마로 46 (산수동)<br>
+          대표전화: 062-716-7160
+        </div>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav-col">
+          <span class="fn-head">병원안내</span>
+          <a href="#/about/greeting">인사말</a>
+          <a href="#/about/doctors">의료진 소개</a>
+          <a href="#/about/facility">시설 안내</a>
+          <a href="#/about/location">오시는 길</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="fn-head">진료안내</span>
+          <a href="#/spine">척추관절</a>
+          <a href="#/rehab">수술 후 재활</a>
+          <a href="#/accident">교통사고클리닉</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="fn-head">클리닉</span>
+          <a href="#/women">여성 · 다이어트</a>
+          <a href="#/fatigue">만성피로</a>
+          <a href="#/cancer">암 자율신경 면역 클리닉</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="fn-head">소식</span>
+          <a href="#/news/notice">공지사항</a>
+          <a href="#/news/price">비급여 수가</a>
+          <a href="#/news/review">치료 후기</a>
+          <a href="#/news/inquiry">진료 문의</a>
+        </div>
+      </div>
+      <div class="footer-tel">
+        <div class="ft-num">062-716-7160</div>
+        <div class="ft-sub">월~금 09:00–17:30 · 토 09:00–12:30</div>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <span>© 2025 두암한방병원. All rights reserved.</span>
+      <span>광주광역시 동구 갈마로 46</span>
+    </div>
+  </div>
+</footer>
+<a href="tel:062-716-7160" class="float-btn" aria-label="전화 예약">
+  <span class="float-btn-label">전화 예약</span>
+  <svg class="icon"><use href="#i-phone"/></svg>
+</a>
+<script>
+(function(){
+  'use strict';
+  // ---- CURSOR ----
+  var dot=document.getElementById('curDot'), ring=document.getElementById('curRing');
+  if(dot&&ring&&window.matchMedia('(min-width:961px)').matches){
+    var mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+    (function loop(){rx+=(mx-rx)*0.13;ry+=(my-ry)*0.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.addEventListener('mouseover',function(e){if(e.target.closest('a,button'))ring.classList.add('hovered');});
+    document.addEventListener('mouseout',function(e){if(e.target.closest('a,button'))ring.classList.remove('hovered');});
+  }
+  // ---- NAV SHADOW ----
+  var nav=document.getElementById('mainNav');
+  if(nav){window.addEventListener('scroll',function(){nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(61,137,189,0.12)':'none';});}
+  // ---- DRAWER ----
+  var megaBtn=document.getElementById('megaBtn'), megaDrawer=document.getElementById('megaDrawer'), megaOverlay=document.getElementById('megaOverlay');
+  function openDrawer(){megaBtn.classList.add('open');megaDrawer.classList.add('open');megaOverlay.classList.add('open');megaDrawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+  function closeDrawer(){if(!megaBtn)return;megaBtn.classList.remove('open');megaDrawer.classList.remove('open');megaOverlay.classList.remove('open');megaDrawer.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  if(megaBtn){
+    megaBtn.addEventListener('click',function(){megaDrawer.classList.contains('open')?closeDrawer():openDrawer();});
+    megaOverlay.addEventListener('click',closeDrawer);
+    document.querySelectorAll('.drawer-parent').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var panel=document.getElementById(btn.dataset.target); if(!panel)return;
+        var isOpen=btn.classList.contains('active');
+        document.querySelectorAll('.drawer-parent.active').forEach(function(b){b.classList.remove('active');var p=document.getElementById(b.dataset.target);if(p)p.style.maxHeight='0';});
+        if(!isOpen){btn.classList.add('active');var inner=panel.querySelector('.drawer-children-inner');panel.style.maxHeight=(inner?inner.scrollHeight+16:panel.scrollHeight)+'px';}
+      });
+    });
+  }
+  function setDrawerActive(key){
+    document.querySelectorAll('.drawer-parent.active').forEach(function(b){b.classList.remove('active');var p=document.getElementById(b.dataset.target);if(p)p.style.maxHeight='0';});
+    var btn=document.querySelector('.drawer-parent[data-page="'+key+'"]');
+    if(btn){btn.classList.add('active');var panel=document.getElementById(btn.dataset.target);if(panel){var inner=panel.querySelector('.drawer-children-inner');panel.style.maxHeight=(inner?inner.scrollHeight+16:panel.scrollHeight)+'px';}}
+  }
+  // ---- HOME TABS ----
+  document.querySelectorAll('.stab-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var tab=btn.dataset.tab;
+      document.querySelectorAll('.stab-btn').forEach(function(b){b.classList.remove('active');});
+      document.querySelectorAll('.stab-panel').forEach(function(p){p.classList.remove('active');});
+      btn.classList.add('active');
+      var panel=document.getElementById('tab-'+tab); if(panel)panel.classList.add('active');
+    });
+  });
+  // ---- ROUTER ----
+  function showRoute(key,anchor){
+    var view=document.getElementById('page-'+key);
+    if(!view){key='home';view=document.getElementById('page-home');}
+    document.querySelectorAll('.route').forEach(function(r){r.classList.remove('active');});
+    view.classList.add('active');
+    view.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){el.classList.add('in');});
+    setDrawerActive(key);
+    if(anchor){
+      var t=document.getElementById(key+'-'+anchor);
+      if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-118,behavior:'auto'});return;}
+    }
+    window.scrollTo(0,0);
+  }
+  function parseHash(){
+    var h=location.hash.replace(/^#\/?/,'');
+    if(!h)return['home',null];
+    var p=h.split('/');
+    return[p[0]||'home',p[1]||null];
+  }
+  function route(){var p=parseHash();showRoute(p[0],p[1]);closeDrawer();}
+  window.addEventListener('hashchange',route);
+  route();
+  // ---- SUBNAV SCROLLSPY ----
+  window.addEventListener('scroll',function(){
+    var view=document.querySelector('.route.active'); if(!view)return;
+    var links=view.querySelectorAll('.subnav-inner a'); if(!links.length)return;
+    var key=view.dataset.key, pos=window.pageYOffset+150, current=null;
+    view.querySelectorAll('.page-section').forEach(function(sec){if(sec.offsetTop<=pos)current=sec.id;});
+    links.forEach(function(a){var aid=a.getAttribute('href').split('/').pop();a.classList.toggle('active',current===key+'-'+aid);});
+  });
+
+  // ---- 문장 단위 줄바꿈 (마침표 종결마다 <br>) ----
+  // 적용 대상: 문장형 긴 본문/설명 클래스 (제목·버튼·라벨·메뉴는 제외)
+  // 안전장치: 마침표 앞이 '한글/닫는괄호·인용부호'일 때만 줄바꿈 →
+  //   전화번호(062-716-7160)·소수점(0.95)·영문 약어(Q.)는 매칭되지 않음.
+  //   문단 끝(마침표 뒤 공백 없이 </p>·태그 종료)도 매칭 안 되어 빈 줄 안 생김.
+  (function(){
+    var sel='.ps-body, .ps-lead, .page-hero-desc, .hero-desc, .callout-body,'
+      +' .ic-desc, .pc-desc, .hc-desc, .tc-desc, .step-desc, .treat-card-body,'
+      +' .rc-text, .ai-body, .about-card-text, .ap-text, .form-note';
+    var re=/([가-힣)\]」』”’])\.\s+(?=\S)/g;
+    document.querySelectorAll(sel).forEach(function(el){
+      if(el.dataset.sbDone) return;
+      el.innerHTML=el.innerHTML.replace(re,'$1.<br>');
+      el.dataset.sbDone='1';
+    });
+  })();
+})();
+</script>
+</body>
+</html>

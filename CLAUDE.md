@@ -1,0 +1,57 @@
+# CLAUDE.md
+
+이 파일은 Claude Code가 이 저장소에서 작업할 때 자동으로 참고하는 가이드다.
+너는 이 저장소의 **웹사이트 개발 전담 담당자**다. 페이지 추가·수정·디자인·반응형·접근성·성능까지 전 과정을 책임지고 진행한다.
+
+## 프로젝트 개요
+
+- 광주 두암한방병원 웹사이트. 한방 + 일반진료 협진 병원 소개/진료 안내 사이트.
+- 대표 연락처: **062-716-7160** (모든 CTA·전화 링크는 이 번호로 통일)
+- 주소: 광주광역시 동구 갈마로 46 (산수동)
+- 메인 파일: `두암한방병원.html` (단일 HTML 파일, 빌드 과정 없음)
+
+## 기술 제약 (반드시 지킬 것)
+
+1. **단일 HTML 파일 구조 유지.** CSS·JS를 별도 파일로 분리하지 말고 `<style>`, `<script>`에 인라인으로 작성한다. (분리가 꼭 필요하면 먼저 물어본다.)
+2. **해시 기반 SPA 라우팅.** 페이지는 `<div class="route" id="page-KEY" data-key="KEY">` 단위로 나뉜다. 링크는 `#/key` 또는 `#/key/anchor` 형식이고, 앵커 타깃 id는 `KEY-anchor` 규칙(예: `#/about/doctors` → `id="about-doctors"`). 새 페이지를 추가하면 **라우터·드로어 메뉴·푸터 링크**도 함께 갱신한다.
+3. **외부 의존성 최소화.** 프레임워크·번들러·npm 패키지 도입 금지. 폰트는 기존 Google Fonts(Noto Sans KR / Noto Serif KR / DM Serif Display)만 사용.
+4. **디자인 토큰을 따른다.** 색상·반경·그림자는 `:root` CSS 변수(`--sky`, `--coral`, `--mint`, `--r-md`, `--shadow-sm` 등)를 재사용하고, 하드코딩 색상값을 새로 만들지 않는다.
+5. **기존 컴포넌트 클래스 재사용.** `.sec-label`, `.sec-title`, `.info-grid`, `.info-card`, `.check-list`, `.callout`, `.steps`, `.cta-band`, `.page-hero`, `.subnav`, `.rv/.rv-l/.rv-r`(스크롤 리빌) 등 이미 정의된 패턴을 우선 사용한다. 새 클래스는 꼭 필요할 때만.
+6. **반응형 유지.** 브레이크포인트 960px / 560px 기준으로 모바일에서도 깨지지 않게 확인한다. 모바일에서는 커스텀 커서가 꺼지므로(`cursor:auto`) 새 인터랙티브 요소도 동일 처리.
+7. **접근성.** 이미지 `alt`, 버튼 `aria-label`, 의미 있는 시맨틱 태그 사용. 색상 대비 확보.
+
+## 콘텐츠 작성 톤
+
+- 의료 정보는 과장·단정 표현을 피한다("완치", "100% 보장" 금지). "도움을 줍니다", "완화합니다" 수준으로 신중하게.
+- 한방 치료가 표준 치료를 대체하지 않는다는 점(특히 암면역클리닉)은 기존처럼 보조적 관리임을 명시.
+- 한국어 자연스러운 존대 문체. 환자 눈높이의 쉬운 설명.
+
+## 작업 방식
+
+1. 요청이 모호하면 **먼저 1~2개 핵심 질문**으로 의도를 확인한다(대상 페이지, 목적, 디자인 방향 등).
+2. 변경 전 어디를 어떻게 바꿀지 한 줄로 요약하고 진행한다.
+3. 실제 파일을 **직접 수정**한다(설명만 늘어놓지 않는다).
+4. 수정 후 ① 바뀐 부분 요약 ② 브라우저에서 확인할 라우트(예: `#/about/doctors`) ③ 반응형/링크 점검 결과를 간단히 보고한다.
+5. 큰 작업은 단계로 쪼개 진행 상황을 공유한다.
+
+## 하지 말 것
+
+- 기존 디자인 시스템과 동떨어진 색·폰트·레이아웃 임의 도입
+- 더미 lorem ipsum 방치 (실제 한국어 콘텐츠로 채울 것)
+- 연락처·주소·진료시간 등 사실 정보 임의 변경 (모르면 물어볼 것)
+- 한 번에 파일 전체를 통째로 재작성 (필요한 부분만 정밀 수정)
+
+## 라우트 구조 참고
+
+| key | 페이지 | 주요 앵커 |
+|-----|--------|-----------|
+| home | 홈 | hero / about / services / treatments / reviews / hours / access |
+| about | 병원소개 | greeting / doctors / facility / info / location / equipment / special-test |
+| spine | 척추관절 | herniated / degenerative / scoliosis / sprain / neck-disc / neck-deg / turtle |
+| rehab | 수술 후 재활 | exercise / chuna / manual / herb / inpatient / equipment |
+| accident | 교통사고클리닉 | overview / process / insurance / faq |
+| women | 여성·다이어트 | diet / postpartum / postdiet / menopause |
+| face | 안면비대칭·여드름 | asymmetry / lifting / acne |
+| fatigue | 만성피로 | fatigue / injection |
+| cancer | 암면역클리닉 | womencancer / pancreatic |
+| news | 병원소식 | notice / media / price / inquiry / review |
