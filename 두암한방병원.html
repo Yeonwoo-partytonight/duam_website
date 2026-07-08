@@ -536,6 +536,12 @@ section { padding: 96px 28px; }
 .footer-tel { text-align: right; }
 .footer-tel .ft-num { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--sky-light); }
 .footer-tel .ft-sub { font-size: 0.72rem; margin-top: 2px; }
+.footer-social { display: flex; flex-direction: column; gap: 10px; }
+.footer-social .fs-head { font-size: 0.76rem; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
+.footer-social .fs-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.footer-social .fs-link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px; border-radius: var(--r-md); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); font-size: 0.74rem; font-weight: 500; transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s; }
+.footer-social .fs-link svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.footer-social .fs-link:hover { background: rgba(255,255,255,0.1); border-color: var(--sky-light); color: white; transform: translateY(-2px); }
 .footer-divider { height: 1px; background: rgba(255,255,255,0.08); }
 .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.72rem; }
 /* ============================================================
@@ -717,7 +723,7 @@ section { padding: 96px 28px; }
   .cta-band-inner { flex-direction: column; align-items: flex-start; }
   body { cursor: auto; }
   .cur-dot, .cur-ring { display: none; }
-  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row { cursor: auto; }
+  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .fs-link, .btn-primary, .btn-outline { cursor: auto; }
 }
 @media (max-width: 560px) {
   section { padding: 64px 20px; }
@@ -823,6 +829,9 @@ section { padding: 96px 28px; }
   <symbol id="i-doctor" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.2"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/><path d="M12 13v3M10.5 14.5h3"/></symbol>
   <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></symbol>
   <symbol id="i-face" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M8.5 14a4 4 0 0 0 7 0"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.6" cy="7.4" r="1"/></symbol>
+  <symbol id="i-blog" viewBox="0 0 24 24"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v5h5"/><path d="M7.5 13h7M7.5 16.5h5"/></symbol>
+  <symbol id="i-talk" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.8V16H5.5A1.5 1.5 0 0 1 4 14.5z"/><path d="M8 8.5h8M8 11.5h5"/></symbol>
 </svg>
 <div class="cur-dot" id="curDot"></div>
 <div class="cur-ring" id="curRing"></div>
@@ -1788,6 +1797,10 @@ section { padding: 96px 28px; }
       <div class="rv-l">
         <p class="ps-lead">궁금한 점을 남겨주시면 확인 후 연락드립니다. 빠른 상담은 전화를 이용해 주세요.</p>
         <div class="callout sky" style="margin-top:20px"><div class="callout-head">전화 문의</div><div class="callout-body">062-716-7160 (월~금 09:00–17:30 · 토 09:00–12:30)</div></div>
+        <div class="hero-btns" style="margin-top:20px">
+          <a href="tel:062-716-7160" class="btn-primary" aria-label="062-716-7160으로 전화하기"><svg class="icon"><use href="#i-phone"/></svg> 전화 상담하기</a>
+          <a href="https://talk.naver.com/ct/w4dd84" class="btn-outline" target="_blank" rel="noopener" aria-label="네이버 톡톡으로 상담하기 (새 창)"><svg class="icon"><use href="#i-talk"/></svg> 네이버 톡톡으로 상담하기</a>
+        </div>
       </div>
       <form class="inquiry-form rv-r" onsubmit="alert('문의가 접수되었습니다. (데모 폼)');return false;">
         <div class="field"><label>이름</label><input type="text" placeholder="성함을 입력해 주세요" required></div>
@@ -1839,6 +1852,14 @@ section { padding: 96px 28px; }
       <div class="footer-tel">
         <div class="ft-num">062-716-7160</div>
         <div class="ft-sub">월~금 09:00–17:30 · 토 09:00–12:30</div>
+      </div>
+    </div>
+    <div class="footer-social">
+      <span class="fs-head">온라인 채널</span>
+      <div class="fs-links">
+        <a href="https://blog.naver.com/7167160" class="fs-link" target="_blank" rel="noopener" aria-label="두암한방병원 네이버 블로그 (새 창)"><svg><use href="#i-blog"/></svg>네이버 블로그</a>
+        <a href="https://www.instagram.com/duamhospital/" class="fs-link" target="_blank" rel="noopener" aria-label="두암한방병원 인스타그램 (새 창)"><svg><use href="#i-instagram"/></svg>인스타그램</a>
+        <a href="https://talk.naver.com/ct/w4dd84" class="fs-link" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담 (새 창)"><svg><use href="#i-talk"/></svg>네이버 톡톡 상담</a>
       </div>
     </div>
     <div class="footer-divider"></div>
