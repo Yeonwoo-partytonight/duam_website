@@ -634,11 +634,11 @@ section { padding: 96px 28px; }
 .dp-photo { position: relative; border-radius: var(--r-lg); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); aspect-ratio: 4/5; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
 .dp-photo img { width: 90%; max-width: 400px; height: auto; display: block; filter: drop-shadow(0 14px 28px rgba(61,137,189,0.20)); }
 .dp-body { padding: 4px 0; }
-.dp-name { font-family: 'Noto Serif KR', serif; font-size: clamp(1.55rem, 3vw, 2.1rem); font-weight: 600; color: var(--text); letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.3; }
 .dp-role { display: inline-block; font-size: 0.8rem; font-weight: 500; color: var(--sky2); background: var(--sky-pale); border-radius: var(--r-pill); padding: 5px 15px; margin-bottom: 18px; }
 .dp-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.9; }
 .dp-desc p { margin-bottom: 14px; }
 .dp-desc p:last-child { margin-bottom: 0; }
+.dp-sign { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); font-family: 'Noto Serif KR', serif; font-size: 0.98rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
 /* 시설 사진 카드 */
 .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
 .photo-card { margin: 0; position: relative; aspect-ratio: 3/4; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); transition: box-shadow 0.22s, transform 0.22s; }
@@ -1163,20 +1163,8 @@ section { padding: 96px 28px; }
 <section class="page-section" id="about-greeting">
   <div class="ps-inner">
     <div class="ps-head rv">
-      <div class="sec-label">인사말</div>
-      <h2 class="ps-title">따뜻한 마음으로 진료하겠습니다</h2>
-    </div>
-    <div class="ps-grid2">
-  <div class="ps-body rv-l"><p>안녕하십니까. 두암한방병원 홈페이지를 찾아주셔서 감사합니다.</p><p>저희 병원은 <strong>한방 진료와 일반 진료를 함께 운영하는 협진 시스템</strong>을 통해 환자분의 증상을 다각도로 살피고, 가장 효과적인 치료 방향을 함께 고민합니다. 2대에 걸쳐 축적된 한방 임상 경험과 처방 노하우를 바탕으로, 단순히 통증을 완화하는 데 그치지 않고 <strong>근본적인 회복</strong>을 목표로 합니다.</p><p>척추·관절 질환, 교통사고 후유증, 여성 질환, 만성피로에 이르기까지 폭넓은 진료를 제공하며, 바쁜 분들을 위해 토요일 오전 진료도 운영하고 있습니다. 언제나 환자의 입장에서 듣고, 정성껏 치료하겠습니다.</p></div>
-  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-hands"/></svg></span><span class="vp-num">9</span></div>
-</div>
-  </div>
-</section>
-<section class="page-section" id="about-doctors">
-  <div class="ps-inner">
-    <div class="ps-head rv">
-      <div class="sec-label">의료진 소개</div>
-      <h2 class="ps-title">경험과 신뢰의 의료진</h2>
+      <div class="sec-label">병원장 인사말</div>
+      <h2 class="ps-title">2대째, 정직한 진료로 곁을 지키겠습니다</h2>
     </div>
     <div class="ps-grid2 doctor-profile">
       <div class="dp-photo rv-l">
@@ -1186,13 +1174,23 @@ section { padding: 96px 28px; }
         </picture>
       </div>
       <div class="dp-body rv-r">
-        <div class="dp-role">병원장</div>
-        <h3 class="dp-name">배광희</h3>
+        <div class="dp-role">병원장의 말</div>
         <div class="dp-desc">
-          <p>2대에 걸쳐 이어온 한방 임상 경험과 처방 노하우를 바탕으로, 환자 한 분 한 분의 증상을 세심하게 살핍니다.</p>
-          <p>한방 진료와 일반 진료를 아우르는 협진 시스템을 통해 통증 완화에 그치지 않고 근본적인 회복을 목표로, 환자의 입장에서 듣고 정성껏 진료하겠습니다.</p>
+          <p>안녕하세요, 두암한방병원 병원장 배광희입니다.</p>
+          <p>아버지의 진료실을 어깨너머로 보며 자란 제가, 이제 2대째 이 자리에서 환자분들을 만나고 있습니다. 오랜 시간 산수동과 두암동 이웃들의 아픈 곳을 살펴온 만큼, 저희에게 환자분들은 진료 대상이 아니라 오래 알고 지낸 이웃입니다.</p>
+          <p>두암한방병원은 한방과 일반진료 협진을 통해 정확한 진단 위에 한방 치료를 더하고 있습니다. 화려한 약속보다는, 꾸준하고 정직한 진료로 회복을 돕겠다는 마음 하나로 진료에 임하겠습니다.</p>
+          <p>언제든 편하게 찾아주세요. 감사합니다.</p>
         </div>
+        <div class="dp-sign">두암한방병원 병원장 배광희</div>
       </div>
+    </div>
+  </div>
+</section>
+<section class="page-section" id="about-doctors">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">의료진 소개</div>
+      <h2 class="ps-title">경험과 신뢰의 의료진</h2>
     </div>
     <div class="info-grid">
     <div class="info-card rv">
