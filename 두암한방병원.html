@@ -634,6 +634,7 @@ section { padding: 96px 28px; }
 .dp-photo { position: relative; border-radius: var(--r-lg); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); aspect-ratio: 4/5; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
 .dp-photo img { width: 90%; max-width: 400px; height: auto; display: block; filter: drop-shadow(0 14px 28px rgba(61,137,189,0.20)); }
 .dp-body { padding: 4px 0; }
+.dp-name { font-family: 'Noto Serif KR', serif; font-size: clamp(1.55rem, 3vw, 2.1rem); font-weight: 600; color: var(--text); letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.3; }
 .dp-role { display: inline-block; font-size: 0.8rem; font-weight: 500; color: var(--sky2); background: var(--sky-pale); border-radius: var(--r-pill); padding: 5px 15px; margin-bottom: 18px; }
 .dp-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.9; }
 .dp-desc p { margin-bottom: 14px; }
@@ -1191,6 +1192,22 @@ section { padding: 96px 28px; }
     <div class="ps-head rv">
       <div class="sec-label">의료진 소개</div>
       <h2 class="ps-title">경험과 신뢰의 의료진</h2>
+    </div>
+    <div class="ps-grid2 doctor-profile">
+      <div class="dp-photo rv-l">
+        <picture>
+          <source srcset="두암한방병원/doctor-bae.webp" type="image/webp">
+          <img src="두암한방병원/doctor-bae.png" alt="두암한방병원 병원장 배광희" loading="lazy">
+        </picture>
+      </div>
+      <div class="dp-body rv-r">
+        <div class="dp-role">병원장</div>
+        <h3 class="dp-name">배광희</h3>
+        <div class="dp-desc">
+          <p>2대에 걸쳐 이어온 한방 임상 경험과 처방 노하우를 바탕으로, 환자 한 분 한 분의 증상을 세심하게 살핍니다.</p>
+          <p>한방 진료와 일반 진료를 아우르는 협진 시스템을 통해 통증 완화에 그치지 않고 근본적인 회복을 목표로, 환자의 입장에서 듣고 정성껏 진료하겠습니다.</p>
+        </div>
+      </div>
     </div>
     <div class="info-grid">
     <div class="info-card rv">
