@@ -547,16 +547,24 @@ section { padding: 96px 28px; }
 /* ============================================================
    FLOATING BUTTON
 ============================================================ */
+.float-stack {
+  position: fixed; bottom: 30px; right: 30px; z-index: 800;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
 .float-btn {
-  position: fixed; bottom: 30px; right: 30px;
+  position: relative;
   width: 54px; height: 54px; border-radius: 50%;
   background: var(--coral); color: white;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 6px 24px rgba(240,123,110,0.4);
-  z-index: 800; font-size: 1.3rem;
+  font-size: 1.3rem;
   transition: transform 0.2s, box-shadow 0.2s; cursor: none;
 }
 .float-btn:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(240,123,110,0.5); }
+.float-btn.talk { background: var(--sky); box-shadow: 0 6px 24px rgba(91,164,207,0.4); }
+.float-btn.talk:hover { box-shadow: 0 10px 30px rgba(91,164,207,0.5); }
+.float-btn.kakao { background: #FAE100; color: #3C1E1E; box-shadow: 0 6px 24px rgba(250,225,0,0.4); }
+.float-btn.kakao:hover { box-shadow: 0 10px 30px rgba(250,225,0,0.5); }
 .float-btn-label {
   position: absolute; right: 62px;
   background: var(--text); color: white;
@@ -740,6 +748,8 @@ section { padding: 96px 28px; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .steps { grid-template-columns: 1fr; }
   .nav-tel { display: none; }
+  .float-stack { bottom: 20px; right: 18px; gap: 12px; }
+  .float-btn { width: 48px; height: 48px; font-size: 1.15rem; }
 }
 /* 긴 문장형 텍스트 줄바꿈 보정
    - 공통(전 화면): overflow-wrap으로 긴 토큰 가로 넘침만 최소 보정
@@ -1869,10 +1879,23 @@ section { padding: 96px 28px; }
     </div>
   </div>
 </footer>
-<a href="tel:062-716-7160" class="float-btn" aria-label="전화 예약">
-  <span class="float-btn-label">전화 예약</span>
-  <svg class="icon"><use href="#i-phone"/></svg>
-</a>
+<div class="float-stack">
+  <!-- 카카오톡 채널 주소 확정 시 아래 주석을 해제하면 바로 활성화됩니다 (href의 CHANNEL_ID만 교체). -->
+  <!--
+  <a href="https://pf.kakao.com/CHANNEL_ID/chat" class="float-btn kakao" target="_blank" rel="noopener" aria-label="카카오톡 상담 (새 창)">
+    <span class="float-btn-label">카카오톡 상담</span>
+    <svg class="icon"><use href="#i-talk"/></svg>
+  </a>
+  -->
+  <a href="https://talk.naver.com/ct/w4dd84" class="float-btn talk" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담 (새 창)">
+    <span class="float-btn-label">네이버 톡톡 상담</span>
+    <svg class="icon"><use href="#i-talk"/></svg>
+  </a>
+  <a href="tel:062-716-7160" class="float-btn" aria-label="전화 예약">
+    <span class="float-btn-label">전화 예약</span>
+    <svg class="icon"><use href="#i-phone"/></svg>
+  </a>
+</div>
 <script>
 (function(){
   'use strict';
