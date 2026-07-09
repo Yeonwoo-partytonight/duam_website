@@ -639,6 +639,17 @@ section { padding: 96px 28px; }
 .dp-desc p { margin-bottom: 14px; }
 .dp-desc p:last-child { margin-bottom: 0; }
 .dp-sign { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); font-family: 'Noto Serif KR', serif; font-size: 0.98rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+/* 의료진 소개 프로필 카드 (사진) */
+.doc-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 8px; }
+.doc-card { background: white; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s; }
+.doc-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: var(--sky-light); }
+.doc-photo { position: relative; aspect-ratio: 4/5; background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+.doc-photo img { width: auto; max-width: 92%; height: 96%; object-fit: contain; object-position: bottom center; display: block; filter: drop-shadow(0 12px 24px rgba(61,137,189,0.18)); }
+.doc-info { padding: 22px 26px 26px; }
+.doc-dept { display: inline-block; font-size: 0.78rem; font-weight: 500; color: var(--sky2); background: var(--sky-pale); border-radius: var(--r-pill); padding: 5px 14px; margin-bottom: 13px; }
+.doc-name { font-family: 'Noto Serif KR', serif; font-size: 1.18rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin-bottom: 11px; }
+.doc-name span { font-size: 0.85rem; font-weight: 500; color: var(--text-mid); }
+.doc-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.85; }
 /* 시설 사진 카드 */
 .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
 .photo-card { margin: 0; position: relative; aspect-ratio: 3/4; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); transition: box-shadow 0.22s, transform 0.22s; }
@@ -756,6 +767,7 @@ section { padding: 96px 28px; }
   .page-section { padding: 52px 20px; }
   .page-hero { padding: 52px 20px 44px; }
   .info-grid, .info-grid.cols-2, .info-grid.cols-4 { grid-template-columns: 1fr; }
+  .doc-cards { grid-template-columns: 1fr; gap: 18px; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .steps { grid-template-columns: 1fr; }
   .nav-tel { display: none; }
@@ -1192,21 +1204,32 @@ section { padding: 96px 28px; }
       <div class="sec-label">의료진 소개</div>
       <h2 class="ps-title">경험과 신뢰의 의료진</h2>
     </div>
-    <div class="info-grid">
-    <div class="info-card rv">
-      <div class="ic-icon"><svg class="icon"><use href="#i-doctor"/></svg></div>
-      <div class="ic-title">한방 진료 원장</div>
-      <div class="ic-desc">2대째 이어온 한방 임상 경험을 바탕으로 침구·한약·추나 치료를 담당합니다.</div>
+    <div class="doc-cards">
+    <div class="doc-card rv-l">
+      <div class="doc-photo">
+        <picture>
+          <source srcset="두암한방병원/doctor-kwon.webp" type="image/webp">
+          <img src="두암한방병원/doctor-kwon.png" alt="두암한방병원 한방 2과 권윤희 원장" loading="lazy">
+        </picture>
+      </div>
+      <div class="doc-info">
+        <span class="doc-dept">한방 2과</span>
+        <div class="doc-name">권윤희 <span>원장</span></div>
+        <p class="doc-desc">침구·한약·추나 등 한방 치료를 담당합니다. 환자 한 분 한 분의 상태에 맞춰 치료 계획을 세워 회복을 돕습니다.</p>
+      </div>
     </div>
-    <div class="info-card rv">
-      <div class="ic-icon"><svg class="icon"><use href="#i-stethoscope"/></svg></div>
-      <div class="ic-title">일반 진료 원장</div>
-      <div class="ic-desc">정형·내과 협진을 통해 정확한 진단과 통합 치료 계획을 수립합니다.</div>
-    </div>
-    <div class="info-card rv">
-      <div class="ic-icon"><svg class="icon"><use href="#i-person"/></svg></div>
-      <div class="ic-title">치료 전담 스태프</div>
-      <div class="ic-desc">물리치료사·운동치료사 등 전문 인력이 1:1 맞춤 재활을 지원합니다.</div>
+    <div class="doc-card rv-r">
+      <div class="doc-photo">
+        <picture>
+          <source srcset="두암한방병원/doctor-choi.webp" type="image/webp">
+          <img src="두암한방병원/doctor-choi.png" alt="두암한방병원 일반진료 최종구 원장" loading="lazy">
+        </picture>
+      </div>
+      <div class="doc-info">
+        <span class="doc-dept">일반진료</span>
+        <div class="doc-name">최종구 <span>원장</span></div>
+        <p class="doc-desc">일반진료와 한·양방 협진을 담당합니다. 정확한 진단을 바탕으로 통합 치료 계획을 세워 환자를 살핍니다.</p>
+      </div>
     </div></div>
   </div>
 </section>
