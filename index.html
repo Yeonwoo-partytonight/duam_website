@@ -134,6 +134,40 @@ ul { list-style: none; }
   transition: background 0.2s, transform 0.15s;
 }
 .nav-cta:hover { background: var(--coral2); transform: translateY(-1px); }
+/* GNB (데스크톱 상시 노출 메뉴) */
+.nav-gnb { display: flex; align-items: center; gap: 2px; }
+.gnb-link {
+  font-family: inherit; font-size: 0.9rem; font-weight: 500; color: var(--text);
+  letter-spacing: -0.01em; padding: 8px 15px; border-radius: var(--r-pill);
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: none; cursor: none;
+  transition: color 0.2s, background 0.2s;
+}
+.gnb-link:hover, .gnb-link:focus-visible { color: var(--sky2); background: var(--sky-pale); }
+.gnb-link.active { color: var(--sky2); font-weight: 600; }
+.gnb-item { position: relative; }
+.gnb-caret { width: 11px; height: 11px; color: var(--text-mid); transition: transform 0.22s; }
+.gnb-item:hover .gnb-caret, .gnb-toggle[aria-expanded="true"] .gnb-caret { transform: rotate(180deg); }
+.gnb-drop {
+  position: absolute; top: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  min-width: 210px; background: white;
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  box-shadow: var(--shadow-md); padding: 8px; z-index: 20;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.gnb-drop::before { content: ''; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.gnb-item:hover .gnb-drop, .gnb-item:focus-within .gnb-drop, .gnb-drop.open {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+.gnb-drop a {
+  display: block; font-size: 0.85rem; color: var(--text-mid);
+  padding: 9px 14px; border-radius: var(--r-sm); white-space: nowrap; cursor: none;
+  transition: background 0.18s, color 0.18s;
+}
+.gnb-drop a:hover, .gnb-drop a:focus-visible { background: var(--sky-pale); color: var(--sky2); }
+.gnb-drop a.active { color: var(--sky2); font-weight: 600; }
 .nav-burger {
   width: 40px; height: 40px; border: none; background: none;
   cursor: none; display: flex; flex-direction: column;
@@ -751,9 +785,13 @@ section { padding: 96px 28px; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .cta-band-inner { flex-direction: column; align-items: flex-start; }
+  .nav-gnb { display: none; }
   body { cursor: auto; }
   .cur-dot, .cur-ring { display: none; }
-  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .fs-link, .btn-primary, .btn-outline { cursor: auto; }
+  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .fs-link, .btn-primary, .btn-outline, .gnb-link, .gnb-drop a { cursor: auto; }
+}
+@media (max-width: 1080px) {
+  .nav-tel { display: none; }
 }
 @media (max-width: 560px) {
   section { padding: 64px 20px; }
@@ -881,6 +919,21 @@ section { padding: 96px 28px; }
         <span class="logo-sub">DUAM ORIENTAL MEDICINE</span>
       </div>
     </a>
+    <nav class="nav-gnb" aria-label="주요 메뉴">
+      <a href="#/about" class="gnb-link" data-page="about">병원소개</a>
+      <div class="gnb-item gnb-has-drop">
+        <button type="button" class="gnb-link gnb-toggle" aria-haspopup="true" aria-expanded="false">진료클리닉<svg class="gnb-caret" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="gnb-drop" role="menu">
+          <a href="#/spine" role="menuitem" data-page="spine">척추관절</a>
+          <a href="#/rehab" role="menuitem" data-page="rehab">수술 후 재활</a>
+          <a href="#/accident" role="menuitem" data-page="accident">교통사고 클리닉</a>
+          <a href="#/women" role="menuitem" data-page="women">여성 · 다이어트</a>
+          <a href="#/fatigue" role="menuitem" data-page="fatigue">만성피로</a>
+          <a href="#/cancer" role="menuitem" data-page="cancer">암 자율신경 면역 클리닉</a>
+        </div>
+      </div>
+      <a href="#/news" class="gnb-link" data-page="news">공지사항</a>
+    </nav>
     <div class="nav-right">
       <a href="tel:062-716-7160" class="nav-tel"><svg class="icon"><use href="#i-phone"/></svg> 062-716-7160</a>
       <a href="tel:062-716-7160" class="nav-cta">전화 예약</a>
@@ -2088,6 +2141,23 @@ section { padding: 96px 28px; }
   // ---- NAV SHADOW ----
   var nav=document.getElementById('mainNav');
   if(nav){window.addEventListener('scroll',function(){nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(61,137,189,0.12)':'none';});}
+  // ---- GNB 드롭다운 (호버 + 키보드 포커스) ----
+  var CLINIC_KEYS=['spine','rehab','accident','women','fatigue','cancer'];
+  document.querySelectorAll('.gnb-has-drop').forEach(function(item){
+    var toggle=item.querySelector('.gnb-toggle'), drop=item.querySelector('.gnb-drop');
+    function openDrop(){drop.classList.add('open');toggle.setAttribute('aria-expanded','true');}
+    function closeDrop(){drop.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
+    toggle.addEventListener('click',function(e){e.preventDefault();drop.classList.contains('open')?closeDrop():openDrop();});
+    item.addEventListener('keydown',function(e){if(e.key==='Escape'){closeDrop();toggle.focus();}});
+    item.addEventListener('focusout',function(e){if(!item.contains(e.relatedTarget))closeDrop();});
+    drop.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeDrop);});
+  });
+  function setGnbActive(key){
+    document.querySelectorAll('.nav-gnb .gnb-link, .gnb-drop a').forEach(function(el){el.classList.remove('active');});
+    document.querySelectorAll('.nav-gnb [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
+    var t=document.querySelector('.gnb-toggle');
+    if(t&&CLINIC_KEYS.indexOf(key)>-1)t.classList.add('active');
+  }
   // ---- DRAWER ----
   var megaBtn=document.getElementById('megaBtn'), megaDrawer=document.getElementById('megaDrawer'), megaOverlay=document.getElementById('megaOverlay');
   function openDrawer(){megaBtn.classList.add('open');megaDrawer.classList.add('open');megaOverlay.classList.add('open');megaDrawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
@@ -2127,6 +2197,7 @@ section { padding: 96px 28px; }
     view.classList.add('active');
     view.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){el.classList.add('in');});
     setDrawerActive(key);
+    setGnbActive(key);
     if(anchor){
       var t=document.getElementById(key+'-'+anchor);
       if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-118,behavior:'auto'});return;}
