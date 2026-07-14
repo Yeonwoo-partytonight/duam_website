@@ -546,6 +546,8 @@ section { padding: 96px 28px; }
 .svc-icon { font-size: 1.5rem; margin-bottom: 12px; }
 .svc-name { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
 .svc-note { font-size: 0.75rem; color: var(--text-light); }
+.svc-taglist { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.svc-tag { background: var(--sky-pale); color: var(--sky2); font-size: 0.85rem; font-weight: 500; padding: 9px 16px; border-radius: var(--r-pill); border: 1px solid var(--sky-light); }
 /* ============================================================
    TREATMENTS (홈)
 ============================================================ */
@@ -715,6 +717,7 @@ section { padding: 96px 28px; }
 .ps-body { font-size: 0.9rem; color: var(--text-mid); line-height: 1.9; max-width: 820px; }
 .ps-body p { margin-bottom: 16px; }
 .ps-body strong { color: var(--text); font-weight: 600; }
+.ps-note { font-size: 0.82rem; color: var(--text-light); line-height: 1.75; margin-top: 6px; }
 /* 2열 레이아웃 */
 .ps-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; margin-top: 8px; }
 /* 정보 카드 그리드 */
@@ -1169,21 +1172,23 @@ section { padding: 96px 28px; }
       </div>
     </div>
     <div class="stab-panel" id="tab-vaccine">
-      <div class="services-grid">
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-syringe"/></svg></div><div class="svc-name">독감 예방접종</div><div class="svc-note">인플루엔자 예방</div></div>
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-shield"/></svg></div><div class="svc-name">대상포진 예방접종</div><div class="svc-note">대상포진 예방</div></div>
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-lungs"/></svg></div><div class="svc-name">폐렴구균 예방접종</div><div class="svc-note">폐렴 예방</div></div>
+      <div class="svc-taglist rv">
+        <span class="svc-tag">독감(인플루엔자)</span>
+        <span class="svc-tag">대상포진</span>
+        <span class="svc-tag">폐렴구균</span>
       </div>
+      <p class="ps-note rv">계절·연령에 따라 권장 접종이 다르므로 방문 전 전화로 문의해 주세요.</p>
     </div>
     <div class="stab-panel" id="tab-docs">
-      <div class="services-grid">
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-clipboard"/></svg></div><div class="svc-name">진단서</div><div class="svc-note">일반 진단서</div></div>
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-shield"/></svg></div><div class="svc-name">병사용 진단서</div><div class="svc-note">입영 관련</div></div>
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-bandage"/></svg></div><div class="svc-name">상해 진단서</div><div class="svc-note">사고·상해</div></div>
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-hospital"/></svg></div><div class="svc-name">입퇴원 확인서</div><div class="svc-note">입원 서류</div></div>
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-calendar"/></svg></div><div class="svc-name">통원 확인서</div><div class="svc-note">통원 기록</div></div>
-        <div class="svc-card"><div class="svc-icon"><svg class="icon"><use href="#i-folder"/></svg></div><div class="svc-name">진료 기록 사본</div><div class="svc-note">의료 기록</div></div>
+      <div class="svc-taglist rv">
+        <span class="svc-tag">진단서</span>
+        <span class="svc-tag">병사용 진단서</span>
+        <span class="svc-tag">상해 진단서</span>
+        <span class="svc-tag">입퇴원 확인서</span>
+        <span class="svc-tag">통원 확인서</span>
+        <span class="svc-tag">진료 기록 사본</span>
       </div>
+      <p class="ps-note rv">그 밖의 서류도 발급 가능하며, 자세한 내용은 접수처에 문의해 주세요.</p>
     </div>
   </div>
 </section>
@@ -1644,9 +1649,9 @@ section { padding: 96px 28px; }
       <h2 class="ps-title">수술 후 맞춤 한약처방</h2>
     </div>
     <div class="ps-grid2">
-  <div class="ps-body rv-l"><p>수술로 약해진 기력과 회복력을 보강하기 위해 <strong>개인 체질과 회복 상태에 맞춘 한약을 처방</strong>합니다. 어혈 제거, 면역력 회복, 조직 재생에 도움을 줍니다.</p></div>
+  <div class="ps-body rv-l"><p>수술로 약해진 기력과 회복력을 보강하기 위해 <strong>개인 체질과 회복 상태에 맞춘 한약을 처방</strong>합니다. 어혈 제거, 면역력 회복, 조직 재생에 도움을 줍니다.</p><p class="ps-note">체질 진단과 회복 상태 확인 후 처방하므로, 내원 상담을 권장합니다.</p></div>
   <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-leaf"/></svg></span><span class="vp-num">03</span></div>
-</div><div class="callout coral rv"><div class="callout-head">처방 전 상담</div><div class="callout-body">체질 진단과 회복 상태 확인 후 처방하므로, 내원 상담을 권장합니다.</div></div>
+</div>
   </div>
 </section>
 <section class="page-section" id="rehab-inpatient">
@@ -1667,27 +1672,14 @@ section { padding: 96px 28px; }
       <div class="sec-label">수술 후 재활</div>
       <h2 class="ps-title">재활 장비 소개</h2>
     </div>
-    <div class="info-grid cols-4">
-    <div class="info-card rv">
-      <div class="ic-icon"><svg class="icon"><use href="#i-arrows-v"/></svg></div>
-      <div class="ic-title">척추 견인기</div>
-      <div class="ic-desc">감압 견인으로 디스크 부담을 줄입니다.</div>
-    </div>
-    <div class="info-card rv">
-      <div class="ic-icon"><svg class="icon"><use href="#i-burst"/></svg></div>
-      <div class="ic-title">체외충격파</div>
-      <div class="ic-desc">만성 통증·염증 부위를 음파로 치료합니다.</div>
-    </div>
-    <div class="info-card rv">
-      <div class="ic-icon"><svg class="icon"><use href="#i-bolt"/></svg></div>
-      <div class="ic-title">전기 자극 치료기</div>
-      <div class="ic-desc">근육 이완과 통증 완화를 돕습니다.</div>
-    </div>
-    <div class="info-card rv">
-      <div class="ic-icon"><svg class="icon"><use href="#i-leg"/></svg></div>
-      <div class="ic-title">운동치료 기구</div>
-      <div class="ic-desc">단계별 근력·균형 회복을 위한 전문 기구</div>
-    </div></div>
+    <div class="ps-body rv"><p>수술 후 회복 단계에 맞춰 재활 장비를 활용해 <strong>통증 완화와 근력·균형 회복</strong>을 돕습니다. 상태에 따라 다음 장비를 병행합니다.</p></div>
+    <ul class="check-list rv">
+      <li>척추 견인기 — 감압 견인으로 디스크 부담 완화</li>
+      <li>체외충격파 — 만성 통증·염증 부위 치료</li>
+      <li>전기 자극 치료기 — 근육 이완과 통증 완화</li>
+      <li>운동치료 기구 — 단계별 근력·균형 회복</li>
+    </ul>
+    <p class="ps-note rv">자세한 장비 안내는 <a href="#/about/equipment" style="color:var(--sky2);font-weight:600">병원소개 &gt; 의료장비</a>에서 확인하실 수 있습니다.</p>
   </div>
 </section>
 <div class="cta-band">
@@ -1755,7 +1747,32 @@ section { padding: 96px 28px; }
       <div class="sec-label">교통사고클리닉</div>
       <h2 class="ps-title">자주 묻는 질문</h2>
     </div>
-    <div class="callout sky rv"><div class="callout-head">Q. 접수번호가 없어도 치료가 되나요?</div><div class="callout-body">네, 먼저 내원해 상담 후 보험사 접수를 진행할 수 있습니다.</div></div><div class="callout sky rv"><div class="callout-head">Q. 한방 치료도 보험 처리가 되나요?</div><div class="callout-body">침·약침·추나·한약 등 교통사고 한방 치료도 자동차보험 적용 대상입니다.</div></div><div class="callout sky rv"><div class="callout-head">Q. 통원 치료만 가능한가요?</div><div class="callout-body">통원과 입원 모두 가능하며, 증상에 따라 의료진과 상의해 결정합니다.</div></div>
+    <div class="col-list">
+      <details class="col-item rv">
+        <summary class="col-sum">
+          <span class="col-tag">Q</span>
+          <span class="col-heading">접수번호가 없어도 치료가 되나요?</span>
+          <svg class="col-arrow" width="14" height="14" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </summary>
+        <div class="col-body"><p>네, 먼저 내원해 상담 후 보험사 접수를 진행할 수 있습니다.</p></div>
+      </details>
+      <details class="col-item rv">
+        <summary class="col-sum">
+          <span class="col-tag">Q</span>
+          <span class="col-heading">한방 치료도 보험 처리가 되나요?</span>
+          <svg class="col-arrow" width="14" height="14" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </summary>
+        <div class="col-body"><p>침·약침·추나·한약 등 교통사고 한방 치료도 자동차보험 적용 대상입니다.</p></div>
+      </details>
+      <details class="col-item rv">
+        <summary class="col-sum">
+          <span class="col-tag">Q</span>
+          <span class="col-heading">통원 치료만 가능한가요?</span>
+          <svg class="col-arrow" width="14" height="14" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </summary>
+        <div class="col-body"><p>통원과 입원 모두 가능하며, 증상에 따라 의료진과 상의해 결정합니다.</p></div>
+      </details>
+    </div>
   </div>
 </section>
 <div class="cta-band">
@@ -1798,9 +1815,9 @@ section { padding: 96px 28px; }
       <h2 class="ps-title">산후조리</h2>
     </div>
     <div class="ps-grid2">
-  <div class="ps-body rv-l"><p>출산 후 약해진 기혈을 보강하고 <strong>부종·관절 통증·산후풍을 예방</strong>하는 한방 관리입니다. 산모의 빠른 회복과 체력 보강을 돕습니다.</p></div>
+  <div class="ps-body rv-l"><p>출산 후 약해진 기혈을 보강하고 <strong>부종·관절 통증·산후풍을 예방</strong>하는 한방 관리입니다. 산모의 빠른 회복과 체력 보강을 돕습니다.</p><p class="ps-note">출산 후 회복 상태에 따라 처방이 달라지므로, 내원 상담을 통해 시작 시기를 정하는 것이 좋습니다.</p></div>
   <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-baby"/></svg></span><span class="vp-num">02</span></div>
-</div><div class="callout sky rv"><div class="callout-head">산후조리 시기</div><div class="callout-body">출산 후 회복 상태에 따라 처방이 달라지므로, 내원 상담을 통해 시작 시기를 정하는 것이 좋습니다.</div></div>
+</div>
   </div>
 </section>
 <section class="page-section" id="women-postdiet">
@@ -1867,9 +1884,9 @@ section { padding: 96px 28px; }
       <h2 class="ps-title">주사요법</h2>
     </div>
     <div class="ps-grid2">
-  <div class="ps-body rv-l"><p>비타민·영양 성분을 직접 공급하는 주사요법으로 <strong>빠른 활력 회복과 면역 보강</strong>을 돕습니다. 한방 치료와 병행해 시너지를 높입니다.</p></div>
+  <div class="ps-body rv-l"><p>비타민·영양 성분을 직접 공급하는 주사요법으로 <strong>빠른 활력 회복과 면역 보강</strong>을 돕습니다. 한방 치료와 병행해 시너지를 높입니다.</p><p class="ps-note">장기간 피로가 누적된 분, 환절기 면역 관리가 필요한 분, 회복기 체력 보강이 필요한 분께 권합니다.</p></div>
   <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-syringe"/></svg></span><span class="vp-num">02</span></div>
-</div><div class="callout sky rv"><div class="callout-head">이런 분께 권합니다</div><div class="callout-body">장기간 피로가 누적된 분, 환절기 면역 관리가 필요한 분, 회복기 체력 보강이 필요한 분</div></div>
+</div>
   </div>
 </section>
 <div class="cta-band">
