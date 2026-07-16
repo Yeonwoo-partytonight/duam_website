@@ -110,6 +110,7 @@ ul { list-style: none; }
   --shadow-sm:  0 2px 12px rgba(61,137,189,0.10);
   --shadow-md:  0 8px 32px rgba(61,137,189,0.14);
   --shadow-lg:  0 20px 60px rgba(61,137,189,0.16);
+  --nav-h: 74px;
   --r-sm: 10px;
   --r-md: 18px;
   --r-lg: 28px;
@@ -169,7 +170,7 @@ ul { list-style: none; }
 .nav-inner {
   max-width: 1200px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px; height: 66px;
+  padding: 0 28px; height: var(--nav-h);
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; }
 .nav-logo .logo-mark {
@@ -379,7 +380,7 @@ ul { list-style: none; }
 /* ============================================================
    HERO (홈)
 ============================================================ */
-#hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 66px; overflow: hidden; }
+#hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: var(--nav-h); overflow: hidden; }
 .hero-left {
   display: flex; flex-direction: column; justify-content: center;
   padding: 60px 60px 60px 80px;
@@ -396,16 +397,16 @@ ul { list-style: none; }
 .hero-badge::before { content: ''; display: block; width: 6px; height: 6px; background: var(--sky); border-radius: 50%; }
 .hero-title {
   font-family: 'Noto Serif KR', serif;
-  font-size: clamp(2rem, 3.2vw, 3rem);
-  font-weight: 600; line-height: 1.35;
-  color: var(--text); letter-spacing: -0.02em;
-  margin-bottom: 20px; animation: fadeUp 0.7s 0.2s both;
+  font-size: clamp(2.5rem, 4.1vw, 3.75rem);
+  font-weight: 600; line-height: 1.3;
+  color: var(--text); letter-spacing: -0.025em;
+  margin-bottom: 24px; animation: fadeUp 0.7s 0.2s both;
 }
 .hero-title em { font-style: normal; color: var(--sky2); }
 .hero-title .accent { color: var(--coral); }
 .hero-desc {
-  font-size: 0.95rem; line-height: 1.8; color: var(--text-mid);
-  max-width: 380px; margin-bottom: 36px; animation: fadeUp 0.7s 0.3s both;
+  font-size: 1.06rem; line-height: 1.85; color: var(--text-mid);
+  max-width: 430px; margin-bottom: 36px; animation: fadeUp 0.7s 0.3s both;
 }
 .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; animation: fadeUp 0.7s 0.4s both; }
 .btn-primary {
@@ -687,7 +688,7 @@ section { padding: 96px 28px; }
    내부 페이지 (서브페이지)
 ============================================================ */
 .page-hero {
-  margin-top: 66px;
+  margin-top: var(--nav-h);
   background: linear-gradient(145deg, var(--sky-pale) 0%, #D5ECFB 55%, var(--mint-pale) 100%);
   padding: 72px 28px 64px; position: relative; overflow: hidden;
 }
@@ -706,7 +707,7 @@ section { padding: 96px 28px; }
 .page-hero-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 600; color: var(--text); line-height: 1.32; letter-spacing: -0.02em; margin-bottom: 14px; }
 .page-hero-desc { font-size: 0.95rem; color: var(--text-mid); line-height: 1.8; max-width: 600px; }
 /* 페이지 내 앵커 탭 (서브 메뉴 바) */
-.subnav { position: sticky; top: 66px; z-index: 800; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.subnav { position: sticky; top: var(--nav-h); z-index: 800; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
 .subnav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 4px; padding: 0 28px; overflow-x: auto; scrollbar-width: none; }
 .subnav-inner::-webkit-scrollbar { display: none; }
 .subnav-inner a {
@@ -717,7 +718,7 @@ section { padding: 96px 28px; }
 .subnav-inner a:hover { color: var(--sky2); }
 .subnav-inner a.active { color: var(--sky2); border-bottom-color: var(--sky); }
 /* 본문 블록 */
-.page-section { padding: 72px 28px; scroll-margin-top: 130px; }
+.page-section { padding: 72px 28px; scroll-margin-top: 138px; }
 .page-section:nth-of-type(even) { background: var(--white); }
 .page-section:nth-of-type(odd) { background: var(--cloud); }
 .ps-inner { max-width: 1200px; margin: 0 auto; }
@@ -859,7 +860,7 @@ section { padding: 96px 28px; }
    RESPONSIVE
 ============================================================ */
 @media (max-width: 960px) {
-  #hero { grid-template-columns: 1fr; min-height: auto; padding-top: 66px; }
+  #hero { grid-template-columns: 1fr; min-height: auto; padding-top: var(--nav-h); }
   .hero-left { padding: 50px 28px 36px; order: 2; }
   .hero-right { order: 1; min-height: 280px; padding: 40px 28px; }
   .hero-cards { flex-direction: row; max-width: 100%; flex-wrap: wrap; }
@@ -2522,7 +2523,7 @@ section { padding: 96px 28px; }
     setGnbActive(key);
     if(anchor){
       var t=document.getElementById(key+'-'+anchor);
-      if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-118,behavior:'auto'});return;}
+      if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-126,behavior:'auto'});return;}
     }
     window.scrollTo(0,0);
   }
