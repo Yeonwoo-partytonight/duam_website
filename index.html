@@ -745,7 +745,7 @@ section { padding: 96px 28px; }
 /* 병원장 프로필 */
 .doctor-profile { align-items: center; margin-bottom: 32px; }
 .dp-photo { position: relative; border-radius: var(--r-lg); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); aspect-ratio: 4/5; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
-.dp-photo img { width: 90%; max-width: 400px; height: auto; display: block; filter: drop-shadow(0 14px 28px rgba(61,137,189,0.20)); }
+.dp-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .dp-body { padding: 4px 0; }
 .dp-role { display: inline-block; font-size: 0.8rem; font-weight: 500; color: var(--sky2); background: var(--sky-pale); border-radius: var(--r-pill); padding: 5px 15px; margin-bottom: 18px; }
 .dp-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.9; }
@@ -955,6 +955,8 @@ section { padding: 96px 28px; }
   .doc-cards { gap: 18px; }
   .doc-card { grid-template-columns: 1fr; }
   .doc-photo { aspect-ratio: 1/1; border-right: none; border-bottom: 1px solid var(--border2); }
+  /* 사진이 불투명(스튜디오 배경 내장)이라 1:1 프레임에서는 상단 기준으로 크롭한다 */
+  .doc-photo img { object-fit: cover; object-position: center top; }
   .doc-info { padding: 24px 22px 26px; }
   .doc-name { font-size: 1.45rem; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
