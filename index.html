@@ -762,17 +762,51 @@ section { padding: 96px 28px; }
 .dp-desc p { margin-bottom: 14px; }
 .dp-desc p:last-child { margin-bottom: 0; }
 .dp-sign { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); font-family: 'Noto Serif KR', serif; font-size: 0.98rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
-/* 의료진 소개 프로필 카드 (사진) */
-.doc-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 8px; }
-.doc-card { background: white; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s; }
+/* 의료진 소개 프로필 카드 — 좌: 통일 규격 사진 프레임 / 우: 소속·이름·약력 */
+.doc-cards { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 8px; }
+.doc-card {
+  background: white; border: 1px solid var(--border); border-radius: var(--r-lg);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+  display: grid; grid-template-columns: 300px 1fr; align-items: stretch;
+  transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s;
+}
 .doc-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: var(--sky-light); }
-.doc-photo { position: relative; aspect-ratio: 4/5; background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
-.doc-photo img { width: auto; max-width: 92%; height: 96%; object-fit: contain; object-position: bottom center; display: block; filter: drop-shadow(0 12px 24px rgba(61,137,189,0.18)); }
-.doc-info { padding: 22px 26px 26px; }
-.doc-dept { display: inline-block; font-size: 0.78rem; font-weight: 500; color: var(--sky2); background: var(--sky-pale); border-radius: var(--r-pill); padding: 5px 14px; margin-bottom: 13px; }
-.doc-name { font-family: 'Noto Serif KR', serif; font-size: 1.18rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin-bottom: 11px; }
-.doc-name span { font-size: 0.85rem; font-weight: 500; color: var(--text-mid); }
-.doc-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.85; }
+/* 사진 원본 배경이 제각각이라 동일한 단색 프레임 + 동일 비율로 통일감을 준다 */
+.doc-photo {
+  position: relative; aspect-ratio: 4/5;
+  background: var(--cloud);
+  border-right: 1px solid var(--border2);
+  /* 원본 컷아웃마다 여백이 달라 프레임 자체에 여백을 둬 인물이 모서리에 닿지 않게 한다 */
+  padding: 22px 20px 0;
+  display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+}
+/* <picture>가 실제 플렉스 아이템이므로 프레임을 가득 채워야 img의 100%가 프레임 기준이 된다 */
+.doc-photo picture { display: block; width: 100%; height: 100%; }
+.doc-photo img {
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: bottom center; display: block;
+}
+.doc-info { padding: 34px 38px; display: flex; flex-direction: column; justify-content: center; }
+.doc-dept { font-size: 0.9rem; font-weight: 500; color: var(--text-mid); letter-spacing: 0.01em; margin-bottom: 6px; }
+.doc-name { font-family: 'Noto Serif KR', serif; font-size: 1.7rem; font-weight: 600; color: var(--text); letter-spacing: -0.02em; margin-bottom: 14px; }
+.doc-name span { font-size: 1.05rem; font-weight: 500; color: var(--text-mid); }
+.doc-desc { font-size: 0.94rem; color: var(--text-mid); line-height: 1.85; margin-bottom: 22px; }
+.doc-career-label {
+  display: inline-block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+  color: var(--coral); background: var(--coral-pale);
+  border-radius: var(--r-pill); padding: 5px 15px; margin-bottom: 13px; width: fit-content;
+}
+.doc-career { list-style: none; margin: 0; padding: 0; }
+.doc-career li {
+  position: relative; padding-left: 15px; margin-bottom: 8px;
+  font-size: 0.92rem; color: var(--text-mid); line-height: 1.7;
+}
+.doc-career li::before {
+  content: ''; position: absolute; left: 0; top: 0.62em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--sky-light);
+}
+.doc-career li:last-child { margin-bottom: 0; }
+.doc-career-empty { font-size: 0.9rem; color: var(--text-light); line-height: 1.7; }
 /* 시설 사진 카드 */
 .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
 .photo-card { margin: 0; position: relative; aspect-ratio: 3/4; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); transition: box-shadow 0.22s, transform 0.22s; }
@@ -911,13 +945,21 @@ section { padding: 96px 28px; }
   .hero-left { padding: 40px 20px 30px; }
   .hero-right { padding: 30px 20px; }
   .hero-card { width: 100%; }
+  /* 모바일에서 대형 타이틀이 넘치지 않도록 축소 */
+  .hero-title { font-size: 2.15rem; line-height: 1.32; }
+  .hero-desc { font-size: 0.98rem; }
   .hero-stats { gap: 20px; flex-wrap: wrap; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .about-mini-cards { grid-template-columns: 1fr 1fr; }
   .page-section { padding: 52px 20px; }
   .page-hero { padding: 52px 20px 44px; }
   .info-grid, .info-grid.cols-2, .info-grid.cols-4 { grid-template-columns: 1fr; }
-  .doc-cards { grid-template-columns: 1fr; gap: 18px; }
+  /* 모바일: 사진 위 / 정보 아래로 전환, 사진 프레임 비율만 낮춘다 */
+  .doc-cards { gap: 18px; }
+  .doc-card { grid-template-columns: 1fr; }
+  .doc-photo { aspect-ratio: 1/1; border-right: none; border-bottom: 1px solid var(--border2); }
+  .doc-info { padding: 24px 22px 26px; }
+  .doc-name { font-size: 1.45rem; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .steps { grid-template-columns: 1fr; }
   .nav-tel { display: none; }
@@ -1369,7 +1411,7 @@ section { padding: 96px 28px; }
       <h2 class="ps-title">경험과 신뢰의 의료진</h2>
     </div>
     <div class="doc-cards">
-    <div class="doc-card rv-l">
+    <div class="doc-card rv">
       <div class="doc-photo">
         <picture>
           <source srcset="두암한방병원/doctor-kwon.webp" type="image/webp">
@@ -1377,12 +1419,15 @@ section { padding: 96px 28px; }
         </picture>
       </div>
       <div class="doc-info">
-        <span class="doc-dept">한방 2과</span>
+        <div class="doc-dept">한방 2과</div>
         <div class="doc-name">권윤희 <span>원장</span></div>
         <p class="doc-desc">침구·한약·추나 등 한방 치료를 담당합니다. 환자 한 분 한 분의 상태에 맞춰 치료 계획을 세워 회복을 돕습니다.</p>
+        <span class="doc-career-label">약력</span>
+        <!-- TODO: 원장님 학력·경력 확인 후 <ul class="doc-career"><li>…</li></ul> 로 교체 -->
+        <p class="doc-career-empty">약력 정보는 준비 중입니다.</p>
       </div>
     </div>
-    <div class="doc-card rv-r">
+    <div class="doc-card rv">
       <div class="doc-photo">
         <picture>
           <source srcset="두암한방병원/doctor-choi.webp" type="image/webp">
@@ -1390,9 +1435,12 @@ section { padding: 96px 28px; }
         </picture>
       </div>
       <div class="doc-info">
-        <span class="doc-dept">양방</span>
+        <div class="doc-dept">양방</div>
         <div class="doc-name">최종구 <span>원장</span></div>
         <p class="doc-desc">양방 진료를 담당합니다. 정확한 진단을 바탕으로 한·양방 통합 치료 계획을 세워 환자를 살핍니다.</p>
+        <span class="doc-career-label">약력</span>
+        <!-- TODO: 원장님 학력·경력 확인 후 <ul class="doc-career"><li>…</li></ul> 로 교체 -->
+        <p class="doc-career-empty">약력 정보는 준비 중입니다.</p>
       </div>
     </div></div>
   </div>
