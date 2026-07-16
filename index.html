@@ -168,7 +168,7 @@ ul { list-style: none; }
   transition: box-shadow 0.3s;
 }
 .nav-inner {
-  max-width: 1200px; margin: 0 auto;
+  max-width: 1360px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 28px; height: var(--nav-h);
 }
@@ -195,54 +195,44 @@ ul { list-style: none; }
   transition: background 0.2s, transform 0.15s;
 }
 .nav-cta:hover { background: var(--coral2); transform: translateY(-1px); }
-/* GNB (데스크톱 상시 노출 메뉴) */
-.nav-gnb { display: flex; align-items: center; gap: 4px; }
+/* GNB (데스크톱 상시 노출 메뉴) — 대분류 8개를 나란히 배치 */
+.nav-gnb { display: flex; align-items: center; gap: 0; flex-shrink: 0; }
 .gnb-link {
-  font-family: inherit; font-size: 1.05rem; font-weight: 500; color: var(--text);
-  letter-spacing: -0.01em; padding: 10px 18px; border-radius: var(--r-pill);
-  display: inline-flex; align-items: center; gap: 5px;
-  background: none; border: none; cursor: none;
+  font-family: inherit; font-size: 0.92rem; font-weight: 500; color: var(--text);
+  letter-spacing: -0.02em; padding: 8px 10px; border-radius: var(--r-pill);
+  display: inline-flex; align-items: center; gap: 4px;
+  background: none; border: none; cursor: none; white-space: nowrap;
   transition: color 0.2s, background 0.2s;
 }
 .gnb-link:hover, .gnb-link:focus-visible { color: var(--sky2); background: var(--sky-pale); }
 .gnb-link.active { color: var(--sky2); font-weight: 600; }
 .gnb-item { position: relative; }
-.gnb-caret { width: 11px; height: 11px; color: var(--text-mid); transition: transform 0.22s; }
-#mainNav.mega-open .gnb-caret { transform: rotate(180deg); }
-/* 메가메뉴: 1차 메뉴에 hover/focus 시 전체 2차 메뉴가 한 번에 펼쳐진다 */
-.mega-panel {
-  position: absolute; top: 100%; left: 0; right: 0;
-  /* #mainNav가 backdrop-filter를 쓰므로 패널은 불투명 배경으로 뒤 내용을 완전히 가린다 */
+.gnb-caret { width: 9px; height: 9px; color: var(--text-light); transition: transform 0.22s; flex-shrink: 0; }
+.gnb-item:hover .gnb-caret, .gnb-item:focus-within .gnb-caret { transform: rotate(180deg); }
+/* 하위 앵커 드롭다운 (hover + 키보드 포커스) */
+.gnb-drop {
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  min-width: 180px;
+  /* #mainNav가 backdrop-filter를 쓰므로 불투명 배경으로 뒤 내용을 가린다 */
   background: var(--white);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
-  opacity: 0; visibility: hidden; transform: translateY(-8px);
-  transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s;
-  z-index: 15;
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  box-shadow: var(--shadow-md); padding: 8px; z-index: 20;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
 }
-#mainNav.mega-open .mega-panel { opacity: 1; visibility: visible; transform: translateY(0); }
-.mega-inner {
-  max-width: 1200px; margin: 0 auto;
-  padding: 30px 28px 34px;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px 22px;
+/* 메뉴와 드롭다운 사이 빈틈에서 hover가 끊기지 않도록 다리를 놓는다 */
+.gnb-drop::before { content: ''; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
+.gnb-item:hover .gnb-drop, .gnb-item:focus-within .gnb-drop {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
 }
-.mega-col-head {
-  display: block; font-family: 'Noto Serif KR', serif;
-  font-size: 0.98rem; font-weight: 600; color: var(--text);
-  letter-spacing: -0.01em; padding: 0 8px 10px;
-  margin-bottom: 8px; border-bottom: 1px solid var(--border);
-  cursor: none; transition: color 0.18s;
-}
-.mega-col-head:hover, .mega-col-head:focus-visible { color: var(--sky2); }
-.mega-col-head.active { color: var(--sky2); }
-.mega-link {
-  display: block; font-size: 0.86rem; color: var(--text-mid);
-  padding: 7px 8px; border-radius: var(--r-sm); cursor: none;
+.gnb-drop a {
+  display: block; font-size: 0.85rem; color: var(--text-mid);
+  padding: 9px 13px; border-radius: var(--r-sm); white-space: nowrap; cursor: none;
   transition: background 0.18s, color 0.18s;
 }
-.mega-link:hover, .mega-link:focus-visible { background: var(--sky-pale); color: var(--sky2); }
-.mega-link.active { color: var(--sky2); font-weight: 600; }
+.gnb-drop a:hover, .gnb-drop a:focus-visible { background: var(--sky-pale); color: var(--sky2); }
+.gnb-drop a.active { color: var(--sky2); font-weight: 600; }
 .nav-burger {
   width: 40px; height: 40px; border: none; background: none;
   cursor: none; display: flex; flex-direction: column;
@@ -928,14 +918,22 @@ section { padding: 96px 28px; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .cta-band-inner { flex-direction: column; align-items: flex-start; }
-  .nav-gnb { display: none; }
-  /* 960px 이하는 기존 드로어 메뉴만 사용 */
-  .mega-panel { display: none; }
   body { cursor: auto; }
   .cur-dot, .cur-ring { display: none; }
-  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .col-sum, .fs-link, .btn-primary, .btn-outline, .gnb-link, .mega-link, .mega-col-head { cursor: auto; }
+  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .col-sum, .fs-link, .btn-primary, .btn-outline, .gnb-link, .gnb-drop a { cursor: auto; }
 }
-@media (max-width: 1080px) {
+/* 대분류 8개 GNB는 약 1150px를 차지해 그 아래 폭에서는 드로어로 전환한다 */
+@media (max-width: 1220px) {
+  .nav-gnb { display: none; }
+}
+@media (min-width: 1221px) {
+  /* GNB가 보이는 폭에서는 드로어 버튼이 중복이라 감춘다 */
+  .nav-burger { display: none; }
+  /* 이 폭에서만 각 블록을 고정해 글자가 눌려 뭉개지는 것을 막는다 */
+  .nav-logo, .nav-right { flex-shrink: 0; }
+}
+/* 헤더 전화번호는 GNB를 밀어내지 않는 폭에서만 노출 */
+@media (max-width: 1420px) {
   .nav-tel { display: none; }
 }
 @media (max-width: 560px) {
@@ -961,7 +959,6 @@ section { padding: 96px 28px; }
   .doc-name { font-size: 1.45rem; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .steps { grid-template-columns: 1fr; }
-  .nav-tel { display: none; }
   .float-stack { bottom: 20px; right: 18px; gap: 12px; }
   .float-btn { width: 48px; height: 48px; font-size: 1.15rem; }
 }
@@ -1074,11 +1071,8 @@ section { padding: 96px 28px; }
         <span class="logo-sub">DUAM ORIENTAL MEDICINE</span>
       </div>
     </a>
-    <nav class="nav-gnb" id="navGnb" aria-label="주요 메뉴">
-      <a href="#/about" class="gnb-link" data-page="about">병원소개</a>
-      <button type="button" class="gnb-link gnb-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="megaPanel">진료클리닉<svg class="gnb-caret" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <a href="#/news" class="gnb-link" data-page="news">공지사항</a>
-    </nav>
+    <!-- GNB는 siteMap 기반으로 renderGnb()가 자동 생성 -->
+    <nav class="nav-gnb" id="navGnb" aria-label="주요 메뉴"></nav>
     <div class="nav-right">
       <a href="tel:062-716-7160" class="nav-tel"><svg class="icon"><use href="#i-phone"/></svg> 062-716-7160</a>
       <a href="tel:062-716-7160" class="nav-cta">전화 예약</a>
@@ -1087,10 +1081,6 @@ section { padding: 96px 28px; }
       </button>
     </div>
   </div>
-  <!-- 메가메뉴 패널은 siteMap 기반으로 renderMegaMenu()가 자동 생성 -->
-  <nav class="mega-panel" id="megaPanel" aria-label="전체 메뉴">
-    <div class="mega-inner" id="megaInner"></div>
-  </nav>
 </nav>
 <div class="drawer-overlay" id="megaOverlay"></div>
 <aside class="drawer-panel" id="megaDrawer" aria-hidden="true">
@@ -2378,7 +2368,8 @@ section { padding: 96px 28px; }
     { key:"fatigue", title:"만성피로", group:"care", anchors:[
       ["fatigue","만성피로"],["injection","주사요법"]
     ]},
-    { key:"cancer", title:"암 자율신경 면역 클리닉", group:"care", solo:true, anchors:[] },
+    // navTitle: 정식 명칭이 길어 상단 GNB에서만 쓰는 축약 라벨 (앵커의 3번째 축약 라벨과 같은 용도)
+    { key:"cancer", title:"암 자율신경 면역 클리닉", navTitle:"암면역클리닉", group:"care", solo:true, anchors:[] },
     { key:"news", title:"공지사항", group:"news", anchors:[
       ["notice","공지사항"],["column","건강 칼럼"],
       ["price","비급여 수가"],["inquiry","진료 문의"],["review","치료 후기"]
@@ -2476,48 +2467,47 @@ section { padding: 96px 28px; }
   // ---- NAV SHADOW ----
   var nav=document.getElementById('mainNav');
   if(nav){window.addEventListener('scroll',function(){nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(61,137,189,0.12)':'none';});}
-  // ---- 메가메뉴 (1차 메뉴 hover/focus → 전체 2차 메뉴 동시 노출) ----
-  var CLINIC_KEYS=['spine','rehab','accident','women','fatigue','cancer'];
-  var megaPanel=document.getElementById('megaPanel'), gnbToggle=document.querySelector('.gnb-toggle');
-  function openMega(){ if(!nav)return; nav.classList.add('mega-open'); if(gnbToggle)gnbToggle.setAttribute('aria-expanded','true'); }
-  function closeMega(){ if(!nav)return; nav.classList.remove('mega-open'); if(gnbToggle)gnbToggle.setAttribute('aria-expanded','false'); }
-  function renderMegaMenu(){
-    var host=document.getElementById('megaInner'); if(!host) return;
+  // ---- GNB 자동 생성 (siteMap 단일 소스) ----
+  // 대분류를 상단에 나란히 두고, 하위 앵커가 있으면 hover/focus 시 드롭다운으로 노출한다.
+  var GNB_CARET='<svg class="gnb-caret" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function renderGnb(){
+    var host=document.getElementById('navGnb'); if(!host) return;
     var out='';
     siteMap.forEach(function(p){
       if(p.nav===false) return;
-      out+='<div class="mega-col">';
-      out+='<a href="#/'+p.key+'" class="mega-col-head" data-page="'+p.key+'">'+p.title+'</a>';
+      var label=p.navTitle||p.title;
+      if(!p.anchors.length){
+        // 하위가 없으면 단일 링크
+        out+='<a href="#/'+p.key+'" class="gnb-link" data-page="'+p.key+'">'+label+'</a>';
+        return;
+      }
+      out+='<div class="gnb-item">';
+      out+='<a href="#/'+p.key+'" class="gnb-link" data-page="'+p.key+'" aria-haspopup="true" aria-expanded="false">'+label+GNB_CARET+'</a>';
+      out+='<div class="gnb-drop">';
       p.anchors.forEach(function(a){
-        out+='<a href="#/'+p.key+'/'+a[0]+'" class="mega-link">'+(a[2]||a[1])+'</a>';
+        out+='<a href="#/'+p.key+'/'+a[0]+'">'+(a[2]||a[1])+'</a>';
       });
-      out+='</div>';
+      out+='</div></div>';
     });
     host.innerHTML=out;
-  }
-  renderMegaMenu();
-  if(nav&&megaPanel){
-    var gnbBar=document.getElementById('navGnb');
-    if(gnbBar){
-      gnbBar.addEventListener('mouseenter',openMega);
-      gnbBar.addEventListener('focusin',openMega);
-    }
-    megaPanel.addEventListener('mouseenter',openMega);
-    // 패널이 #mainNav 안에 있으므로 nav 밖으로 나가야 닫힌다
-    nav.addEventListener('mouseleave',closeMega);
-    nav.addEventListener('focusout',function(e){ if(!nav.contains(e.relatedTarget)) closeMega(); });
-    document.addEventListener('keydown',function(e){
-      if(e.key==='Escape'&&nav.classList.contains('mega-open')){ closeMega(); if(gnbToggle)gnbToggle.focus(); }
+
+    // aria-expanded를 hover/focus 상태와 동기화 (CSS만으로는 표현되지 않음)
+    host.querySelectorAll('.gnb-item').forEach(function(item){
+      var trigger=item.querySelector('.gnb-link');
+      function set(v){ trigger.setAttribute('aria-expanded',v?'true':'false'); }
+      item.addEventListener('mouseenter',function(){set(true);});
+      item.addEventListener('mouseleave',function(){set(false);});
+      item.addEventListener('focusin',function(){set(true);});
+      item.addEventListener('focusout',function(e){ if(!item.contains(e.relatedTarget)) set(false); });
+      item.addEventListener('keydown',function(e){
+        if(e.key==='Escape'){ set(false); trigger.focus(); trigger.blur(); }
+      });
     });
-    if(gnbToggle) gnbToggle.addEventListener('click',function(e){
-      e.preventDefault(); nav.classList.contains('mega-open')?closeMega():openMega();
-    });
-    megaPanel.addEventListener('click',function(e){ if(e.target.closest('a')) closeMega(); });
   }
+  renderGnb();
   function setGnbActive(key){
-    document.querySelectorAll('.nav-gnb .gnb-link, #megaPanel a').forEach(function(el){el.classList.remove('active');});
-    document.querySelectorAll('.nav-gnb [data-page="'+key+'"], #megaPanel [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
-    if(gnbToggle&&CLINIC_KEYS.indexOf(key)>-1)gnbToggle.classList.add('active');
+    document.querySelectorAll('.nav-gnb a').forEach(function(el){el.classList.remove('active');});
+    document.querySelectorAll('.nav-gnb [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
   }
   // ---- DRAWER ----
   var megaBtn=document.getElementById('megaBtn'), megaDrawer=document.getElementById('megaDrawer'), megaOverlay=document.getElementById('megaOverlay');
@@ -2593,7 +2583,7 @@ section { padding: 96px 28px; }
     var p=h.split('/');
     return[p[0]||'home',p[1]||null];
   }
-  function route(){var p=parseHash();showRoute(p[0],p[1]);closeDrawer();closeMega();}
+  function route(){var p=parseHash();showRoute(p[0],p[1]);closeDrawer();}
   window.addEventListener('hashchange',route);
   route();
   // ---- SUBNAV SCROLLSPY ----
