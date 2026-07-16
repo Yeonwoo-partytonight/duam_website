@@ -177,28 +177,28 @@ ul { list-style: none; }
   display: flex; align-items: center; justify-content: center;
 }
 .nav-logo .logo-mark svg { width: 36px; height: 36px; }
-.nav-logo .logo-text { font-family: 'Noto Serif KR', serif; font-size: 1rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
-.nav-logo .logo-sub { font-size: 0.68rem; color: var(--text-mid); letter-spacing: 0.05em; display: block; }
+.nav-logo .logo-text { font-family: 'Noto Serif KR', serif; font-size: 1.12rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+.nav-logo .logo-sub { font-size: 0.7rem; color: var(--text-mid); letter-spacing: 0.05em; display: block; }
 .nav-right { display: flex; align-items: center; gap: 10px; }
 .nav-tel {
-  font-size: 0.78rem; font-weight: 500; color: var(--sky2);
+  font-size: 0.85rem; font-weight: 500; color: var(--sky2);
   background: var(--sky-pale); border-radius: var(--r-pill);
-  padding: 6px 14px; letter-spacing: 0.02em;
+  padding: 7px 15px; letter-spacing: 0.02em;
   transition: background 0.2s;
 }
 .nav-tel:hover { background: var(--sky-light); }
 .nav-cta {
   background: var(--coral); color: white;
-  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.03em;
-  padding: 8px 18px; border-radius: var(--r-pill);
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em;
+  padding: 9px 20px; border-radius: var(--r-pill);
   transition: background 0.2s, transform 0.15s;
 }
 .nav-cta:hover { background: var(--coral2); transform: translateY(-1px); }
 /* GNB (데스크톱 상시 노출 메뉴) */
-.nav-gnb { display: flex; align-items: center; gap: 2px; }
+.nav-gnb { display: flex; align-items: center; gap: 4px; }
 .gnb-link {
-  font-family: inherit; font-size: 0.9rem; font-weight: 500; color: var(--text);
-  letter-spacing: -0.01em; padding: 8px 15px; border-radius: var(--r-pill);
+  font-family: inherit; font-size: 1.05rem; font-weight: 500; color: var(--text);
+  letter-spacing: -0.01em; padding: 10px 18px; border-radius: var(--r-pill);
   display: inline-flex; align-items: center; gap: 5px;
   background: none; border: none; cursor: none;
   transition: color 0.2s, background 0.2s;
@@ -207,27 +207,41 @@ ul { list-style: none; }
 .gnb-link.active { color: var(--sky2); font-weight: 600; }
 .gnb-item { position: relative; }
 .gnb-caret { width: 11px; height: 11px; color: var(--text-mid); transition: transform 0.22s; }
-.gnb-item:hover .gnb-caret, .gnb-toggle[aria-expanded="true"] .gnb-caret { transform: rotate(180deg); }
-.gnb-drop {
-  position: absolute; top: calc(100% + 12px); left: 50%;
-  transform: translateX(-50%) translateY(6px);
-  min-width: 210px; background: white;
-  border: 1px solid var(--border); border-radius: var(--r-md);
-  box-shadow: var(--shadow-md); padding: 8px; z-index: 20;
-  opacity: 0; visibility: hidden;
-  transition: opacity 0.2s, transform 0.2s;
+#mainNav.mega-open .gnb-caret { transform: rotate(180deg); }
+/* 메가메뉴: 1차 메뉴에 hover/focus 시 전체 2차 메뉴가 한 번에 펼쳐진다 */
+.mega-panel {
+  position: absolute; top: 100%; left: 0; right: 0;
+  /* #mainNav가 backdrop-filter를 쓰므로 패널은 불투명 배경으로 뒤 내용을 완전히 가린다 */
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s;
+  z-index: 15;
 }
-.gnb-drop::before { content: ''; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
-.gnb-item:hover .gnb-drop, .gnb-item:focus-within .gnb-drop, .gnb-drop.open {
-  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+#mainNav.mega-open .mega-panel { opacity: 1; visibility: visible; transform: translateY(0); }
+.mega-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 30px 28px 34px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px 22px;
 }
-.gnb-drop a {
-  display: block; font-size: 0.85rem; color: var(--text-mid);
-  padding: 9px 14px; border-radius: var(--r-sm); white-space: nowrap; cursor: none;
+.mega-col-head {
+  display: block; font-family: 'Noto Serif KR', serif;
+  font-size: 0.98rem; font-weight: 600; color: var(--text);
+  letter-spacing: -0.01em; padding: 0 8px 10px;
+  margin-bottom: 8px; border-bottom: 1px solid var(--border);
+  cursor: none; transition: color 0.18s;
+}
+.mega-col-head:hover, .mega-col-head:focus-visible { color: var(--sky2); }
+.mega-col-head.active { color: var(--sky2); }
+.mega-link {
+  display: block; font-size: 0.86rem; color: var(--text-mid);
+  padding: 7px 8px; border-radius: var(--r-sm); cursor: none;
   transition: background 0.18s, color 0.18s;
 }
-.gnb-drop a:hover, .gnb-drop a:focus-visible { background: var(--sky-pale); color: var(--sky2); }
-.gnb-drop a.active { color: var(--sky2); font-weight: 600; }
+.mega-link:hover, .mega-link:focus-visible { background: var(--sky-pale); color: var(--sky2); }
+.mega-link.active { color: var(--sky2); font-weight: 600; }
 .nav-burger {
   width: 40px; height: 40px; border: none; background: none;
   cursor: none; display: flex; flex-direction: column;
@@ -863,14 +877,18 @@ section { padding: 96px 28px; }
   .footer-tel { text-align: left; }
   .ps-grid2 { grid-template-columns: 1fr; }
   .doctor-profile .dp-photo { max-width: 380px; margin: 0 auto; width: 100%; }
+  .doc-card { grid-template-columns: 240px 1fr; }
+  .doc-info { padding: 26px 28px; }
   .info-grid, .info-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .cta-band-inner { flex-direction: column; align-items: flex-start; }
   .nav-gnb { display: none; }
+  /* 960px 이하는 기존 드로어 메뉴만 사용 */
+  .mega-panel { display: none; }
   body { cursor: auto; }
   .cur-dot, .cur-ring { display: none; }
-  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .col-sum, .fs-link, .btn-primary, .btn-outline, .gnb-link, .gnb-drop a { cursor: auto; }
+  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .col-sum, .fs-link, .btn-primary, .btn-outline, .gnb-link, .mega-link, .mega-col-head { cursor: auto; }
 }
 @media (max-width: 1080px) {
   .nav-tel { display: none; }
@@ -1003,19 +1021,9 @@ section { padding: 96px 28px; }
         <span class="logo-sub">DUAM ORIENTAL MEDICINE</span>
       </div>
     </a>
-    <nav class="nav-gnb" aria-label="주요 메뉴">
+    <nav class="nav-gnb" id="navGnb" aria-label="주요 메뉴">
       <a href="#/about" class="gnb-link" data-page="about">병원소개</a>
-      <div class="gnb-item gnb-has-drop">
-        <button type="button" class="gnb-link gnb-toggle" aria-haspopup="true" aria-expanded="false">진료클리닉<svg class="gnb-caret" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="gnb-drop" role="menu">
-          <a href="#/spine" role="menuitem" data-page="spine">척추관절</a>
-          <a href="#/rehab" role="menuitem" data-page="rehab">수술 후 재활</a>
-          <a href="#/accident" role="menuitem" data-page="accident">교통사고 클리닉</a>
-          <a href="#/women" role="menuitem" data-page="women">여성 · 다이어트</a>
-          <a href="#/fatigue" role="menuitem" data-page="fatigue">만성피로</a>
-          <a href="#/cancer" role="menuitem" data-page="cancer">암 자율신경 면역 클리닉</a>
-        </div>
-      </div>
+      <button type="button" class="gnb-link gnb-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="megaPanel">진료클리닉<svg class="gnb-caret" viewBox="0 0 10 10" aria-hidden="true"><polyline points="2,3 5,7 8,3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <a href="#/news" class="gnb-link" data-page="news">공지사항</a>
     </nav>
     <div class="nav-right">
@@ -1026,6 +1034,10 @@ section { padding: 96px 28px; }
       </button>
     </div>
   </div>
+  <!-- 메가메뉴 패널은 siteMap 기반으로 renderMegaMenu()가 자동 생성 -->
+  <nav class="mega-panel" id="megaPanel" aria-label="전체 메뉴">
+    <div class="mega-inner" id="megaInner"></div>
+  </nav>
 </nav>
 <div class="drawer-overlay" id="megaOverlay"></div>
 <aside class="drawer-panel" id="megaDrawer" aria-hidden="true">
@@ -2403,22 +2415,48 @@ section { padding: 96px 28px; }
   // ---- NAV SHADOW ----
   var nav=document.getElementById('mainNav');
   if(nav){window.addEventListener('scroll',function(){nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(61,137,189,0.12)':'none';});}
-  // ---- GNB 드롭다운 (호버 + 키보드 포커스) ----
+  // ---- 메가메뉴 (1차 메뉴 hover/focus → 전체 2차 메뉴 동시 노출) ----
   var CLINIC_KEYS=['spine','rehab','accident','women','fatigue','cancer'];
-  document.querySelectorAll('.gnb-has-drop').forEach(function(item){
-    var toggle=item.querySelector('.gnb-toggle'), drop=item.querySelector('.gnb-drop');
-    function openDrop(){drop.classList.add('open');toggle.setAttribute('aria-expanded','true');}
-    function closeDrop(){drop.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
-    toggle.addEventListener('click',function(e){e.preventDefault();drop.classList.contains('open')?closeDrop():openDrop();});
-    item.addEventListener('keydown',function(e){if(e.key==='Escape'){closeDrop();toggle.focus();}});
-    item.addEventListener('focusout',function(e){if(!item.contains(e.relatedTarget))closeDrop();});
-    drop.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeDrop);});
-  });
+  var megaPanel=document.getElementById('megaPanel'), gnbToggle=document.querySelector('.gnb-toggle');
+  function openMega(){ if(!nav)return; nav.classList.add('mega-open'); if(gnbToggle)gnbToggle.setAttribute('aria-expanded','true'); }
+  function closeMega(){ if(!nav)return; nav.classList.remove('mega-open'); if(gnbToggle)gnbToggle.setAttribute('aria-expanded','false'); }
+  function renderMegaMenu(){
+    var host=document.getElementById('megaInner'); if(!host) return;
+    var out='';
+    siteMap.forEach(function(p){
+      if(p.nav===false) return;
+      out+='<div class="mega-col">';
+      out+='<a href="#/'+p.key+'" class="mega-col-head" data-page="'+p.key+'">'+p.title+'</a>';
+      p.anchors.forEach(function(a){
+        out+='<a href="#/'+p.key+'/'+a[0]+'" class="mega-link">'+(a[2]||a[1])+'</a>';
+      });
+      out+='</div>';
+    });
+    host.innerHTML=out;
+  }
+  renderMegaMenu();
+  if(nav&&megaPanel){
+    var gnbBar=document.getElementById('navGnb');
+    if(gnbBar){
+      gnbBar.addEventListener('mouseenter',openMega);
+      gnbBar.addEventListener('focusin',openMega);
+    }
+    megaPanel.addEventListener('mouseenter',openMega);
+    // 패널이 #mainNav 안에 있으므로 nav 밖으로 나가야 닫힌다
+    nav.addEventListener('mouseleave',closeMega);
+    nav.addEventListener('focusout',function(e){ if(!nav.contains(e.relatedTarget)) closeMega(); });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&nav.classList.contains('mega-open')){ closeMega(); if(gnbToggle)gnbToggle.focus(); }
+    });
+    if(gnbToggle) gnbToggle.addEventListener('click',function(e){
+      e.preventDefault(); nav.classList.contains('mega-open')?closeMega():openMega();
+    });
+    megaPanel.addEventListener('click',function(e){ if(e.target.closest('a')) closeMega(); });
+  }
   function setGnbActive(key){
-    document.querySelectorAll('.nav-gnb .gnb-link, .gnb-drop a').forEach(function(el){el.classList.remove('active');});
-    document.querySelectorAll('.nav-gnb [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
-    var t=document.querySelector('.gnb-toggle');
-    if(t&&CLINIC_KEYS.indexOf(key)>-1)t.classList.add('active');
+    document.querySelectorAll('.nav-gnb .gnb-link, #megaPanel a').forEach(function(el){el.classList.remove('active');});
+    document.querySelectorAll('.nav-gnb [data-page="'+key+'"], #megaPanel [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
+    if(gnbToggle&&CLINIC_KEYS.indexOf(key)>-1)gnbToggle.classList.add('active');
   }
   // ---- DRAWER ----
   var megaBtn=document.getElementById('megaBtn'), megaDrawer=document.getElementById('megaDrawer'), megaOverlay=document.getElementById('megaOverlay');
@@ -2494,7 +2532,7 @@ section { padding: 96px 28px; }
     var p=h.split('/');
     return[p[0]||'home',p[1]||null];
   }
-  function route(){var p=parseHash();showRoute(p[0],p[1]);closeDrawer();}
+  function route(){var p=parseHash();showRoute(p[0],p[1]);closeDrawer();closeMega();}
   window.addEventListener('hashchange',route);
   route();
   // ---- SUBNAV SCROLLSPY ----
