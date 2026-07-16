@@ -776,8 +776,7 @@ section { padding: 96px 28px; }
   position: relative; aspect-ratio: 4/5;
   background: var(--cloud);
   border-right: 1px solid var(--border2);
-  /* 원본 컷아웃마다 여백이 달라 프레임 자체에 여백을 둬 인물이 모서리에 닿지 않게 한다 */
-  padding: 22px 20px 0;
+  /* 원장 사진은 동일 규격(4:5, 머리 위 여백 7%, 인물 크기 통일)으로 재컷팅되어 있어 프레임 보정 여백이 필요 없다 */
   display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
 }
 /* <picture>가 실제 플렉스 아이템이므로 프레임을 가득 채워야 img의 100%가 프레임 기준이 된다 */
