@@ -443,7 +443,18 @@ ul { list-style: none; }
   background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
   top: 50%; left: 50%; transform: translate(-50%, -50%);
 }
-.hero-cards { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; z-index: 1; }
+/* 히어로 대표 이미지 (병원 입구·간판) */
+.hero-photo {
+  position: absolute; inset: 0; z-index: 0;
+  animation: fadeUp 0.9s 0.15s both;
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+/* 사진 위 카드 가독성 확보용 오버레이 */
+.hero-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(46,74,99,0.45) 0%, rgba(46,74,99,0.18) 55%, rgba(91,164,207,0.28) 100%);
+}
+.hero-cards { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; z-index: 1; position: relative; }
 .hero-card {
   background: white; border-radius: var(--r-md); padding: 18px 22px;
   box-shadow: var(--shadow-md);
@@ -1079,11 +1090,13 @@ section { padding: 96px 28px; }
     <div class="hero-stats">
       <div class="hero-stat-item"><div class="hero-stat-num">9년</div><div class="hero-stat-label">개원 연차</div></div>
       <div class="hero-stat-item"><div class="hero-stat-num">4.5</div><div class="hero-stat-label">네이버 평점</div></div>
-      <div class="hero-stat-item"><div class="hero-stat-num">13개</div><div class="hero-stat-label">진료 과목</div></div>
       <div class="hero-stat-item"><div class="hero-stat-num">2대</div><div class="hero-stat-label">가문 노하우</div></div>
     </div>
   </div>
   <div class="hero-right">
+    <div class="hero-photo">
+      <img src="두암한방병원/facility-entrance.jpg" alt="두암한방병원 정문 입구와 간판" fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').style.display='none'">
+    </div>
     <div class="hero-cards">
       <a href="#/about" class="hero-card">
         <div class="hc-icon blue"><svg class="icon"><use href="#i-leaf"/></svg></div>
