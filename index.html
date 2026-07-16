@@ -12,7 +12,6 @@
 <meta property="og:site_name" content="두암한방병원">
 <meta property="og:title" content="두암한방병원 | 광주 동구 한방·일반 협진">
 <meta property="og:description" content="광주광역시 동구 두암한방병원. 한방+일반진료 협진, 교통사고 후유증, 척추관절 치료 전문. 062-716-7160">
-<!-- TODO: 두암한방병원/facility-waiting.jpg (시설 대기실 사진) 업로드 후 미리보기 정상 노출됨 -->
 <meta property="og:image" content="https://duamhanbang.co.kr/%EB%91%90%EC%95%94%ED%95%9C%EB%B0%A9%EB%B3%91%EC%9B%90/facility-waiting.jpg">
 <!-- TODO: 위 이미지 업로드 후 실제 픽셀 크기로 아래 두 줄 주석 해제해 채울 것 (권장 1200x630)
 <meta property="og:image:width" content="">
@@ -775,6 +774,8 @@ section { padding: 96px 28px; }
 .visual-panel { background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); border-radius: var(--r-lg); padding: 40px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .visual-panel .vp-emoji { font-size: 5rem; opacity: 0.85; }
 .visual-panel .vp-num { font-family: 'DM Serif Display', serif; font-size: 6rem; color: var(--sky); opacity: 0.22; position: absolute; bottom: 16px; right: 28px; line-height: 1; }
+.visual-panel.has-photo { padding: 0; }
+.visual-panel.has-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* 콜아웃 박스 */
 .callout { border-radius: var(--r-md); padding: 22px 26px; margin-top: 24px; border: 1px solid var(--border); }
 .callout.sky { background: var(--sky-pale); border-color: var(--sky-light); }
@@ -1400,6 +1401,46 @@ section { padding: 96px 28px; }
         <div class="pc-title">물리치료실</div>
         <div class="pc-desc">온열·전기·견인 등 다양한 물리치료 장비를 운영합니다.</div>
       </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-pin"/></svg></div>
+      <img src="두암한방병원/facility-lobby.jpg" alt="두암한방병원 1층 접수 데스크와 로비" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">접수·수납</div>
+        <div class="pc-desc">1층 접수 데스크에서 접수와 수납, 진료 안내를 도와드립니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-pin"/></svg></div>
+      <img src="두암한방병원/facility-entrance.jpg" alt="두암한방병원 입구와 간판" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">병원 입구</div>
+        <div class="pc-desc">두암한방병원 입구입니다. 안내에 따라 편하게 내원하세요.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-hands"/></svg></div>
+      <img src="두암한방병원/facility-herbal-therapy.jpg" alt="두암한방병원 한방요법실" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">한방요법실</div>
+        <div class="pc-desc">침·뜸·부항 등 한방 치료가 이루어지는 공간입니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
+      <img src="두암한방병원/facility-corridor-b.jpg" alt="두암한방병원 병동 복도" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">병동 복도</div>
+        <div class="pc-desc">밝고 쾌적하게 관리되는 병동 복도입니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
+      <img src="두암한방병원/facility-ward-bath.jpg" alt="두암한방병원 병실 내 욕실" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">병실 욕실</div>
+        <div class="pc-desc">입원 환자를 위한 병실 내 욕실·샤워 시설입니다.</div>
+      </figcaption>
     </figure></div>
   </div>
 </section>
@@ -1471,6 +1512,31 @@ section { padding: 96px 28px; }
       <div class="ic-title">운동치료 기구</div>
       <div class="ic-desc">재활 단계별 맞춤 운동치료를 위한 전문 기구를 갖췄습니다.</div>
     </div></div>
+    <div class="photo-grid" style="margin-top:20px">
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-xray"/></svg></div>
+      <img src="두암한방병원/equipment-xray.jpg" alt="두암한방병원 디지털 X-ray 촬영실" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">디지털 X-ray</div>
+        <div class="pc-desc">척추·관절 상태를 정밀하게 촬영해 진단에 활용합니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
+      <img src="두암한방병원/equipment-bed.jpg" alt="두암한방병원 베드형 치료 장비" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">치료 베드</div>
+        <div class="pc-desc">환자 상태에 맞춰 활용하는 베드형 치료 장비입니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-xray"/></svg></div>
+      <img src="두암한방병원/facility-xray-hall.jpg" alt="두암한방병원 X-ray 검사실 앞 복도" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">검사실 복도</div>
+        <div class="pc-desc">X-ray 검사실 앞 대기 공간입니다.</div>
+      </figcaption>
+    </figure></div>
   </div>
 </section>
 <section class="page-section" id="about-special-test">
@@ -1626,7 +1692,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="ps-grid2">
   <div class="ps-body rv-l"><p>한의사가 손과 기구를 이용해 틀어진 척추와 관절, 근육을 바로잡는 한방 수기 치료입니다. 수술 후 무너진 신체 균형을 회복하는 데 효과적입니다.</p></div>
-  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-hands"/></svg></span><span class="vp-num">01</span></div>
+  <div class="visual-panel has-photo rv-r"><img src="두암한방병원/treatment-chuna.jpg" alt="추나요법·도수치료 치료 장면" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
 </div><div class="callout sky rv"><div class="callout-head">추나요법이 도움이 되는 경우</div><div class="callout-body">수술 후 비대칭 자세, 보상 작용으로 인한 근골격 불균형, 관절 가동 제한 등</div></div>
   </div>
 </section>
@@ -1662,7 +1728,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="ps-grid2">
   <div class="ps-body rv-l"><p>통원이 어렵거나 집중적인 재활이 필요한 환자를 위해 <strong>입원 치료 프로그램</strong>을 운영합니다. 침·한약·물리·운동치료를 하루 일정으로 집중 제공합니다.</p></div>
-  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-bed"/></svg></span><span class="vp-num">04</span></div>
+  <div class="visual-panel has-photo rv-r"><img src="두암한방병원/facility-ward-room.jpg" alt="두암한방병원 입원실 내부" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
 </div><ul class="check-list rv"><li>하루 단위 집중 재활 프로그램</li><li>교통사고·수술 후 회복기 환자 적합</li><li>자동차보험·실손보험 상담 가능</li></ul>
   </div>
 </section>
@@ -1679,6 +1745,31 @@ section { padding: 96px 28px; }
       <li>전기 자극 치료기 — 근육 이완과 통증 완화</li>
       <li>운동치료 기구 — 단계별 근력·균형 회복</li>
     </ul>
+    <div class="photo-grid" style="margin-top:20px">
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-leg"/></svg></div>
+      <img src="두암한방병원/facility-rehab-hall.jpg" alt="두암한방병원 재활치료실 전경" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">재활치료실</div>
+        <div class="pc-desc">보행 훈련과 운동치료가 이루어지는 재활치료 공간입니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-leg"/></svg></div>
+      <img src="두암한방병원/facility-rehab-equipment.jpg" alt="두암한방병원 재활 운동 장비" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">재활 운동 장비</div>
+        <div class="pc-desc">회복 단계에 맞춘 재활 훈련 장비를 갖추고 있습니다.</div>
+      </figcaption>
+    </figure>
+    <figure class="photo-card rv">
+      <div class="pc-ph"><svg class="icon"><use href="#i-muscle"/></svg></div>
+      <img src="두암한방병원/facility-exercise.jpg" alt="두암한방병원 운동치료실" loading="lazy" onerror="this.style.display='none'">
+      <figcaption class="pc-overlay">
+        <div class="pc-title">운동치료실</div>
+        <div class="pc-desc">유산소·근력 운동 기구로 체력 회복을 돕습니다.</div>
+      </figcaption>
+    </figure></div>
     <p class="ps-note rv">자세한 장비 안내는 <a href="#/about/equipment" style="color:var(--sky2);font-weight:600">병원소개 &gt; 의료장비</a>에서 확인하실 수 있습니다.</p>
   </div>
 </section>
