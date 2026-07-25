@@ -175,11 +175,12 @@ ul { list-style: none; }
   transition: background 0.2s, transform 0.15s;
 }
 .nav-cta:hover { background: var(--coral2); transform: translateY(-1px); }
-/* GNB (데스크톱 상시 노출 메뉴) — 대분류 8개를 나란히 배치.
-   메가메뉴 컬럼과 x축을 맞추기 위해 GNB와 패널이 동일한 8등분 그리드를 쓴다. */
+/* GNB (데스크톱 상시 노출 메뉴) — 대분류 4개를 나란히 배치.
+   메가메뉴 컬럼과 x축을 맞추기 위해 GNB와 패널이 동일한 그리드를 쓴다.
+   열 개수는 menuTree.length 기준으로 renderGnb()가 인라인 지정한다. */
 .nav-gnb {
   flex: 1; min-width: 0;
-  display: grid; grid-template-columns: repeat(8, 1fr);
+  display: grid; grid-template-columns: repeat(4, 1fr);
   align-items: center;
 }
 .gnb-link {
@@ -210,7 +211,7 @@ ul { list-style: none; }
    margin-left/width는 alignMega()가 GNB 실측값으로 채운다.
    (absolute를 쓰면 흐름에서 빠져 패널 높이가 0이 되므로 흐름 안에 둔다) */
 .mega-inner {
-  display: grid; grid-template-columns: repeat(8, 1fr);
+  display: grid; grid-template-columns: repeat(4, 1fr);
   padding: 22px 0 26px;
 }
 .mega-col { padding: 0 4px; border-radius: var(--r-md); transition: background 0.18s; }
@@ -330,6 +331,7 @@ ul { list-style: none; }
   position: relative;
 }
 .drawer-child:hover { background: white; color: var(--sky2); }
+.drawer-child.active { color: var(--sky2); font-weight: 600; }
 .drawer-solo {
   display: flex; align-items: center; justify-content: space-between;
   width: 100%; padding: 10px 10px 10px 12px; margin-bottom: 1px;
@@ -919,12 +921,13 @@ section { padding: 96px 28px; }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .cta-band-inner { flex-direction: column; align-items: flex-start; }
 }
-/* 대분류 8개 GNB는 약 1150px를 차지해 그 아래 폭에서는 드로어로 전환한다 */
-@media (max-width: 1220px) {
+/* 대분류가 4개로 짧아져 로고·전화예약 버튼과 겹치지 않는 992px까지 GNB를 노출,
+   그 아래 폭에서는 드로어로 전환한다 */
+@media (max-width: 992px) {
   .nav-gnb { display: none; }
   .mega-panel { display: none; }
 }
-@media (min-width: 1221px) {
+@media (min-width: 993px) {
   /* GNB가 보이는 폭에서는 드로어 버튼이 중복이라 감춘다 */
   .nav-burger { display: none; }
   /* 이 폭에서만 각 블록을 고정해 글자가 눌려 뭉개지는 것을 막는다 */
@@ -2377,6 +2380,20 @@ section { padding: 96px 28px; }
       ["price","비급여 수가"],["inquiry","진료 문의"],["review","치료 후기"]
     ]}
   ];
+  // ================================================================
+  //  상단 메뉴 정의 (menuTree) — GNB·드로어 공용 소스
+  //  siteMap(콘텐츠 원본)은 그대로 두고, 어르신 방문자를 위해 상단 대분류만
+  //  4개로 묶어 렌더링한다. 각 항목 해석:
+  //    - key   항목: findPage(key)로 제목·anchors를 가져와 컬럼/아코디언 구성
+  //    - pages 항목: 하위 anchors 없이 진료 페이지 링크만 모은 그룹(진료안내)
+  //                  라벨은 각 페이지의 navTitle||title, group은 active 매핑 키
+  // ================================================================
+  var menuTree = [
+    { key:"about",    title:"병원소개" },
+    { title:"진료안내", group:"care", pages:["spine","rehab","women","fatigue","cancer"] },
+    { key:"accident", title:"교통사고클리닉" },
+    { key:"news",     title:"공지사항" }
+  ];
   // 푸터는 페이지·앵커를 큐레이션한 별도 열 구성이라 siteMap 그대로 매핑되지 않는다.
   // 링크는 [key] → #/key (제목), [key,anchor] → #/key/anchor (앵커 라벨) 로 siteMap에서 해석.
   var footerNav = [
@@ -2385,9 +2402,15 @@ section { padding: 96px 28px; }
     { head:"클리닉", links:[["women"],["fatigue"],["cancer"]] },
     { head:"소식", links:[["news","notice"],["news","column"],["news","price"],["news","review"],["news","inquiry"]] }
   ];
-  var DRAWER_SECTIONS = { care:"진료 안내", news:"병원 소식" };
-
   function findPage(key){ for(var i=0;i<siteMap.length;i++){ if(siteMap[i].key===key) return siteMap[i]; } return null; }
+  // 진료 페이지 key가 상단 그룹(진료안내)에 속하면 그 group 문자열을 돌려준다 (active 매핑용)
+  function careGroupOf(key){
+    for(var i=0;i<menuTree.length;i++){
+      var m=menuTree[i];
+      if(m.pages && m.pages.indexOf(key)>-1) return m.group;
+    }
+    return null;
+  }
   function anchorLabel(key,id){
     var p=findPage(key); if(!p) return id;
     for(var i=0;i<p.anchors.length;i++){ if(p.anchors[i][0]===id) return p.anchors[i][1]; }
@@ -2395,27 +2418,38 @@ section { padding: 96px 28px; }
   }
   var DRAWER_ARROW='<span class="dpar-arrow"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>';
 
-  // ---- 드로어 메뉴 자동 생성 (아코디언·active 로직과 100% 호환) ----
+  // ---- 드로어 메뉴 자동 생성 (menuTree 기준, 아코디언·active 로직과 100% 호환) ----
   function renderDrawerMenu(){
     var host=document.getElementById('drawerNav'); if(!host) return;
-    var out='', curGroup=null;
-    siteMap.forEach(function(p){
-      if(p.nav===false) return;
-      if(p.group!==curGroup){
-        if(curGroup!==null) out+='<div class="drawer-div"></div>';
-        out+='<div class="drawer-section-label">'+DRAWER_SECTIONS[p.group]+'</div>';
-        curGroup=p.group;
-      }
-      if(p.solo){
-        out+='<div class="drawer-group"><a href="#/'+p.key+'" class="drawer-solo">'+p.title+'</a></div>';
+    var out='';
+    menuTree.forEach(function(m){
+      // 진료안내: 아코디언, 자식 = 진료 5개 페이지 링크(하위 anchors 없음)
+      if(m.pages){
+        var gtid='dg-'+m.group;
+        out+='<div class="drawer-group">'
+          +'<button class="drawer-parent" data-target="'+gtid+'" data-group="'+m.group+'">'+m.title+DRAWER_ARROW+'</button>'
+          +'<div class="drawer-children" id="'+gtid+'"><div class="drawer-children-inner">';
+        m.pages.forEach(function(pk){
+          var pp=findPage(pk); if(!pp) return;
+          out+='<a href="#/'+pk+'" class="drawer-child" data-page="'+pk+'">'+(pp.navTitle||pp.title)+'</a>';
+        });
+        out+='</div></div></div>';
         return;
       }
-      var tid='dg-'+p.key;
+      var p=findPage(m.key)||{};
+      var label=m.title||p.navTitle||p.title||m.key;
+      // 교통사고클리닉 등 solo 페이지: 아코디언 없는 단일 링크
+      if(p.solo){
+        out+='<div class="drawer-group"><a href="#/'+m.key+'" class="drawer-solo">'+label+'</a></div>';
+        return;
+      }
+      // 병원소개·공지사항: 아코디언, 자식 = 해당 페이지 anchors
+      var tid='dg-'+m.key;
       out+='<div class="drawer-group">'
-        +'<button class="drawer-parent" data-target="'+tid+'" data-page="'+p.key+'">'+p.title+DRAWER_ARROW+'</button>'
+        +'<button class="drawer-parent" data-target="'+tid+'" data-page="'+m.key+'">'+label+DRAWER_ARROW+'</button>'
         +'<div class="drawer-children" id="'+tid+'"><div class="drawer-children-inner">';
-      p.anchors.forEach(function(a){
-        out+='<a href="#/'+p.key+'/'+a[0]+'" class="drawer-child">'+a[1]+'</a>';
+      (p.anchors||[]).forEach(function(a){
+        out+='<a href="#/'+m.key+'/'+a[0]+'" class="drawer-child">'+a[1]+'</a>';
       });
       out+='</div></div></div>';
     });
@@ -2460,28 +2494,45 @@ section { padding: 96px 28px; }
   // ---- NAV SHADOW ----
   var nav=document.getElementById('mainNav');
   if(nav){window.addEventListener('scroll',function(){nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(61,137,189,0.12)':'none';});}
-  // ---- GNB 자동 생성 (siteMap 단일 소스) ----
-  // 대분류를 상단에 나란히 두고, GNB에 진입하면 헤더 아래로 전체 메가메뉴를 펼친다.
-  // GNB와 패널이 같은 8등분 그리드를 쓰고 패널을 GNB 박스 위에 겹쳐 컬럼 x축을 맞춘다.
+  // ---- GNB 자동 생성 (menuTree 단일 소스) ----
+  // 대분류 4개를 상단에 나란히 두고, GNB에 진입하면 헤더 아래로 전체 메가메뉴를 펼친다.
+  // GNB와 패널이 같은 그리드(menuTree.length 등분)를 쓰고 패널을 GNB 박스 위에 겹쳐 컬럼 x축을 맞춘다.
   var gnbHost=document.getElementById('navGnb');
   var megaPanel=document.getElementById('megaPanel'), megaInner=document.getElementById('megaInner');
   function renderGnb(){
     if(!gnbHost||!megaInner) return;
     var bar='', cols='';
-    siteMap.forEach(function(p,i){
-      if(p.nav===false) return;
-      var label=p.navTitle||p.title;
-      bar+='<a href="#/'+p.key+'" class="gnb-link" data-page="'+p.key+'" data-col="'+i+'"'+
+    menuTree.forEach(function(m,i){
+      // 진료안내 그룹: 클릭 페이지가 없어 메가패널만 여는 대분류.
+      // head는 링크가 아닌 <span>, 그 아래 진료 5개 페이지 링크만 노출한다.
+      if(m.pages){
+        bar+='<a href="#/'+m.pages[0]+'" class="gnb-link" data-group="'+m.group+'" data-col="'+i+'"'+
+             ' aria-haspopup="true" aria-expanded="false" aria-controls="megaPanel">'+m.title+'</a>';
+        cols+='<div class="mega-col" data-col="'+i+'">';
+        cols+='<span class="mega-col-head">'+m.title+'</span>';
+        m.pages.forEach(function(pk){
+          var pp=findPage(pk); if(!pp) return;
+          cols+='<a href="#/'+pk+'" class="mega-link" data-page="'+pk+'">'+(pp.navTitle||pp.title)+'</a>';
+        });
+        cols+='</div>';
+        return;
+      }
+      // key 항목: 기존 로직 그대로 — head는 #/key 링크, 그 아래 anchors.
+      var p=findPage(m.key)||{};
+      var label=m.title||p.navTitle||p.title||m.key;
+      bar+='<a href="#/'+m.key+'" class="gnb-link" data-page="'+m.key+'" data-col="'+i+'"'+
            ' aria-haspopup="true" aria-expanded="false" aria-controls="megaPanel">'+label+'</a>';
       cols+='<div class="mega-col" data-col="'+i+'">';
-      cols+='<a href="#/'+p.key+'" class="mega-col-head" data-page="'+p.key+'">'+label+'</a>';
-      p.anchors.forEach(function(a){
-        cols+='<a href="#/'+p.key+'/'+a[0]+'" class="mega-link">'+(a[2]||a[1])+'</a>';
+      cols+='<a href="#/'+m.key+'" class="mega-col-head" data-page="'+m.key+'">'+label+'</a>';
+      (p.anchors||[]).forEach(function(a){
+        cols+='<a href="#/'+m.key+'/'+a[0]+'" class="mega-link">'+(a[2]||a[1])+'</a>';
       });
       cols+='</div>';
     });
     gnbHost.innerHTML=bar;
     megaInner.innerHTML=cols;
+    // 그리드 열 개수를 menuTree 길이에 맞춰 GNB·패널 동일하게 지정 (x축 정렬 유지)
+    gnbHost.style.gridTemplateColumns=megaInner.style.gridTemplateColumns='repeat('+menuTree.length+',1fr)';
   }
   // 패널 내부를 GNB 박스와 동일한 위치·폭으로 맞춘다 (둘 다 8등분이라 컬럼이 정확히 정렬된다)
   function alignMega(){
@@ -2521,6 +2572,14 @@ section { padding: 96px 28px; }
     gnbHost.addEventListener('mouseenter',openMega);
     megaPanel.addEventListener('mouseenter',openMega);
     nav.addEventListener('mouseleave',function(){closeMega();});
+    // 진료안내 그룹 대분류: GNB가 보이는 폭에서는 클릭 시 페이지 이동 대신 메가패널만 연다.
+    // (좁은 폭에서 GNB가 숨겨지면 no-JS 폴백 href가 그대로 동작한다.)
+    gnbHost.addEventListener('click',function(e){
+      var a=e.target.closest('.gnb-link[data-group]'); if(!a) return;
+      if(getComputedStyle(gnbHost).display==='none') return;
+      e.preventDefault();
+      openMega(); setHot(a.dataset.col);
+    });
     // 어느 대분류/컬럼 위에 있는지 강조
     // mouseenter는 컨테이너 진입 시 1회뿐이라, 스크롤로 닫힌 뒤 마우스가 GNB에 머물러 있으면
     // 다시 열리지 않는다. 이동 중에도 발생하는 mouseover에서 함께 연다.
@@ -2552,6 +2611,9 @@ section { padding: 96px 28px; }
   function setGnbActive(key){
     document.querySelectorAll('.nav-gnb a, #megaPanel a').forEach(function(el){el.classList.remove('active');});
     document.querySelectorAll('.nav-gnb [data-page="'+key+'"], #megaPanel [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
+    // 진료 5개 페이지면 진료안내 그룹 대분류도 active로 표시
+    var g=careGroupOf(key);
+    if(g&&gnbHost){var gl=gnbHost.querySelector('.gnb-link[data-group="'+g+'"]');if(gl)gl.classList.add('active');}
   }
   // ---- DRAWER ----
   var megaBtn=document.getElementById('megaBtn'), megaDrawer=document.getElementById('megaDrawer'), megaOverlay=document.getElementById('megaOverlay');
@@ -2571,8 +2633,12 @@ section { padding: 96px 28px; }
   }
   function setDrawerActive(key){
     document.querySelectorAll('.drawer-parent.active').forEach(function(b){b.classList.remove('active');var p=document.getElementById(b.dataset.target);if(p)p.style.maxHeight='0';});
-    var btn=document.querySelector('.drawer-parent[data-page="'+key+'"]');
+    document.querySelectorAll('.drawer-child.active').forEach(function(a){a.classList.remove('active');});
+    // 진료 5개 페이지면 진료안내 아코디언을 열고 해당 항목을 강조, 그 외엔 페이지별 아코디언
+    var g=careGroupOf(key);
+    var btn=g?document.querySelector('.drawer-parent[data-group="'+g+'"]'):document.querySelector('.drawer-parent[data-page="'+key+'"]');
     if(btn){btn.classList.add('active');var panel=document.getElementById(btn.dataset.target);if(panel){var inner=panel.querySelector('.drawer-children-inner');panel.style.maxHeight=(inner?inner.scrollHeight+16:panel.scrollHeight)+'px';}}
+    if(g){var child=document.querySelector('.drawer-child[data-page="'+key+'"]');if(child)child.classList.add('active');}
   }
   // ---- 진료 문의 폼 (Formspree, 페이지 이동 없이 전송) ----
   var inquiryForm=document.getElementById('inquiryForm');
