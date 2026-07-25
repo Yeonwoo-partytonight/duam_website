@@ -169,11 +169,14 @@ ul { list-style: none; }
 }
 .nav-tel:hover { background: var(--sky-light); }
 .nav-cta {
+  display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
   background: var(--coral); color: white;
-  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em;
-  padding: 9px 20px; border-radius: var(--r-pill);
-  transition: background 0.2s, transform 0.15s;
+  font-size: 0.98rem; font-weight: 700; letter-spacing: 0.02em;
+  padding: 11px 22px; border-radius: var(--r-pill);
+  box-shadow: 0 4px 14px rgba(240,123,110,0.35);   /* float-btn과 동일한 coral 그림자 톤 */
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
+.nav-cta .icon { width: 17px; height: 17px; }
 .nav-cta:hover { background: var(--coral2); transform: translateY(-1px); }
 /* GNB (데스크톱 상시 노출 메뉴) — 대분류 4개를 나란히 배치.
    메가메뉴 컬럼과 x축을 맞추기 위해 GNB와 패널이 동일한 그리드를 쓴다.
@@ -945,6 +948,7 @@ section { padding: 96px 28px; }
 @media (max-width: 420px) {
   .burger-label { display: none; }
   .nav-burger { padding: 0 6px; }
+  .nav-cta { font-size: 0.9rem; padding: 9px 14px; gap: 5px; }
 }
 @media (max-width: 560px) {
   section { padding: 64px 20px; }
@@ -1085,7 +1089,7 @@ section { padding: 96px 28px; }
     <nav class="nav-gnb" id="navGnb" aria-label="주요 메뉴"></nav>
     <div class="nav-right">
       <a href="tel:062-716-7160" class="nav-tel"><svg class="icon"><use href="#i-phone"/></svg> 062-716-7160</a>
-      <a href="tel:062-716-7160" class="nav-cta">전화 예약</a>
+      <a href="tel:062-716-7160" class="nav-cta"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약</a>
       <button class="nav-burger" id="megaBtn" aria-label="전체 메뉴 열기" aria-expanded="false">
         <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
         <span class="burger-label">전체메뉴</span>
