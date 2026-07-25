@@ -82,7 +82,6 @@ body {
   background: #FAFCFF;
   color: #3A5068;
   overflow-x: hidden;
-  cursor: none;
 }
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
@@ -138,25 +137,6 @@ ul { list-style: none; }
 .visual-panel .vp-emoji .icon { stroke-width: 1.3; }
 .nav-tel .icon, .btn-primary .icon, .cta-band-btn .icon { vertical-align: -0.16em; }
 /* ============================================================
-   CUSTOM CURSOR
-============================================================ */
-.cur-dot {
-  position: fixed; width: 8px; height: 8px;
-  border-radius: 50%; background: var(--sky);
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: background 0.2s;
-}
-.cur-ring {
-  position: fixed; width: 32px; height: 32px;
-  border-radius: 50%; border: 1.5px solid var(--sky);
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s;
-  opacity: 0.6;
-}
-.cur-ring.hovered { width: 50px; height: 50px; border-color: var(--coral); opacity: 0.4; }
-/* ============================================================
    NAV
 ============================================================ */
 #mainNav {
@@ -206,7 +186,7 @@ ul { list-style: none; }
   font-family: inherit; font-size: 1.05rem; font-weight: 600; color: var(--text);
   letter-spacing: -0.03em; padding: 10px 6px; border-radius: var(--r-pill);
   display: flex; align-items: center; justify-content: center;
-  background: none; border: none; cursor: none; white-space: nowrap;
+  background: none; border: none; cursor: pointer; white-space: nowrap;
   transition: color 0.2s, background 0.2s;
 }
 .gnb-link:hover, .gnb-link:focus-visible { color: var(--sky2); background: var(--sky-pale); }
@@ -247,7 +227,7 @@ ul { list-style: none; }
   text-align: center; letter-spacing: -0.02em; line-height: 1.45;
   /* 좁은 컬럼에서 '후만'처럼 단어 중간이 끊기지 않게 한다 */
   word-break: keep-all; overflow-wrap: break-word;
-  padding: 10px 4px; border-radius: var(--r-sm); cursor: none;
+  padding: 10px 4px; border-radius: var(--r-sm); cursor: pointer;
   transition: background 0.18s, color 0.18s;
 }
 .mega-link:hover, .mega-link:focus-visible { background: var(--white); color: var(--sky2); }
@@ -255,7 +235,7 @@ ul { list-style: none; }
 .mega-link.active { color: var(--sky2); font-weight: 600; }
 .nav-burger {
   width: 40px; height: 40px; border: none; background: none;
-  cursor: none; display: flex; flex-direction: column;
+  cursor: pointer; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 5px;
 }
 .nav-burger span {
@@ -317,7 +297,7 @@ ul { list-style: none; }
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1rem; font-weight: 500;
   color: var(--text); text-align: left;
-  border-radius: 8px; cursor: none;
+  border-radius: 8px; cursor: pointer;
   transition: background 0.14s, color 0.14s;
 }
 .drawer-parent:hover  { background: rgba(91,164,207,0.08); color: var(--sky2); }
@@ -345,7 +325,7 @@ ul { list-style: none; }
 .drawer-child {
   display: block; padding: 7px 10px 7px 12px;
   font-size: 0.92rem; color: var(--text);
-  border-radius: 6px; cursor: none;
+  border-radius: 6px; cursor: pointer;
   transition: background 0.12s, color 0.12s;
   position: relative;
 }
@@ -356,7 +336,7 @@ ul { list-style: none; }
   background: none; border: none; border-radius: 8px;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1rem; font-weight: 600;
-  color: var(--coral); text-align: left; cursor: none;
+  color: var(--coral); text-align: left; cursor: pointer;
   transition: background 0.14s;
 }
 .drawer-solo::after {
@@ -562,7 +542,7 @@ section { padding: 96px 28px; }
 .stab-btn {
   padding: 11px 22px; font-size: 0.85rem; font-weight: 500;
   color: var(--text-mid); background: none; border: none;
-  cursor: none; position: relative; transition: color 0.2s;
+  cursor: pointer; position: relative; transition: color 0.2s;
   border-bottom: 2px solid transparent; margin-bottom: -2px;
 }
 .stab-btn:hover { color: var(--sky2); }
@@ -690,7 +670,7 @@ section { padding: 96px 28px; }
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 6px 24px rgba(240,123,110,0.4);
   font-size: 1.3rem;
-  transition: transform 0.2s, box-shadow 0.2s; cursor: none;
+  transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
 }
 .float-btn:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(240,123,110,0.5); }
 .float-btn.talk { background: var(--sky); box-shadow: 0 6px 24px rgba(91,164,207,0.4); }
@@ -734,7 +714,7 @@ section { padding: 96px 28px; }
 .subnav-inner a {
   flex-shrink: 0; padding: 15px 16px; font-size: 0.82rem; font-weight: 500;
   color: var(--text-mid); border-bottom: 2px solid transparent;
-  transition: color 0.18s, border-color 0.18s; white-space: nowrap; cursor: none;
+  transition: color 0.18s, border-color 0.18s; white-space: nowrap; cursor: pointer;
 }
 .subnav-inner a:hover { color: var(--sky2); }
 .subnav-inner a.active { color: var(--sky2); border-bottom-color: var(--sky); }
@@ -862,7 +842,7 @@ section { padding: 96px 28px; }
 .cta-band-btn:hover { opacity: 0.92; transform: translateY(-2px); }
 /* 공지/목록 (news) */
 .notice-list { display: flex; flex-direction: column; margin-top: 8px; border-top: 1px solid var(--border); }
-.notice-row { display: flex; align-items: center; gap: 18px; padding: 18px 8px; border-bottom: 1px solid var(--border); transition: background 0.15s; cursor: none; }
+.notice-row { display: flex; align-items: center; gap: 18px; padding: 18px 8px; border-bottom: 1px solid var(--border); transition: background 0.15s; cursor: pointer; }
 .notice-row:hover { background: var(--sky-ultra); }
 .nr-badge { font-size: 0.68rem; font-weight: 600; color: var(--sky2); background: var(--sky-pale); padding: 3px 10px; border-radius: var(--r-pill); flex-shrink: 0; }
 .nr-badge.new { color: var(--coral2); background: var(--coral-pale); }
@@ -872,7 +852,7 @@ section { padding: 96px 28px; }
 .col-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
 .col-item { background: white; border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; transition: box-shadow 0.22s, border-color 0.22s; }
 .col-item[open] { box-shadow: var(--shadow-sm); border-color: var(--sky-light); }
-.col-sum { display: flex; align-items: center; gap: 14px; padding: 22px 24px; cursor: none; list-style: none; }
+.col-sum { display: flex; align-items: center; gap: 14px; padding: 22px 24px; cursor: pointer; list-style: none; }
 .col-sum::-webkit-details-marker { display: none; }
 .col-tag { font-size: 0.68rem; font-weight: 600; color: var(--sky2); background: var(--sky-pale); padding: 3px 10px; border-radius: var(--r-pill); flex-shrink: 0; }
 .col-heading { flex: 1; font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.5; }
@@ -897,7 +877,7 @@ section { padding: 96px 28px; }
 .inquiry-form input, .inquiry-form textarea {
   width: 100%; border: 1px solid var(--border); border-radius: var(--r-sm);
   padding: 12px 14px; font-family: inherit; font-size: 0.88rem; color: var(--text);
-  background: var(--pearl); transition: border-color 0.18s, background 0.18s; cursor: none;
+  background: var(--pearl); transition: border-color 0.18s, background 0.18s; cursor: text;
 }
 .inquiry-form input:focus, .inquiry-form textarea:focus { outline: none; border-color: var(--sky); background: white; }
 .inquiry-form textarea { min-height: 120px; resize: vertical; }
@@ -907,7 +887,7 @@ section { padding: 96px 28px; }
 .inquiry-form button {
   background: var(--sky); color: white; border: none;
   padding: 13px 30px; border-radius: var(--r-pill); font-family: inherit;
-  font-size: 0.88rem; font-weight: 600; cursor: none; transition: background 0.2s, transform 0.15s;
+  font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s;
 }
 .inquiry-form button:hover { background: var(--sky2); transform: translateY(-2px); }
 /* ============================================================
@@ -938,9 +918,6 @@ section { padding: 96px 28px; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .cta-band-inner { flex-direction: column; align-items: flex-start; }
-  body { cursor: auto; }
-  .cur-dot, .cur-ring { display: none; }
-  .inquiry-form input, .inquiry-form textarea, .subnav-inner a, .float-btn, .inquiry-form button, .drawer-parent, .drawer-child, .drawer-solo, .nav-burger, .stab-btn, .notice-row, .col-sum, .fs-link, .btn-primary, .btn-outline, .gnb-link, .mega-link, .mega-col-head { cursor: auto; }
 }
 /* 대분류 8개 GNB는 약 1150px를 차지해 그 아래 폭에서는 드로어로 전환한다 */
 @media (max-width: 1220px) {
@@ -1077,8 +1054,6 @@ section { padding: 96px 28px; }
   <symbol id="i-blog" viewBox="0 0 24 24"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v5h5"/><path d="M7.5 13h7M7.5 16.5h5"/></symbol>
   <symbol id="i-talk" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.8V16H5.5A1.5 1.5 0 0 1 4 14.5z"/><path d="M8 8.5h8M8 11.5h5"/></symbol>
 </svg>
-<div class="cur-dot" id="curDot"></div>
-<div class="cur-ring" id="curRing"></div>
 <nav id="mainNav">
   <div class="nav-inner">
     <a href="#/home" class="nav-logo">
@@ -2482,15 +2457,6 @@ section { padding: 96px 28px; }
   renderFooterNav();
   renderSubnavs();
 
-  // ---- CURSOR ----
-  var dot=document.getElementById('curDot'), ring=document.getElementById('curRing');
-  if(dot&&ring&&window.matchMedia('(min-width:961px)').matches){
-    var mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-    (function loop(){rx+=(mx-rx)*0.13;ry+=(my-ry)*0.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-    document.addEventListener('mouseover',function(e){if(e.target.closest('a,button'))ring.classList.add('hovered');});
-    document.addEventListener('mouseout',function(e){if(e.target.closest('a,button'))ring.classList.remove('hovered');});
-  }
   // ---- NAV SHADOW ----
   var nav=document.getElementById('mainNav');
   if(nav){window.addEventListener('scroll',function(){nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(61,137,189,0.12)':'none';});}
