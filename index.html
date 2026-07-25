@@ -232,6 +232,15 @@ ul { list-style: none; }
 }
 .mega-link:hover, .mega-link:focus-visible { background: var(--sky-pale); color: var(--sky2); }
 .mega-link.active { color: var(--sky2); font-weight: 600; background: var(--sky-pale); }
+/* 진료안내 전용 패널: 진료 5개를 컬럼 제목(페이지 링크)으로 펼치고 그 아래 하위 항목을 나열 */
+.mega-inner--treat .mega-col-head {
+  display: block; font-size: 0.98rem; font-weight: 700; color: var(--text);
+  text-align: left; letter-spacing: -0.03em; white-space: nowrap;
+  padding: 0 10px 10px; margin-bottom: 8px;
+  border-bottom: 2px solid var(--sky-light);
+}
+.mega-inner--treat .mega-col { padding: 14px 12px 10px; background: none; box-shadow: none; border-radius: 0; }
+.mega-inner--treat .mega-col + .mega-col { border-left: 1px solid var(--border); }
 /* 전체메뉴(드로어 열기) 버튼 — 햄버거 아이콘 + "전체메뉴" 라벨. 데스크톱에서도 상시 노출 */
 .nav-burger {
   height: 40px; padding: 0 10px; border: none; background: none;
@@ -2513,6 +2522,8 @@ section { padding: 96px 28px; }
   // GNB와 패널이 같은 그리드(menuTree.length 등분)를 쓰고 패널을 GNB 박스 위에 겹쳐 컬럼 x축을 맞춘다.
   var gnbHost=document.getElementById('navGnb');
   var megaPanel=document.getElementById('megaPanel'), megaInner=document.getElementById('megaInner');
+  // 메가패널 두 모드: 기본(4컬럼 연결) / treat(진료안내 전용 5컬럼+하위항목)
+  var DEFAULT_COLS='', TREAT_COLS='', curMode='default';
   function renderGnb(){
     if(!gnbHost||!megaInner) return;
     var bar='', cols='';
@@ -2545,6 +2556,17 @@ section { padding: 96px 28px; }
     megaInner.innerHTML=cols;
     // 그리드 열 개수를 menuTree 길이에 맞춰 GNB·패널 동일하게 지정 (x축 정렬 유지)
     gnbHost.style.gridTemplateColumns=megaInner.style.gridTemplateColumns='repeat('+menuTree.length+',1fr)';
+    // 기본 패널(방금 만든 4컬럼)과, 진료안내 전용 패널(진료 5개를 컬럼으로 펼치고 하위항목까지) 문자열을 각각 보관
+    DEFAULT_COLS=cols;
+    var tc='';
+    menuTree.forEach(function(m){ if(!m.pages) return;
+      m.pages.forEach(function(pk){ var pp=findPage(pk); if(!pp) return;
+        tc+='<div class="mega-col"><a href="#/'+pk+'" class="mega-col-head" data-page="'+pk+'">'+(pp.navTitle||pp.title)+'</a>';
+        (pp.anchors||[]).forEach(function(a){ tc+='<a href="#/'+pk+'/'+a[0]+'" class="mega-link">'+(a[2]||a[1])+'</a>'; });
+        tc+='</div>';
+      });
+    });
+    TREAT_COLS=tc;
   }
   // 패널 내부를 GNB 박스와 동일한 위치·폭으로 맞춘다 (둘 다 8등분이라 컬럼이 정확히 정렬된다)
   function alignMega(){
@@ -2553,6 +2575,21 @@ section { padding: 96px 28px; }
     var g=gnbHost.getBoundingClientRect(), n=nav.getBoundingClientRect();
     megaInner.style.marginLeft=(g.left-n.left)+'px';
     megaInner.style.width=g.width+'px';
+  }
+  // 패널 내용 전환: treat(진료안내 전용 5컬럼) ↔ default(4컬럼 연결). 폭은 alignMega가 다시 맞춘다.
+  function setPanelMode(mode){
+    if(mode===curMode) return;
+    curMode=mode;
+    if(mode==='treat'){
+      megaInner.innerHTML=TREAT_COLS;
+      megaInner.classList.add('mega-inner--treat');
+      megaInner.style.gridTemplateColumns='repeat(5,1fr)';
+    } else {
+      megaInner.innerHTML=DEFAULT_COLS;
+      megaInner.classList.remove('mega-inner--treat');
+      megaInner.style.gridTemplateColumns='repeat('+menuTree.length+',1fr)';
+    }
+    alignMega();
   }
   function setHot(i){
     document.querySelectorAll('.gnb-link.hot, .mega-col.hot').forEach(function(e){e.classList.remove('hot');});
@@ -2590,21 +2627,25 @@ section { padding: 96px 28px; }
       var a=e.target.closest('.gnb-link[data-group]'); if(!a) return;
       if(getComputedStyle(gnbHost).display==='none') return;
       e.preventDefault();
-      openMega(); setHot(a.dataset.col);
+      setPanelMode('treat'); openMega(); setHot(a.dataset.col);
     });
     // 어느 대분류/컬럼 위에 있는지 강조
     // mouseenter는 컨테이너 진입 시 1회뿐이라, 스크롤로 닫힌 뒤 마우스가 GNB에 머물러 있으면
     // 다시 열리지 않는다. 이동 중에도 발생하는 mouseover에서 함께 연다.
     gnbHost.addEventListener('mouseover',function(e){
       var a=e.target.closest('.gnb-link'); if(!a) return;
-      openMega(); setHot(a.dataset.col);
+      openMega();
+      setPanelMode(a.dataset.group ? 'treat' : 'default');
+      setHot(a.dataset.col);   // treat 컬럼엔 data-col이 없어 진료안내 탭만 강조됨
     });
     megaInner.addEventListener('mouseover',function(e){
+      if(curMode==='treat') return;   // treat 모드에선 하위 컬럼 틴트 비활성
       var c=e.target.closest('.mega-col'); if(c)setHot(c.dataset.col);
     });
     // 키보드: 포커스 진입 시 열고, 밖으로 나가면 닫는다
     gnbHost.addEventListener('focusin',function(e){
-      openMega(); var a=e.target.closest('.gnb-link'); if(a)setHot(a.dataset.col);
+      openMega(); var a=e.target.closest('.gnb-link');
+      if(a){ setPanelMode(a.dataset.group ? 'treat' : 'default'); setHot(a.dataset.col); }
     });
     megaPanel.addEventListener('focusin',function(e){
       openMega(); var c=e.target.closest('.mega-col'); if(c)setHot(c.dataset.col);
