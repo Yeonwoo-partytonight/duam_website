@@ -211,29 +211,33 @@ ul { list-style: none; }
    margin-left/width는 alignMega()가 GNB 실측값으로 채운다.
    (absolute를 쓰면 흐름에서 빠져 패널 높이가 0이 되므로 흐름 안에 둔다) */
 .mega-inner {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  padding: 22px 0 26px;
+  display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10px;
+  padding: 26px 0 30px;
 }
-.mega-col { padding: 0 4px; border-radius: var(--r-md); transition: background 0.18s; }
-.mega-col.hot { background: var(--sky-pale); }
+.mega-col { padding: 0 12px; position: relative; }
+/* 컬럼 사이 옅은 세로 구분선으로 구조감 */
+.mega-col + .mega-col::before {
+  content: ''; position: absolute; left: 0; top: 2px; bottom: 8px;
+  width: 1px; background: var(--border);
+}
+/* 큰 알약 배경 제거 — 강조는 헤더 색으로만 */
+.mega-col.hot { background: none; }
 .mega-col-head {
-  display: block; font-size: 1rem; font-weight: 600; color: var(--text);
-  text-align: center; letter-spacing: -0.03em; white-space: nowrap;
-  padding-bottom: 10px; margin-bottom: 8px;
-  border-bottom: 1px solid var(--border);
+  display: block; font-size: 1.02rem; font-weight: 700; color: var(--text);
+  text-align: left; letter-spacing: -0.03em; white-space: nowrap;
+  padding: 0 10px 12px; margin-bottom: 8px;
+  border-bottom: 2px solid var(--sky-light);
 }
-.mega-col.hot .mega-col-head { color: var(--sky2); }
+.mega-col.hot .mega-col-head { color: var(--sky2); border-bottom-color: var(--sky); }
 .mega-link {
   display: block; font-size: 0.95rem; color: var(--text);
-  text-align: center; letter-spacing: -0.02em; line-height: 1.45;
-  /* 좁은 컬럼에서 '후만'처럼 단어 중간이 끊기지 않게 한다 */
+  text-align: left; letter-spacing: -0.02em; line-height: 1.4;
   word-break: keep-all; overflow-wrap: break-word;
-  padding: 10px 4px; border-radius: var(--r-sm); cursor: pointer;
-  transition: background 0.18s, color 0.18s;
+  padding: 9px 10px; border-radius: var(--r-sm); cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
-.mega-link:hover, .mega-link:focus-visible { background: var(--white); color: var(--sky2); }
-.mega-col.hot .mega-link:hover { background: var(--white); }
-.mega-link.active { color: var(--sky2); font-weight: 600; }
+.mega-link:hover, .mega-link:focus-visible { background: var(--sky-pale); color: var(--sky2); }
+.mega-link.active { color: var(--sky2); font-weight: 600; background: var(--sky-pale); }
 /* 전체메뉴(드로어 열기) 버튼 — 햄버거 아이콘 + "전체메뉴" 라벨. 데스크톱에서도 상시 노출 */
 .nav-burger {
   height: 40px; padding: 0 10px; border: none; background: none;
