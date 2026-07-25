@@ -234,21 +234,31 @@ ul { list-style: none; }
 .mega-link:hover, .mega-link:focus-visible { background: var(--white); color: var(--sky2); }
 .mega-col.hot .mega-link:hover { background: var(--white); }
 .mega-link.active { color: var(--sky2); font-weight: 600; }
+/* 전체메뉴(드로어 열기) 버튼 — 햄버거 아이콘 + "전체메뉴" 라벨. 데스크톱에서도 상시 노출 */
 .nav-burger {
-  width: 40px; height: 40px; border: none; background: none;
-  cursor: pointer; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 5px;
+  height: 40px; padding: 0 10px; border: none; background: none;
+  cursor: pointer; display: flex; flex-direction: row;
+  align-items: center; gap: 8px; border-radius: var(--r-pill);
+  transition: background 0.2s;
 }
-.nav-burger span {
-  display: block; height: 1.5px; background: var(--text);
+.nav-burger:hover, .nav-burger:focus-visible { background: var(--sky-pale); }
+.burger-lines {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 5px;
+  width: 22px; flex-shrink: 0;
+}
+.burger-lines span {
+  display: block; height: 1.5px; width: 22px; background: var(--text);
   transition: all 0.3s; border-radius: 2px;
 }
-.nav-burger span:nth-child(1) { width: 22px; }
-.nav-burger span:nth-child(2) { width: 16px; }
-.nav-burger span:nth-child(3) { width: 22px; }
-.nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 22px; }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 22px; }
+.burger-lines span:nth-child(2) { width: 16px; }
+.nav-burger.open .burger-lines span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 22px; }
+.nav-burger.open .burger-lines span:nth-child(2) { opacity: 0; }
+.nav-burger.open .burger-lines span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); width: 22px; }
+.burger-label {
+  font-size: 0.9rem; font-weight: 600; color: var(--text);
+  letter-spacing: -0.02em; white-space: nowrap;
+}
 /* DRAWER */
 .drawer-overlay {
   position: fixed; inset: 0; background: rgba(46,74,99,0.28);
@@ -928,14 +938,18 @@ section { padding: 96px 28px; }
   .mega-panel { display: none; }
 }
 @media (min-width: 993px) {
-  /* GNB가 보이는 폭에서는 드로어 버튼이 중복이라 감춘다 */
-  .nav-burger { display: none; }
+  /* 전체메뉴(드로어) 버튼은 어르신 접근성을 위해 GNB와 함께 상시 노출한다 */
   /* 이 폭에서만 각 블록을 고정해 글자가 눌려 뭉개지는 것을 막는다 */
   .nav-logo, .nav-right { flex-shrink: 0; }
 }
 /* 헤더 전화번호는 GNB를 밀어내지 않는 폭에서만 노출 */
 @media (max-width: 1420px) {
   .nav-tel { display: none; }
+}
+/* 아주 좁은 폭에서는 전체메뉴 라벨을 숨겨 전화예약 버튼과 한 줄에 겹치지 않게 한다 (아이콘만 유지) */
+@media (max-width: 420px) {
+  .burger-label { display: none; }
+  .nav-burger { padding: 0 6px; }
 }
 @media (max-width: 560px) {
   section { padding: 64px 20px; }
@@ -1077,8 +1091,9 @@ section { padding: 96px 28px; }
     <div class="nav-right">
       <a href="tel:062-716-7160" class="nav-tel"><svg class="icon"><use href="#i-phone"/></svg> 062-716-7160</a>
       <a href="tel:062-716-7160" class="nav-cta">전화 예약</a>
-      <button class="nav-burger" id="megaBtn" aria-label="메뉴 열기">
-        <span></span><span></span><span></span>
+      <button class="nav-burger" id="megaBtn" aria-label="전체 메뉴 열기" aria-expanded="false">
+        <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="burger-label">전체메뉴</span>
       </button>
     </div>
   </div>
@@ -2617,8 +2632,8 @@ section { padding: 96px 28px; }
   }
   // ---- DRAWER ----
   var megaBtn=document.getElementById('megaBtn'), megaDrawer=document.getElementById('megaDrawer'), megaOverlay=document.getElementById('megaOverlay');
-  function openDrawer(){megaBtn.classList.add('open');megaDrawer.classList.add('open');megaOverlay.classList.add('open');megaDrawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-  function closeDrawer(){if(!megaBtn)return;megaBtn.classList.remove('open');megaDrawer.classList.remove('open');megaOverlay.classList.remove('open');megaDrawer.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  function openDrawer(){megaBtn.classList.add('open');megaBtn.setAttribute('aria-expanded','true');megaDrawer.classList.add('open');megaOverlay.classList.add('open');megaDrawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+  function closeDrawer(){if(!megaBtn)return;megaBtn.classList.remove('open');megaBtn.setAttribute('aria-expanded','false');megaDrawer.classList.remove('open');megaOverlay.classList.remove('open');megaDrawer.setAttribute('aria-hidden','true');document.body.style.overflow='';}
   if(megaBtn){
     megaBtn.addEventListener('click',function(){megaDrawer.classList.contains('open')?closeDrawer():openDrawer();});
     megaOverlay.addEventListener('click',closeDrawer);
