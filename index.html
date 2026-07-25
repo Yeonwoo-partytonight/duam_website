@@ -497,8 +497,12 @@ ul { list-style: none; }
   flex-shrink: 0; margin-right: 16px;
 }
 .notice-scroll { flex: 1; overflow: hidden; height: 100%; display: flex; align-items: center; }
-.notice-track { display: flex; gap: 60px; white-space: nowrap; animation: marquee 28s linear infinite; }
-.notice-item { font-size: 0.8rem; color: rgba(255,255,255,0.9); }
+.notice-track { display: flex; gap: 60px; white-space: nowrap; animation: marquee 55s linear infinite; }
+/* 어르신이 읽을 수 있게: 마우스 올리면 정지 */
+.notice-banner:hover .notice-track { animation-play-state: paused; }
+/* '동작 최소화' 접근성 설정 시 흐름 정지 */
+@media (prefers-reduced-motion: reduce) { .notice-track { animation-play-state: paused; } }
+.notice-item { font-size: 0.9rem; color: rgba(255,255,255,0.95); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 /* ============================================================
    SECTION COMMONS
