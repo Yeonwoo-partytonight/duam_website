@@ -212,23 +212,14 @@ ul { list-style: none; }
    (absolute를 쓰면 흐름에서 빠져 패널 높이가 0이 되므로 흐름 안에 둔다) */
 .mega-inner {
   display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10px;
-  padding: 26px 0 30px;
+  padding: 12px 0 24px;                 /* 상단 바와의 간격 축소 */
 }
-.mega-col { padding: 0 12px; position: relative; }
-/* 컬럼 사이 옅은 세로 구분선으로 구조감 */
-.mega-col + .mega-col::before {
-  content: ''; position: absolute; left: 0; top: 2px; bottom: 8px;
-  width: 1px; background: var(--border);
+.mega-col {
+  padding: 14px 14px 10px; position: relative;
+  border-radius: 0 0 12px 12px; transition: background 0.18s;
 }
-/* 큰 알약 배경 제거 — 강조는 헤더 색으로만 */
-.mega-col.hot { background: none; }
-.mega-col-head {
-  display: block; font-size: 1.02rem; font-weight: 700; color: var(--text);
-  text-align: left; letter-spacing: -0.03em; white-space: nowrap;
-  padding: 0 10px 12px; margin-bottom: 8px;
-  border-bottom: 2px solid var(--sky-light);
-}
-.mega-col.hot .mega-col-head { color: var(--sky2); border-bottom-color: var(--sky); }
+/* 활성 컬럼: 옅은 틴트 + 상단 파란 강조선으로 위 탭과 이어지게 */
+.mega-col.hot { background: var(--sky-ultra); box-shadow: inset 0 3px 0 var(--sky); }
 .mega-link {
   display: block; font-size: 0.95rem; color: var(--text);
   text-align: left; letter-spacing: -0.02em; line-height: 1.4;
@@ -2528,7 +2519,6 @@ section { padding: 96px 28px; }
         bar+='<a href="#/'+m.pages[0]+'" class="gnb-link" data-group="'+m.group+'" data-col="'+i+'"'+
              ' aria-haspopup="true" aria-expanded="false" aria-controls="megaPanel">'+m.title+'</a>';
         cols+='<div class="mega-col" data-col="'+i+'">';
-        cols+='<span class="mega-col-head">'+m.title+'</span>';
         m.pages.forEach(function(pk){
           var pp=findPage(pk); if(!pp) return;
           cols+='<a href="#/'+pk+'" class="mega-link" data-page="'+pk+'">'+(pp.navTitle||pp.title)+'</a>';
@@ -2542,7 +2532,6 @@ section { padding: 96px 28px; }
       bar+='<a href="#/'+m.key+'" class="gnb-link" data-page="'+m.key+'" data-col="'+i+'"'+
            ' aria-haspopup="true" aria-expanded="false" aria-controls="megaPanel">'+label+'</a>';
       cols+='<div class="mega-col" data-col="'+i+'">';
-      cols+='<a href="#/'+m.key+'" class="mega-col-head" data-page="'+m.key+'">'+label+'</a>';
       (p.anchors||[]).forEach(function(a){
         cols+='<a href="#/'+m.key+'/'+a[0]+'" class="mega-link">'+(a[2]||a[1])+'</a>';
       });
