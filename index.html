@@ -212,15 +212,12 @@ ul { list-style: none; }
 #mainNav.mega-open .mega-panel { opacity: 1; visibility: visible; transform: translateY(0); }
 /* 컬럼이 상단 대분류와 같은 x축에 오도록 GNB 박스와 동일한 위치·폭을 갖는다.
    margin-left/width는 alignMega()가 GNB 실측값으로 채운다.
-   (absolute를 쓰면 흐름에서 빠져 패널 높이가 0이 되므로 흐름 안에 둔다) */
+   (absolute를 쓰면 흐름에서 빠져 패널 높이가 0이 되므로 흐름 안에 둔다)
+   min-height은 syncMegaHeight()가 실측해 인라인으로 넣는다 (아코디언 개폐 시 패널 하단 고정용) */
 .mega-inner {
   display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10px;
   padding: 12px 0 24px;                 /* 상단 바와의 간격 축소 */
-  transition: opacity 0.12s ease;       /* 4컬럼↔5컬럼 모드 전환 시 짧은 페이드 */
 }
-/* 모드 전환 중간 상태 — 내용 교체 직전 잠깐 투명하게 (setPanelMode가 토글) */
-.mega-inner.mega-fade { opacity: 0; }
-@media (prefers-reduced-motion: reduce) { .mega-inner { transition: none; } }
 .mega-col {
   padding: 14px 14px 10px; position: relative;
   border-radius: 0 0 12px 12px; transition: background 0.18s;
@@ -236,8 +233,8 @@ ul { list-style: none; }
 }
 .mega-link:hover, .mega-link:focus-visible { background: var(--sky-pale); color: var(--sky2); }
 .mega-link.active { color: var(--sky2); font-weight: 600; background: var(--sky-pale); }
-/* 컬럼 제목 — 기본(4컬럼)·진료안내(5컬럼) 두 모드 공통.
-   아래 하위 링크와 같은 왼쪽 기준선(좌우 10px)을 써서 두 모드가 같은 구조로 보이게 한다.
+/* 컬럼 제목 — 4개 컬럼 공통.
+   아래 하위 링크와 같은 왼쪽 기준선(좌우 10px)을 써서 컬럼들이 같은 구조로 보이게 한다.
    컬럼 구분은 선이 아니라 column-gap 여백으로만 한다. */
 .mega-col-head {
   display: block; font-size: 0.98rem; font-weight: 700; color: var(--text);
@@ -251,6 +248,39 @@ ul { list-style: none; }
 span.mega-col-head { cursor: default; }
 a.mega-col-head:hover, a.mega-col-head:focus-visible,
 .mega-col-head.active { color: var(--sky2); border-bottom-color: var(--sky); }
+/* ---- 진료안내 컬럼 아코디언 ----
+   진료 5개 중 마우스(또는 키보드 포커스)가 놓인 하나만 아래로 하위 항목을 펼친다.
+   높이 애니메이션용 max-height 값은 JS가 scrollHeight로 실측해 인라인으로 넣는다. */
+.treat-head { font-weight: 600; padding-right: 26px; position: relative; }
+/* 하위 항목이 있는 항목(aria-expanded 보유)에만 펼침 표시 화살표 */
+.treat-head[aria-expanded]::after {
+  content: ""; position: absolute; right: 12px; top: 50%;
+  width: 7px; height: 7px; margin-top: -5px;
+  border-right: 2px solid var(--sky-light); border-bottom: 2px solid var(--sky-light);
+  transform: rotate(45deg); transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.treat-head[aria-expanded="true"] { color: var(--sky2); background: var(--sky-pale); }
+.treat-head[aria-expanded="true"]::after { margin-top: -2px; transform: rotate(-135deg); border-color: var(--sky2); }
+.treat-sub {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.22s ease, opacity 0.22s ease;
+}
+.treat-sub.is-open { opacity: 1; }
+/* 하위 항목: 어르신 가독성을 위해 글자·클릭영역은 유지하고 들여쓰기와 색으로만 위계를 준다 */
+.treat-sublink { font-size: 0.92rem; color: var(--text-mid); padding-left: 28px; position: relative; }
+.treat-sublink::before {
+  content: ""; position: absolute; left: 14px; top: 50%;
+  width: 7px; height: 1px; background: var(--sky-light);
+}
+/* .treat-sub가 overflow:hidden이라 기본 포커스 링이 잘린다 → 안쪽으로 그린다 */
+.treat-sublink:focus-visible { outline: 2px solid var(--sky2); outline-offset: -2px; }
+/* 패널을 다시 열 때의 상태 초기화·높이 실측은 애니메이션 없이 즉시 반영한다 */
+.mega-inner.no-anim .treat-sub, .mega-inner.no-anim .treat-head::after { transition: none; }
+/* 실측 중에만 컬럼 stretch를 풀어 각 컬럼의 "내용 높이"를 그대로 읽는다 (syncMegaHeight) */
+.mega-inner.measuring { align-items: start; }
+@media (prefers-reduced-motion: reduce) {
+  .treat-sub, .treat-head[aria-expanded]::after { transition: none; }
+}
 /* 전체메뉴(드로어 열기) 버튼 — 햄버거 아이콘 + "전체메뉴" 라벨. 데스크톱에서도 상시 노출 */
 .nav-burger {
   height: 40px; padding: 0 10px; border: none; background: none;
@@ -2536,21 +2566,34 @@ section { padding: 96px 28px; }
   // GNB와 패널이 같은 그리드(menuTree.length 등분)를 쓰고 패널을 GNB 박스 위에 겹쳐 컬럼 x축을 맞춘다.
   var gnbHost=document.getElementById('navGnb');
   var megaPanel=document.getElementById('megaPanel'), megaInner=document.getElementById('megaInner');
-  // 메가패널 두 모드: 기본(4컬럼 연결) / treat(진료안내 전용 5컬럼+하위항목)
-  var DEFAULT_COLS='', TREAT_COLS='', curMode='default', curNavKey=null;
+  // 패널은 항상 menuTree 기준 4컬럼 한 가지 구성만 쓴다 (컬럼 제목 + 하위 링크)
+  var treatCol=null;
   function renderGnb(){
     if(!gnbHost||!megaInner) return;
     var bar='', cols='';
     menuTree.forEach(function(m,i){
       // 진료안내 그룹: 클릭 페이지가 없어 메가패널만 여는 대분류.
-      // head는 링크가 아닌 <span>, 그 아래 진료 5개 페이지 링크만 노출한다.
+      // 제목은 링크가 아닌 <span>, 그 아래 진료 5개는 각자 하위 항목을 품은 아코디언 항목이 된다.
       if(m.pages){
         bar+='<a href="#/'+m.pages[0]+'" class="gnb-link" data-group="'+m.group+'" data-col="'+i+'"'+
              ' aria-haspopup="true" aria-expanded="false" aria-controls="megaPanel">'+m.title+'</a>';
-        cols+='<div class="mega-col" data-col="'+i+'"><span class="mega-col-head">'+m.title+'</span>';
+        cols+='<div class="mega-col mega-col--treat" data-col="'+i+'"><span class="mega-col-head">'+m.title+'</span>';
         m.pages.forEach(function(pk){
           var pp=findPage(pk); if(!pp) return;
-          cols+='<a href="#/'+pk+'" class="mega-link" data-page="'+pk+'">'+(pp.navTitle||pp.title)+'</a>';
+          var subs=pp.anchors||[];
+          // 하위 항목이 없는 페이지(암면역클리닉)는 aria-expanded 없이 단일 링크로 둔다
+          cols+='<div class="treat-item" data-page="'+pk+'">'
+              + '<a href="#/'+pk+'" class="mega-link treat-head" data-page="'+pk+'"'
+              + (subs.length?' aria-expanded="false"':'')+'>'+(pp.navTitle||pp.title)+'</a>';
+          if(subs.length){
+            cols+='<div class="treat-sub">';
+            subs.forEach(function(a){
+              // 접힌 상태에서는 키보드 Tab이 들어가지 않도록 tabindex=-1로 시작
+              cols+='<a href="#/'+pk+'/'+a[0]+'" class="mega-link treat-sublink" tabindex="-1">'+(a[2]||a[1])+'</a>';
+            });
+            cols+='</div>';
+          }
+          cols+='</div>';
         });
         cols+='</div>';
         return;
@@ -2570,19 +2613,8 @@ section { padding: 96px 28px; }
     megaInner.innerHTML=cols;
     // 그리드 열 개수를 menuTree 길이에 맞춰 GNB·패널 동일하게 지정 (x축 정렬 유지)
     gnbHost.style.gridTemplateColumns=megaInner.style.gridTemplateColumns='repeat('+menuTree.length+',1fr)';
-    // 기본 패널(방금 만든 4컬럼)과, 진료안내 전용 패널(진료 5개를 컬럼으로 펼치고 하위항목까지) 문자열을 각각 보관
-    DEFAULT_COLS=cols;
-    // treat 컬럼에도 data-col을 부여해 기본 패널과 똑같이 hover 틴트(.hot)가 걸리게 한다.
-    // 인덱스는 GNB(0~3)와 별개의 자체 번호이므로, setHot은 모드를 보고 둘을 구분한다.
-    var tc='', ti=0;
-    menuTree.forEach(function(m){ if(!m.pages) return;
-      m.pages.forEach(function(pk){ var pp=findPage(pk); if(!pp) return;
-        tc+='<div class="mega-col" data-col="'+(ti++)+'"><a href="#/'+pk+'" class="mega-col-head" data-page="'+pk+'">'+(pp.navTitle||pp.title)+'</a>';
-        (pp.anchors||[]).forEach(function(a){ tc+='<a href="#/'+pk+'/'+a[0]+'" class="mega-link">'+(a[2]||a[1])+'</a>'; });
-        tc+='</div>';
-      });
-    });
-    TREAT_COLS=tc;
+    treatCol=megaInner.querySelector('.mega-col--treat');
+    setTreat(firstTreat(),true);   // 기본 상태: 첫 항목(척추관절)이 펼쳐진 채로 시작
   }
   // 패널 내부를 GNB 박스와 동일한 위치·폭으로 맞춘다 (둘 다 8등분이라 컬럼이 정확히 정렬된다)
   function alignMega(){
@@ -2592,60 +2624,80 @@ section { padding: 96px 28px; }
     megaInner.style.marginLeft=(g.left-n.left)+'px';
     megaInner.style.width=g.width+'px';
   }
-  // 패널 내용 전환: treat(진료안내 전용 5컬럼) ↔ default(4컬럼 연결). 폭은 alignMega가 다시 맞춘다.
-  // 두 모드 마크업이 같은 체계(제목 + 하위 링크)라 내용만 짧게 페이드시켜 바꾼다.
-  var fadeTimer=null, domMode='default';
-  var reduceMQ=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
-  // now=true면 페이드 없이 즉시 교체 (키보드·클릭처럼 곧바로 패널을 쓸 상황)
-  function setPanelMode(mode,now){
-    if(mode===curMode) return;
-    curMode=mode;
-    // 실제 교체 + 교체로 사라진 상태(현재 페이지 active, hover 틴트) 복원
-    var swap=function(){
-      if(domMode!==mode){
-        megaInner.innerHTML = (mode==='treat') ? TREAT_COLS : DEFAULT_COLS;
-        megaInner.classList.toggle('mega-inner--treat', mode==='treat');   // 현재 모드 표시용 (전용 스타일 없음)
-        megaInner.style.gridTemplateColumns = (mode==='treat') ? 'repeat(5,1fr)' : 'repeat('+menuTree.length+',1fr)';
-        domMode=mode;
-      }
-      alignMega();
-      if(curNavKey) setGnbActive(curNavKey);
-      setHot(hotTab);
-    };
-    clearTimeout(fadeTimer);
-    // 패널이 닫혀 있거나 모션 최소화 설정이면 페이드 없이 즉시 교체
-    if(now || (reduceMQ&&reduceMQ.matches) || !nav.classList.contains('mega-open')){
-      megaInner.classList.remove('mega-fade'); swap(); return;
+  // ---- 진료안내 컬럼 아코디언 ----
+  // 진료 5개 중 마우스/포커스가 놓인 하나만 펼치고 나머지는 접는다 (항상 1개만 열림).
+  // 높이는 하드코딩하지 않고 매번 scrollHeight로 실측해 인라인 max-height에 넣는다.
+  var openTreat=null, treatTimer=null;
+  function firstTreat(){ return treatCol?treatCol.querySelector('.treat-item'):null; }
+  // now=true면 전환 애니메이션 없이 즉시 반영 (패널 재오픈 초기화·높이 실측용)
+  function setTreat(item,now){
+    if(!treatCol) return;
+    clearTimeout(treatTimer);
+    openTreat=item||null;
+    if(now) megaInner.classList.add('no-anim');
+    treatCol.querySelectorAll('.treat-item').forEach(function(it){
+      var sub=it.querySelector('.treat-sub'); if(!sub) return;   // 하위 항목 없는 페이지는 건너뜀
+      var on=(it===openTreat), head=it.querySelector('.treat-head');
+      if(head) head.setAttribute('aria-expanded', on?'true':'false');
+      sub.classList.toggle('is-open',on);
+      sub.style.maxHeight = on ? sub.scrollHeight+'px' : '0px';
+      // 접혀 있는 하위 항목에는 키보드 Tab이 들어가지 않게 한다
+      sub.querySelectorAll('a').forEach(function(a){
+        if(on) a.removeAttribute('tabindex'); else a.setAttribute('tabindex','-1');
+      });
+    });
+    if(now){ void megaInner.offsetHeight; megaInner.classList.remove('no-anim'); }
+  }
+  // 항목 사이를 스쳐 지나갈 때 깜빡이지 않도록 짧게 지연시켜 전환한다
+  function queueTreat(item){
+    clearTimeout(treatTimer);
+    if(item===openTreat) return;
+    treatTimer=setTimeout(function(){ setTreat(item); },100);
+  }
+  // 아코디언 개폐로 패널 하단 경계가 출렁이지 않도록, 가장 높아지는 상태를 실측해 min-height로 고정한다.
+  function syncMegaHeight(){
+    if(!megaInner||!megaPanel) return;
+    if(getComputedStyle(megaPanel).display==='none'){ megaInner.style.minHeight=''; return; }
+    var keep=openTreat;
+    megaInner.style.minHeight='';
+    // 컬럼은 평소 그리드 행 높이만큼 늘어나므로(hover 틴트가 아래까지 차도록),
+    // 잴 때만 stretch를 풀어 각 컬럼의 실제 내용 높이를 읽는다.
+    megaInner.classList.add('measuring');
+    setTreat(null,true);                      // 전부 접은 상태를 기준으로 측정
+    var tallest=0, closed=0, maxSub=0;
+    megaInner.querySelectorAll('.mega-col').forEach(function(c){ tallest=Math.max(tallest,c.offsetHeight); });
+    if(treatCol){
+      closed=treatCol.offsetHeight;
+      treatCol.querySelectorAll('.treat-sub').forEach(function(s){ maxSub=Math.max(maxSub,s.scrollHeight); });
     }
-    megaInner.classList.add('mega-fade');
-    fadeTimer=setTimeout(function(){ swap(); megaInner.classList.remove('mega-fade'); },120);
+    var pad=megaInner.offsetHeight-tallest;   // 패널 상하 여백
+    megaInner.classList.remove('measuring');
+    // 최장 정적 컬럼(병원소개)과, 하위목록이 가장 긴 항목이 열린 진료안내 컬럼 중 큰 쪽으로 고정
+    megaInner.style.minHeight=(Math.max(tallest,closed+maxSub)+pad)+'px';
+    setTreat(keep,true);
   }
-  var hotTab=null;   // 상단 GNB에서 강조 중인 대분류 인덱스
-  // 상단 대분류 강조. 기본 모드에서는 같은 인덱스의 패널 컬럼도 함께 강조하고,
-  // treat 모드에서는 컬럼 인덱스 체계가 달라 상단 "진료안내" 탭만 강조한다.
+  // 상단 대분류와 같은 인덱스의 패널 컬럼을 함께 강조한다
   function setHot(i){
-    hotTab = (i==null) ? null : String(i);
     gnbHost.querySelectorAll('.gnb-link.hot').forEach(function(e){e.classList.remove('hot');});
-    if(hotTab==null){ setHotCol(null); return; }
-    var a=gnbHost.querySelector('.gnb-link[data-col="'+hotTab+'"]'); if(a)a.classList.add('hot');
-    setHotCol(curMode==='treat' ? null : megaInner.querySelector('.mega-col[data-col="'+hotTab+'"]'));
-  }
-  // 패널 컬럼 틴트만 옮긴다 (treat 모드에서 상단 진료안내 탭 강조는 그대로 유지)
-  function setHotCol(c){
     megaInner.querySelectorAll('.mega-col.hot').forEach(function(e){e.classList.remove('hot');});
-    if(c) c.classList.add('hot');
+    if(i==null) return;
+    var a=gnbHost.querySelector('.gnb-link[data-col="'+i+'"]'); if(a)a.classList.add('hot');
+    var c=megaInner.querySelector('.mega-col[data-col="'+i+'"]'); if(c)c.classList.add('hot');
   }
   var megaTimer=null;
   function openMega(){
     if(!nav||getComputedStyle(gnbHost).display==='none') return;
     clearTimeout(megaTimer);
     alignMega();
+    // 닫혀 있다가 새로 열릴 때만 아코디언을 기본 상태(첫 항목 펼침)로 되돌린다.
+    // 열려 있는 동안에는 컬럼 밖으로 마우스가 나가도 직전 상태를 그대로 유지한다.
+    if(!nav.classList.contains('mega-open')) setTreat(firstTreat(),true);
     nav.classList.add('mega-open');
     gnbHost.querySelectorAll('.gnb-link').forEach(function(a){a.setAttribute('aria-expanded','true');});
   }
   function closeMega(now){
     if(!nav) return;
-    clearTimeout(megaTimer);
+    clearTimeout(megaTimer); clearTimeout(treatTimer);
     var doIt=function(){
       nav.classList.remove('mega-open'); setHot(null);
       gnbHost.querySelectorAll('.gnb-link').forEach(function(a){a.setAttribute('aria-expanded','false');});
@@ -2664,32 +2716,30 @@ section { padding: 96px 28px; }
       var a=e.target.closest('.gnb-link[data-group]'); if(!a) return;
       if(getComputedStyle(gnbHost).display==='none') return;
       e.preventDefault();
-      setPanelMode('treat',true); openMega(); setHot(a.dataset.col);
+      openMega(); setHot(a.dataset.col);
     });
     // 어느 대분류/컬럼 위에 있는지 강조
     // mouseenter는 컨테이너 진입 시 1회뿐이라, 스크롤로 닫힌 뒤 마우스가 GNB에 머물러 있으면
     // 다시 열리지 않는다. 이동 중에도 발생하는 mouseover에서 함께 연다.
     gnbHost.addEventListener('mouseover',function(e){
       var a=e.target.closest('.gnb-link'); if(!a) return;
-      openMega();
-      setPanelMode(a.dataset.group ? 'treat' : 'default');
-      setHot(a.dataset.col);
+      openMega(); setHot(a.dataset.col);
     });
-    // 패널 컬럼 위 hover — 두 모드 모두 같은 틴트가 걸린다.
-    // treat 모드에서는 컬럼만 옮기고 상단 진료안내 탭 강조는 유지한다.
+    // 패널 컬럼 위 hover — 컬럼 틴트 이동 + 진료안내 컬럼이면 해당 항목을 펼친다
     megaInner.addEventListener('mouseover',function(e){
       var c=e.target.closest('.mega-col'); if(!c) return;
-      if(curMode==='treat') setHotCol(c); else setHot(c.dataset.col);
+      setHot(c.dataset.col);
+      var it=e.target.closest('.treat-item'); if(it) queueTreat(it);
     });
     // 키보드: 포커스 진입 시 열고, 밖으로 나가면 닫는다
     gnbHost.addEventListener('focusin',function(e){
-      openMega(); var a=e.target.closest('.gnb-link');
-      // 키보드 이동은 곧바로 패널로 Tab이 넘어올 수 있으므로 페이드 없이 즉시 교체한다
-      if(a){ setPanelMode(a.dataset.group ? 'treat' : 'default', true); setHot(a.dataset.col); }
+      openMega(); var a=e.target.closest('.gnb-link'); if(a) setHot(a.dataset.col);
     });
     megaPanel.addEventListener('focusin',function(e){
-      openMega(); var c=e.target.closest('.mega-col'); if(!c) return;
-      if(curMode==='treat') setHotCol(c); else setHot(c.dataset.col);
+      openMega();
+      // Tab으로 진료 항목에 들어오면 hover와 동일하게 펼친다 (지연 없이 즉시)
+      var h=e.target.closest('.treat-head'); if(h) setTreat(h.closest('.treat-item'));
+      var c=e.target.closest('.mega-col'); if(c) setHot(c.dataset.col);
     });
     nav.addEventListener('focusout',function(e){ if(!nav.contains(e.relatedTarget)) closeMega(true); });
     document.addEventListener('keydown',function(e){
@@ -2700,11 +2750,23 @@ section { padding: 96px 28px; }
     });
     megaPanel.addEventListener('click',function(e){ if(e.target.closest('a')) closeMega(true); });
     window.addEventListener('scroll',function(){ if(nav.classList.contains('mega-open')) closeMega(true); });
-    window.addEventListener('resize',function(){ alignMega(); });
+    // 폭이 바뀌면 컬럼 폭·줄바꿈이 달라져 실측값도 다시 잡아야 한다 (연속 resize는 한 번만 처리)
+    var resizeTimer=null;
+    window.addEventListener('resize',function(){
+      alignMega();
+      clearTimeout(resizeTimer);
+      resizeTimer=setTimeout(syncMegaHeight,150);
+    });
+    // 폰트가 늦게 적용되면 줄 높이가 달라지므로 로드 후 한 번 더 실측한다
+    alignMega(); syncMegaHeight();
+    window.addEventListener('load',function(){ alignMega(); syncMegaHeight(); });
+    if(document.fonts&&document.fonts.ready&&document.fonts.ready.then){
+      document.fonts.ready.then(function(){ alignMega(); syncMegaHeight(); });
+    }
   }
   function setGnbActive(key){
-    curNavKey=key;   // 패널 내용을 갈아끼운 뒤 현재 페이지 강조를 다시 입히기 위해 보관
-    document.querySelectorAll('.nav-gnb a, #megaPanel a').forEach(function(el){el.classList.remove('active');});
+    // .treat-item 등 a가 아닌 요소에도 data-page가 있어, 지울 때는 .active 전체를 훑는다
+    document.querySelectorAll('.nav-gnb .active, #megaPanel .active').forEach(function(el){el.classList.remove('active');});
     document.querySelectorAll('.nav-gnb [data-page="'+key+'"], #megaPanel [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
     // 진료 5개 페이지면 진료안내 그룹 대분류도 active로 표시
     var g=careGroupOf(key);
