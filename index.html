@@ -2650,12 +2650,6 @@ section { padding: 96px 28px; }
     });
     if(now){ void megaInner.offsetHeight; megaInner.classList.remove('no-anim'); }
   }
-  // 항목 사이를 스쳐 지나갈 때 깜빡이지 않도록 짧게 지연시켜 전환한다
-  function queueTreat(item){
-    clearTimeout(treatTimer);
-    if(item===openTreat) return;
-    treatTimer=setTimeout(function(){ setTreat(item); },100);
-  }
   // 아코디언 개폐로 패널 하단 경계가 출렁이지 않도록, 가장 높아지는 상태를 실측해 min-height로 고정한다.
   function syncMegaHeight(){
     if(!megaInner||!megaPanel) return;
@@ -2727,11 +2721,18 @@ section { padding: 96px 28px; }
       var a=e.target.closest('.gnb-link'); if(!a) return;
       openMega(); setHot(a.dataset.col);
     });
-    // 패널 컬럼 위 hover — 컬럼 틴트 이동 + 진료안내 컬럼이면 해당 항목을 펼친다
+    // 패널 컬럼 위 hover — 컬럼 틴트만 이동 (하위 항목 펼침은 클릭으로 한다)
     megaInner.addEventListener('mouseover',function(e){
       var c=e.target.closest('.mega-col'); if(!c) return;
       setHot(c.dataset.col);
-      var it=e.target.closest('.treat-item'); if(it) queueTreat(it);
+    });
+    // 진료안내 컬럼: 하위 항목이 있는 진료명을 클릭하면 이동 대신 아코디언을 펼치고/접는다
+    // (같은 항목을 다시 클릭하면 접힘). 패널 전체가 닫히지 않도록 클릭 버블링은 막는다.
+    megaInner.addEventListener('click',function(e){
+      var h=e.target.closest('.treat-head[aria-expanded]'); if(!h) return;
+      e.preventDefault(); e.stopPropagation();
+      var item=h.closest('.treat-item');
+      setTreat(item===openTreat ? null : item);
     });
     // 키보드: 포커스 진입 시 열고, 밖으로 나가면 닫는다
     gnbHost.addEventListener('focusin',function(e){
