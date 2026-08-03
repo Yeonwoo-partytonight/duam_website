@@ -2616,7 +2616,7 @@ section { padding: 96px 28px; }
     // 그리드 열 개수를 menuTree 길이에 맞춰 GNB·패널 동일하게 지정 (x축 정렬 유지)
     gnbHost.style.gridTemplateColumns=megaInner.style.gridTemplateColumns='repeat('+menuTree.length+',1fr)';
     treatCol=megaInner.querySelector('.mega-col--treat');
-    setTreat(firstTreat(),true);   // 기본 상태: 첫 항목(척추관절)이 펼쳐진 채로 시작
+    setTreat(null,true);   // 기본 상태: 아무 항목도 펼치지 않음 (클릭해야 펼쳐짐)
   }
   // 패널 내부를 GNB 박스와 동일한 위치·폭으로 맞춘다 (둘 다 8등분이라 컬럼이 정확히 정렬된다)
   function alignMega(){
@@ -2627,10 +2627,9 @@ section { padding: 96px 28px; }
     megaInner.style.width=g.width+'px';
   }
   // ---- 진료안내 컬럼 아코디언 ----
-  // 진료 5개 중 마우스/포커스가 놓인 하나만 펼치고 나머지는 접는다 (항상 1개만 열림).
+  // 진료 5개 중 클릭한 하나만 펼치고 나머지는 접는다 (항상 최대 1개만 열림, 기본은 전부 닫힘).
   // 높이는 하드코딩하지 않고 매번 scrollHeight로 실측해 인라인 max-height에 넣는다.
   var openTreat=null, treatTimer=null;
-  function firstTreat(){ return treatCol?treatCol.querySelector('.treat-item'):null; }
   // now=true면 전환 애니메이션 없이 즉시 반영 (패널 재오픈 초기화·높이 실측용)
   function setTreat(item,now){
     if(!treatCol) return;
@@ -2685,9 +2684,9 @@ section { padding: 96px 28px; }
     if(!nav||getComputedStyle(gnbHost).display==='none') return;
     clearTimeout(megaTimer);
     alignMega();
-    // 닫혀 있다가 새로 열릴 때만 아코디언을 기본 상태(첫 항목 펼침)로 되돌린다.
+    // 닫혀 있다가 새로 열릴 때만 아코디언을 기본 상태(전부 닫힘)로 되돌린다.
     // 열려 있는 동안에는 컬럼 밖으로 마우스가 나가도 직전 상태를 그대로 유지한다.
-    if(!nav.classList.contains('mega-open')) setTreat(firstTreat(),true);
+    if(!nav.classList.contains('mega-open')) setTreat(null,true);
     nav.classList.add('mega-open');
     gnbHost.querySelectorAll('.gnb-link').forEach(function(a){a.setAttribute('aria-expanded','true');});
   }
@@ -2740,8 +2739,10 @@ section { padding: 96px 28px; }
     });
     megaPanel.addEventListener('focusin',function(e){
       openMega();
-      // Tab으로 진료 항목에 들어오면 hover와 동일하게 펼친다 (지연 없이 즉시)
-      var h=e.target.closest('.treat-head'); if(h) setTreat(h.closest('.treat-item'));
+      // 마우스 클릭도 포커스를 주기 때문에 :focus-visible(키보드 포커스)일 때만 자동으로 펼친다.
+      // 그렇지 않으면 클릭 시 여기서 먼저 열어버려 클릭 핸들러의 토글과 충돌해 두 번 눌러야 열리는 문제가 생긴다.
+      var h=e.target.closest('.treat-head');
+      if(h&&(!h.matches||h.matches(':focus-visible'))) setTreat(h.closest('.treat-item'));
       var c=e.target.closest('.mega-col'); if(c) setHot(c.dataset.col);
     });
     nav.addEventListener('focusout',function(e){ if(!nav.contains(e.relatedTarget)) closeMega(true); });
