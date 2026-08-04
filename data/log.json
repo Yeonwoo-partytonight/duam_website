@@ -3,6 +3,14 @@
   "updatedAt": "2026-08-04",
   "items": [
     {
+      "at": "2026-08-04T05:24:16.352Z",
+      "actor": "이렇게",
+      "action": "delete",
+      "itemType": "notices",
+      "itemId": "n-20260804-9cj3",
+      "title": "테스트"
+    },
+    {
       "at": "2026-08-04T05:23:11.141Z",
       "actor": "이렇게",
       "action": "create",
