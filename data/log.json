@@ -3,6 +3,14 @@
   "updatedAt": "2026-08-04",
   "items": [
     {
+      "at": "2026-08-04T05:26:56.972Z",
+      "actor": "이렇게",
+      "action": "purge",
+      "itemType": "columns",
+      "itemId": "c-20260804-ac7a",
+      "title": "테스트"
+    },
+    {
       "at": "2026-08-04T05:26:52.927Z",
       "actor": "이렇게",
       "action": "purge",
