@@ -3,6 +3,14 @@
   "updatedAt": "2026-08-04",
   "items": [
     {
+      "at": "2026-08-04T04:46:16.331Z",
+      "actor": "원무과",
+      "action": "purge",
+      "itemType": "notices",
+      "itemId": "n-20260804-zaw3",
+      "title": "테스트"
+    },
+    {
       "at": "2026-08-04T04:46:00.629Z",
       "actor": "원무과",
       "action": "delete",
