@@ -540,7 +540,9 @@ a.mega-col-head:hover, a.mega-col-head:focus-visible,
   flex-shrink: 0; margin-right: 16px;
 }
 .notice-scroll { flex: 1; overflow: hidden; height: 100%; display: flex; align-items: center; }
-.notice-track { display: flex; gap: 60px; white-space: nowrap; animation: marquee 55s linear infinite; }
+/* 흐름 속도: 어르신도 읽고 지나갈 수 있게 느리게 둔다.
+   공지 개수만큼 renderBanner()가 animation-duration을 다시 계산한다(1건당 16초). */
+.notice-track { display: flex; gap: 60px; white-space: nowrap; animation: marquee 80s linear infinite; }
 /* 어르신이 읽을 수 있게: 마우스 올리면 정지 */
 .notice-banner:hover .notice-track { animation-play-state: paused; }
 /* '동작 최소화' 접근성 설정 시 흐름 정지 */
@@ -941,6 +943,9 @@ section { padding: 96px 28px; }
 .col-foot .btn-primary, .col-foot .btn-outline { font-size: 0.82rem; padding: 10px 18px; }
 /* 칼럼 대표이미지·작성자 (관리자페이지에서 입력) */
 .col-thumb { display: block; width: 100%; max-height: 340px; object-fit: cover; border-radius: var(--r-md); margin-bottom: 18px; }
+/* 칼럼 유튜브 영상 — 화면 폭에 맞춰 16:9 비율을 유지한다 */
+.col-video { position: relative; aspect-ratio: 16 / 9; margin-bottom: 18px; border-radius: var(--r-md); overflow: hidden; background: var(--text); border: 1px solid var(--border); }
+.col-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .col-meta { font-size: 0.8rem; color: var(--text-light); margin-bottom: 14px; }
 .col-body img { max-width: 100%; height: auto; border-radius: var(--r-md); }
 .col-body .check-list, .notice-body .check-list { margin: 14px 0; }
@@ -2548,6 +2553,26 @@ section { padding: 96px 28px; }
   </div>
 </section>
 </div>
+
+<!-- ================================================================
+     임시저장 글 미리보기 (#/preview/토큰)
+     · 메뉴·푸터에 링크가 없고, 관리자페이지에서 복사한 주소로만 들어온다.
+     · 진입 시 <meta name="robots" content="noindex">를 붙여 검색에 걸리지 않게 한다.
+     ================================================================ -->
+<div class="route" id="page-preview" data-key="preview">
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">PREVIEW</div>
+    <h1 class="page-hero-title">미리보기</h1>
+    <p class="page-hero-desc">아직 홈페이지에 올리지 않은 글입니다. 주소를 받으신 분만 보실 수 있습니다.</p>
+  </div>
+</section>
+<section class="page-section" id="preview-main">
+  <div class="ps-inner">
+    <div class="col-list" id="previewHost" aria-busy="true"></div>
+  </div>
+</section>
+</div>
 </main>
 <footer id="footer">
   <div class="footer-inner">
@@ -3118,6 +3143,15 @@ section { padding: 96px 28px; }
     if(u.indexOf('..')<0 && /^[\w가-힣][\w가-힣\-./]*\.(png|jpe?g|webp|gif|svg)$/i.test(u)) return u;
     return '';
   }
+  // 유튜브 주소(watch · youtu.be · embed · shorts · live)에서 11자리 영상 번호만 뽑는다.
+  // 저장 서버(worker/admin-worker.js)에도 같은 검사가 있다 — 고칠 때 둘을 함께 고칠 것.
+  function youtubeId(u){
+    var s=String(u==null?'':u).trim();
+    if(!s) return '';
+    if(/^[\w-]{11}$/.test(s)) return s;
+    var m=s.match(/(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/);
+    return m?m[1]:'';
+  }
   function inlineFmt(s){
     return esc(s)
       .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g,function(m,alt,src){
@@ -3199,11 +3233,15 @@ section { padding: 96px 28px; }
     var cat=findBy(COLUMN_CATS,c.category);
     var tag=c.tag||(cat?cat.name:'건강칼럼');
     var thumb=safeSrc(c.image);
+    var video=youtubeId(c.videoId);
     var meta=[c.author,dotDate(c.date)].filter(Boolean).join(' · ');
     return '<details class="col-item rv"'+(open?' open':'')+'>'
       +'<summary class="col-sum"><span class="col-tag">'+esc(tag)+'</span>'
       +'<span class="col-heading">'+esc(c.title)+'</span>'+ARROW_SVG+'</summary>'
       +'<div class="col-body">'
+      +(video?'<div class="col-video"><iframe src="https://www.youtube-nocookie.com/embed/'+video+'"'
+        +' title="'+esc(c.title)+' 영상" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"'
+        +' allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>':'')
       +(thumb?'<img class="col-thumb" src="'+thumb+'" alt="'+esc(c.imageAlt||c.title)+'" loading="lazy">':'')
       +(meta?'<p class="col-meta">'+esc(meta)+'</p>':'')
       +fmtBody(c.body)
@@ -3243,6 +3281,59 @@ section { padding: 96px 28px; }
   if(columnHost){
     loadContent('columns').then(function(items){ renderColumns(items,columnHost); })
       .catch(function(){ renderLoadError(columnHost,'건강 칼럼'); });
+  }
+
+  // ---- 홈 상단 흐르는 공지 배너 ----
+  // 화면에 적혀 있는 안내 문구(전화·주소 등)를 기본값으로 두고,
+  // 올라온 공지가 있으면 그 제목으로 바꿔 준다. 못 불러오면 기본 문구가 그대로 남는다.
+  var noticeTrack=document.getElementById('noticeTrack');
+  var BANNER_ICONS={ notice:'i-info', closed:'i-clock', event:'i-sparkle' };
+  var BANNER_MAX=6;
+  var BANNER_SEC_PER_ITEM=16;   // 1건이 지나가는 데 걸리는 시간 (느릴수록 읽기 편하다)
+  function renderBanner(items){
+    var list=publishedNotices(items).slice(0,BANNER_MAX);
+    if(!list.length) return;
+    var html=list.map(function(n){
+      return '<span class="notice-item"><svg class="icon"><use href="#'+(BANNER_ICONS[n.type]||'i-info')+'"/></svg> '
+        +esc(n.title)+'</span>';
+    }).join('');
+    noticeTrack.innerHTML=html+html;   // 끊김 없이 이어지도록 같은 목록을 두 번 넣는다
+    noticeTrack.style.animationDuration=(list.length*BANNER_SEC_PER_ITEM)+'s';
+  }
+  if(noticeTrack){
+    loadContent('notices').then(renderBanner).catch(function(){ /* 기본 문구 유지 */ });
+  }
+
+  // ---- 임시저장 글 미리보기 (#/preview/토큰) ----
+  // 메뉴·푸터 어디에도 없는 주소다. 주소를 받은 사람만 볼 수 있고, 검색엔진에는 걸리지 않게 한다.
+  var previewHost=document.getElementById('previewHost');
+  function setNoindex(on){
+    var tag=document.getElementById('robotsNoindex');
+    if(on&&!tag){
+      tag=document.createElement('meta');
+      tag.id='robotsNoindex'; tag.setAttribute('name','robots'); tag.setAttribute('content','noindex');
+      document.head.appendChild(tag);
+    } else if(!on&&tag){ tag.parentNode.removeChild(tag); }
+  }
+  function previewMsg(head,body){
+    previewHost.innerHTML='<div class="callout sky"><div class="callout-head">'+head+'</div>'
+      +'<div class="callout-body">'+body+'</div></div>';
+    previewHost.removeAttribute('aria-busy');
+  }
+  function renderPreview(token){
+    if(!previewHost) return;
+    previewHost.setAttribute('aria-busy','true');
+    previewHost.innerHTML='<p class="ps-body" style="padding:8px 0">불러오는 중입니다…</p>';
+    if(!token){ previewMsg('미리보기 주소가 아닙니다','관리자페이지에서 “미리보기 링크 복사”로 받은 주소로 들어와 주세요.'); return; }
+    // 방금 저장한 글을 바로 보기 위해 캐시를 건너뛴다.
+    loadContent('columns',true).then(function(items){
+      var found=null;
+      items.forEach(function(c){ if(c.previewToken&&c.previewToken===token&&c.status!=='deleted') found=c; });
+      if(!found){ previewMsg('글을 찾지 못했습니다','주소가 정확한지 확인해 주세요. 삭제된 글이거나 주소가 바뀌었을 수 있습니다.'); return; }
+      previewHost.innerHTML=columnHtml(found,true);
+      previewHost.removeAttribute('aria-busy');
+      revealIn(previewHost);
+    }).catch(function(){ renderLoadError(previewHost,'미리보기'); });
   }
 
   // ================================================================
@@ -3676,10 +3767,13 @@ section { padding: 96px 28px; }
     view.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){el.classList.add('in');});
     setDrawerActive(key);
     setGnbActive(key);
+    // 미리보기 주소(#/preview/토큰)는 두 번째 칸이 앵커가 아니라 글을 찾는 토큰이다.
+    setNoindex(key==='preview');
+    if(key==='preview') renderPreview(anchor);
     // 접근성: SPA 특성상 실제 페이지 이동이 없어 스크린리더가 화면 전환을 인지하지 못한다 —
     // document.title 갱신 + 새 페이지 제목으로 포커스 이동 + 라이브 리전으로 전환을 알린다.
     var page=findPage(key);
-    var pageTitle=page&&page.title?page.title:'홈';
+    var pageTitle=(key==='preview')?'미리보기':(page&&page.title?page.title:'홈');
     document.title=(key==='home')?'두암한방병원 | 광주 동구 한방·일반 협진':(pageTitle+' | 두암한방병원');
     var heading=view.querySelector('h1');
     if(heading){
@@ -3688,7 +3782,7 @@ section { padding: 96px 28px; }
     }
     var announcer=document.getElementById('routeAnnouncer');
     if(announcer)announcer.textContent=pageTitle+' 페이지로 이동했습니다.';
-    if(anchor){
+    if(anchor&&key!=='preview'){
       var t=document.getElementById(key+'-'+anchor);
       if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-126,behavior:'instant'});return;}
     }
