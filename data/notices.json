@@ -7,10 +7,10 @@
       "title": "테스트",
       "date": "2026-08-04",
       "type": "notice",
-      "status": "published",
+      "status": "deleted",
       "pinned": false,
-      "previousStatus": "",
-      "deletedAt": "",
+      "previousStatus": "published",
+      "deletedAt": "2026-08-04",
       "lastEditedBy": "이렇게",
       "lastEditedAt": "2026-08-04",
       "body": "https://youtu.be/M6DhzGlOwLo?si=zzdGjj2EjYqb-pYg"
