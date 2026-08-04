@@ -3,24 +3,6 @@
   "updatedAt": "2026-08-04",
   "items": [
     {
-      "id": "c-20260804-ac7a",
-      "title": "테스트",
-      "tag": "계절 건강",
-      "category": "fatigue",
-      "author": "",
-      "date": "2026-08-04",
-      "status": "deleted",
-      "image": "",
-      "imageAlt": "",
-      "videoId": "M6DhzGlOwLo",
-      "previewToken": "",
-      "previousStatus": "published",
-      "deletedAt": "2026-08-04",
-      "lastEditedBy": "이렇게",
-      "lastEditedAt": "2026-08-04",
-      "body": "내용"
-    },
-    {
       "id": "c-cooling-sickness",
       "title": "여름철 냉방병과 한방 관리",
       "tag": "계절건강",
