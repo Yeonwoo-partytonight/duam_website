@@ -20,10 +20,13 @@ const FILES = {
   notices: 'data/notices.json',
   columns: 'data/columns.json',
 };
+const LOG_FILE = 'data/log.json';
+const LOG_MAX = 100;                 // 이 개수를 넘으면 오래된 기록부터 지운다
 const UPLOAD_DIR = 'data/uploads';
 const NOTICE_TYPES = ['notice', 'closed', 'event'];
-const NOTICE_STATUS = ['published', 'draft', 'hidden'];
-const COLUMN_STATUS = ['published', 'draft'];
+// 'deleted' = 휴지통. 실제로 지우지 않고 상태만 바꿔 두고, 관리자페이지에서 7일간 복구할 수 있다.
+const NOTICE_STATUS = ['published', 'draft', 'hidden', 'deleted'];
+const COLUMN_STATUS = ['published', 'draft', 'deleted'];
 const COLUMN_CATS = ['spine', 'rehab', 'accident', 'women', 'fatigue', 'cancer'];
 const MAX_PINNED = 3;
 const MAX_IMAGE_B64 = 2_000_000; // 약 1.5MB — 브라우저에서 이미 줄여서 보낸다
@@ -85,8 +88,10 @@ async function handle(body, env) {
 
   const type = String(body.type || '');
   if (!FILES[type]) throw bad('알 수 없는 종류입니다.');
-  if (!['create', 'update', 'delete'].includes(action)) throw bad('알 수 없는 요청입니다.');
+  if (!['create', 'update', 'delete', 'restore', 'purge'].includes(action)) throw bad('알 수 없는 요청입니다.');
 
+  // 누가 고쳤는지 기록하기 위한 이름. 인증이 아니라 자기신고(관리자페이지에서 고른 값)다.
+  const actor = str(body.actor, 20) || '이름 없음';
   const file = await readJson(FILES[type], env);
   const items = Array.isArray(file.json.items) ? file.json.items : [];
   const id = String(body.id || (body.data && body.data.id) || '');
@@ -95,27 +100,83 @@ async function handle(body, env) {
 
   let label;
   if (action === 'delete') {
+    // 바로 지우지 않고 휴지통으로 옮긴다(관리자페이지에서 7일간 복구 가능).
     if (at < 0) throw bad('이미 삭제된 글입니다.');
+    if (items[at].status === 'deleted') throw bad('이미 휴지통에 있는 글입니다.');
+    label = items[at].title;
+    items[at] = {
+      ...items[at],
+      status: 'deleted',
+      previousStatus: items[at].status || 'draft',
+      deletedAt: today(),
+      lastEditedBy: actor,
+      lastEditedAt: today(),
+    };
+  } else if (action === 'restore') {
+    if (at < 0) throw bad('없는 글입니다.');
+    if (items[at].status !== 'deleted') throw bad('휴지통에 있는 글이 아닙니다.');
+    label = items[at].title;
+    const statuses = type === 'notices' ? NOTICE_STATUS : COLUMN_STATUS;
+    const back = items[at].previousStatus;
+    items[at] = {
+      ...items[at],
+      status: statuses.includes(back) && back !== 'deleted' ? back : 'draft',
+      previousStatus: '',
+      deletedAt: '',
+      lastEditedBy: actor,
+      lastEditedAt: today(),
+    };
+  } else if (action === 'purge') {
+    if (at < 0) throw bad('이미 삭제된 글입니다.');
+    if (items[at].status !== 'deleted') throw bad('휴지통에 있는 글만 완전히 지울 수 있습니다.');
     label = items[at].title;
     items.splice(at, 1);
   } else {
     const clean = type === 'notices' ? cleanNotice(body.data, id) : cleanColumn(body.data, id);
     if (!clean.title) throw bad('제목이 비어 있습니다.');
     label = clean.title;
+    clean.lastEditedBy = actor;
+    clean.lastEditedAt = today();
+    // 임시저장 칼럼에는 미리보기 주소용 토큰을 붙인다. 이미 있으면 그대로 둔다.
+    if (type === 'columns' && clean.status === 'draft' && !clean.previewToken) {
+      clean.previewToken = (at >= 0 && safeToken(items[at].previewToken)) || randomId(12);
+    }
     if (at >= 0) items[at] = { ...items[at], ...clean };
     else items.unshift(clean);
   }
 
-  if (type === 'notices' && items.filter((n) => n.pinned).length > MAX_PINNED) {
+  if (type === 'notices' && items.filter((n) => n.pinned && n.status !== 'deleted').length > MAX_PINNED) {
     throw bad(`상단 고정은 최대 ${MAX_PINNED}개까지 가능합니다.`);
   }
 
-  const verb = { create: '추가', update: '수정', delete: '삭제' }[action];
+  const verb = { create: '추가', update: '수정', delete: '삭제', restore: '복구', purge: '완전 삭제' }[action];
   const what = type === 'notices' ? '공지사항' : '건강 칼럼';
   const next = { ...file.json, version: file.json.version || 1, updatedAt: today(), items };
 
   await writeJson(FILES[type], next, file.sha, `[콘텐츠] ${what} ${verb}: ${label}`, env);
+  await appendLog({ actor, action, itemType: type, itemId: id, title: label }, `${what} ${verb}: ${label}`, env);
   return { items };
+}
+
+// 변경 이력(누가·언제·무엇을)을 data/log.json 에 한 줄 덧붙인다.
+// 글 저장은 이미 끝난 뒤라, 이력 기록이 실패해도 저장 자체를 되돌리지는 않는다.
+async function appendLog(entry, summary, env) {
+  try {
+    const file = await readJson(LOG_FILE, env);
+    const items = Array.isArray(file.json.items) ? file.json.items : [];
+    items.unshift({
+      at: new Date().toISOString(),
+      actor: entry.actor,
+      action: entry.action,
+      itemType: entry.itemType,
+      itemId: entry.itemId,
+      title: str(entry.title, 200),
+    });
+    const next = { ...file.json, version: file.json.version || 1, updatedAt: today(), items: items.slice(0, LOG_MAX) };
+    await writeJson(LOG_FILE, next, file.sha, `[콘텐츠] 변경 이력 기록: ${summary}`, env);
+  } catch {
+    /* 이력은 참고용이라 실패해도 넘어간다 */
+  }
 }
 
 async function uploadImage(data, env) {
@@ -143,6 +204,28 @@ function safeImagePath(v) {
   if (!p) return '';
   return /^data\/uploads\/[\w-]+\.(jpe?g|png|webp)$/i.test(p) || /^https:\/\//i.test(p) ? p : '';
 }
+// 유튜브 주소(watch·youtu.be·embed·shorts·live)에서 11자리 영상 번호만 뽑는다.
+// 브라우저에서도 같은 검사를 하지만, 화면을 거치지 않은 요청이 올 수 있어 서버에서 다시 확인한다.
+function youtubeId(v) {
+  const s = str(v, 200);
+  if (!s) return '';
+  if (/^[\w-]{11}$/.test(s)) return s;
+  const m = s.match(/(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/);
+  return m ? m[1] : '';
+}
+function safeVideoId(v) {
+  const raw = str(v, 200);
+  const id = youtubeId(raw);
+  if (raw && !id) throw bad('유튜브 영상 주소를 알아보지 못했습니다. 주소를 다시 확인해 주세요.');
+  return id;
+}
+function safeToken(v) {
+  const t = str(v, 32);
+  return /^[a-z0-9]{1,32}$/.test(t) ? t : '';
+}
+function prevStatus(v, list) {
+  return list.includes(v) && v !== 'deleted' ? v : '';
+}
 function cleanNotice(d, id) {
   d = d || {};
   return {
@@ -152,6 +235,10 @@ function cleanNotice(d, id) {
     type: NOTICE_TYPES.includes(d.type) ? d.type : 'notice',
     status: NOTICE_STATUS.includes(d.status) ? d.status : 'draft',
     pinned: !!d.pinned,
+    previousStatus: prevStatus(d.previousStatus, NOTICE_STATUS),
+    deletedAt: isoDate(d.deletedAt),
+    lastEditedBy: '',   // 아래 handle()에서 채운다
+    lastEditedAt: '',
     body: str(d.body, 8000),
   };
 }
@@ -167,6 +254,12 @@ function cleanColumn(d, id) {
     status: COLUMN_STATUS.includes(d.status) ? d.status : 'draft',
     image: safeImagePath(d.image),
     imageAlt: str(d.imageAlt, 200),
+    videoId: safeVideoId(d.videoId),
+    previewToken: safeToken(d.previewToken),
+    previousStatus: prevStatus(d.previousStatus, COLUMN_STATUS),
+    deletedAt: isoDate(d.deletedAt),
+    lastEditedBy: '',   // 아래 handle()에서 채운다
+    lastEditedAt: '',
     body: str(d.body, 30000),
   };
 }
