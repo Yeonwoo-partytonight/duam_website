@@ -36,7 +36,7 @@
   "url": "https://duamhanbang.co.kr/",
   "image": "https://duamhanbang.co.kr/%EB%91%90%EC%95%94%ED%95%9C%EB%B0%A9%EB%B3%91%EC%9B%90/doctor-bae.png",
   "telephone": "+82-62-716-7160",
-  "medicalSpecialty": ["Physiotherapy", "PhysicalTherapy"],
+  "medicalSpecialty": ["Physiotherapy"],
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "갈마로 46",
@@ -44,6 +44,11 @@
     "addressRegion": "광주광역시",
     "addressCountry": "KR"
   },
+  "sameAs": [
+    "https://blog.naver.com/7167160",
+    "https://www.instagram.com/duamhospital/",
+    "https://talk.naver.com/ct/w4dd84"
+  ],
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
@@ -69,14 +74,17 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    두암한방병원 — 공유 스타일시트
    (단일 페이지 디자인에서 추출 + 내부 페이지 스타일 추가)
 ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 18px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link { position: absolute; top: -48px; left: 8px; z-index: 2000; background: var(--sky2, #3D89BD); color: #fff; padding: 10px 18px; border-radius: 8px; font-weight: 600; transition: top 0.15s; }
+.skip-link:focus { top: 8px; }
+html { scroll-behavior: smooth; font-size: 112.5%; }
 body {
   font-family: 'Noto Sans KR', sans-serif;
   background: #FAFCFF;
@@ -861,7 +869,9 @@ section { padding: 96px 28px; }
 .photo-card img { width: 100%; height: 100%; object-fit: cover; }
 .photo-card:hover img { transform: scale(1.05); }
 .photo-card img { transition: transform 0.45s ease; }
-.pc-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--sky2); opacity: 0.55; }
+.pc-ph { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: var(--sky2); opacity: 0.55; }
+/* 사진 로드 실패시에만 JS가 표시(display:flex)하는 폴백 아이콘 — 기본은 숨김 (이전엔 항상 사진 위에 55% 덮여 있던 버그) */
+.photo-card picture, .hero-photo picture, .visual-panel.has-photo picture { display: block; width: 100%; height: 100%; }
 .pc-ph .icon { width: 34px; height: 34px; }
 .pc-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px 18px 20px; background: linear-gradient(to top, rgba(20,40,55,0.78) 0%, rgba(20,40,55,0.30) 45%, rgba(20,40,55,0) 100%); }
 .pc-title { color: #fff; font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
@@ -1008,7 +1018,7 @@ section { padding: 96px 28px; }
   .nav-logo, .nav-right { flex-shrink: 0; }
 }
 /* 아주 좁은 폭에서는 전체메뉴 라벨을 숨겨 전화예약 버튼과 한 줄에 겹치지 않게 한다 (아이콘만 유지) */
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .burger-label { display: none; }
   .nav-burger { padding: 0 6px; }
   .nav-cta { font-size: 0.86rem; padding: 8px 12px; gap: 4px; }
@@ -1077,6 +1087,19 @@ section { padding: 96px 28px; }
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">본문 바로가기</a>
+<div id="routeAnnouncer" class="sr-only" role="status" aria-live="polite"></div>
+<!-- 이 사이트는 JS로 화면을 그리는 구조(.route{display:none})라 JS가 차단/실패하면 완전 백지가 된다.
+     noscript는 JS 미지원/차단 시에만 렌더링되어 최소 안내를 제공한다. -->
+<noscript>
+  <div style="max-width:640px;margin:40px auto;padding:28px 24px;font-family:sans-serif;line-height:1.7;color:#3A5068;border:1px solid #D8E4EC;border-radius:12px">
+    <h1 style="font-size:1.3rem;margin-bottom:12px">두암한방병원</h1>
+    <p>이 페이지는 자바스크립트가 꺼져 있어 정상적으로 표시되지 않습니다. 브라우저에서 자바스크립트를 허용해 주시거나, 아래 연락처로 문의해 주세요.</p>
+    <p style="margin-top:16px"><strong>전화</strong>: <a href="tel:062-716-7160">062-716-7160</a><br>
+    <strong>주소</strong>: 광주광역시 동구 갈마로 46 (산수동)<br>
+    <strong>진료시간</strong>: 평일 09:00–17:30(점심 12:00–14:00) · 토요일 09:00–12:30 · 일요일·공휴일 휴진</p>
+  </div>
+</noscript>
 <!-- ============================================================
      SVG 아이콘 스프라이트 (이모지 대체용) — 화면에 보이지 않음
      사용: <svg class="icon"><use href="#i-NAME"/></svg>
@@ -1174,12 +1197,12 @@ section { padding: 96px 28px; }
   </div>
 </nav>
 <div class="drawer-overlay" id="megaOverlay"></div>
-<aside class="drawer-panel" id="megaDrawer" aria-hidden="true">
+<aside class="drawer-panel" id="megaDrawer" aria-hidden="true" inert tabindex="-1">
   <div class="drawer-top">
     <div class="drawer-hospital-name">두암한방병원</div>
     <div class="drawer-tel-bar">062-716-7160</div>
     <div class="drawer-top-tags">
-      <span class="drawer-top-tag">개원 9년차</span>
+      <span class="drawer-top-tag">개원 10년차</span>
       <span class="drawer-top-tag">한방+일반 협진</span>
       <span class="drawer-top-tag">토요일 진료</span>
     </div>
@@ -1190,11 +1213,11 @@ section { padding: 96px 28px; }
     <a href="tel:062-716-7160" class="drawer-tel-cta">전화 예약 · 062-716-7160</a>
   </nav>
 </aside>
-<main>
+<main id="main">
 <div class="route" id="page-home" data-key="home">
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-badge">개원 9년차 · 한방+일반 협진 병원</div>
+    <div class="hero-badge">개원 10년차 · 한방+일반 협진 병원</div>
     <h1 class="hero-title">
       몸과 마음을<br>
       <em>바르게</em> 세우는<br>
@@ -1217,7 +1240,10 @@ section { padding: 96px 28px; }
   </div>
   <div class="hero-right">
     <div class="hero-photo">
-      <img src="두암한방병원/facility-entrance.jpg" alt="두암한방병원 정문 입구와 간판" fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-entrance.webp" type="image/webp">
+        <img src="두암한방병원/facility-entrance.jpg" alt="두암한방병원 정문 입구와 간판" fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').style.display='none'">
+      </picture>
     </div>
     <div class="hero-cards">
       <a href="#/about" class="hero-card">
@@ -1242,12 +1268,12 @@ section { padding: 96px 28px; }
       <div class="notice-track" id="noticeTrack">
         <span class="notice-item"><svg class="icon"><use href="#i-info"/></svg> 공휴일 진료 여부는 사전 전화 문의 바랍니다</span>
         <span class="notice-item"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약: 062-716-7160</span>
-        <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 진료 마감 17:00, 토요일 마감 12:00</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 접수 마감 17:00, 토요일 마감 12:00</span>
         <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동)</span>
         <span class="notice-item"><svg class="icon"><use href="#i-syringe"/></svg> 독감 · 대상포진 · 폐렴구균 예방접종 가능</span>
         <span class="notice-item"><svg class="icon"><use href="#i-info"/></svg> 공휴일 진료 여부는 사전 전화 문의 바랍니다</span>
         <span class="notice-item"><svg class="icon"><use href="#i-phone"/></svg> 전화 예약: 062-716-7160</span>
-        <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 진료 마감 17:00, 토요일 마감 12:00</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 접수 마감 17:00, 토요일 마감 12:00</span>
         <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동)</span>
         <span class="notice-item"><svg class="icon"><use href="#i-syringe"/></svg> 독감 · 대상포진 · 폐렴구균 예방접종 가능</span>
       </div>
@@ -1366,6 +1392,8 @@ section { padding: 96px 28px; }
     </div>
   </div>
 </section>
+<!-- 환자 후기 섹션 임시 숨김 (2026-08-04) — 의료법 제56조 2항 2·3호(치료효과 오인 우려 광고·환자 후기 이용 광고) 위반 소지로 화면에서 제외.
+     콘텐츠는 보존하며, 법적 검토 후 복원하거나 요건에 맞게 재구성할 것.
 <section id="reviews">
   <div class="container">
     <div class="reviews-top rv">
@@ -1388,6 +1416,7 @@ section { padding: 96px 28px; }
     <div style="margin-top:28px"><a href="#/news/review" class="btn-outline">치료 후기 더 보기</a></div>
   </div>
 </section>
+-->
 <section id="hours">
   <div class="container">
     <div class="hours-layout">
@@ -1534,7 +1563,10 @@ section { padding: 96px 28px; }
     <div class="photo-grid">
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
-      <img src="두암한방병원/facility-waiting.jpg" alt="두암한방병원 쾌적한 대기실" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-waiting.webp" type="image/webp">
+        <img src="두암한방병원/facility-waiting.jpg" alt="두암한방병원 쾌적한 대기실" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">쾌적한 대기실</div>
         <div class="pc-desc">넓고 밝은 대기 공간에서 편안하게 진료를 기다리실 수 있습니다.</div>
@@ -1542,7 +1574,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
-      <img src="두암한방병원/facility-ward.jpg" alt="두암한방병원 입원 병실" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-ward.webp" type="image/webp">
+        <img src="두암한방병원/facility-ward.jpg" alt="두암한방병원 입원 병실" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">입원 병실</div>
         <div class="pc-desc">집중 치료가 필요한 환자를 위한 입원실을 갖추고 있습니다.</div>
@@ -1550,7 +1585,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-hands"/></svg></div>
-      <img src="두암한방병원/facility-physical.jpg" alt="두암한방병원 물리치료실" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-physical.webp" type="image/webp">
+        <img src="두암한방병원/facility-physical.jpg" alt="두암한방병원 물리치료실" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">물리치료실</div>
         <div class="pc-desc">온열·전기·견인 등 다양한 물리치료 장비를 운영합니다.</div>
@@ -1558,7 +1596,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-pin"/></svg></div>
-      <img src="두암한방병원/facility-lobby.jpg" alt="두암한방병원 1층 접수 데스크와 로비" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-lobby.webp" type="image/webp">
+        <img src="두암한방병원/facility-lobby.jpg" alt="두암한방병원 1층 접수 데스크와 로비" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">접수·수납</div>
         <div class="pc-desc">1층 접수 데스크에서 접수와 수납, 진료 안내를 도와드립니다.</div>
@@ -1566,7 +1607,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-pin"/></svg></div>
-      <img src="두암한방병원/facility-entrance.jpg" alt="두암한방병원 입구와 간판" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-entrance.webp" type="image/webp">
+        <img src="두암한방병원/facility-entrance.jpg" alt="두암한방병원 입구와 간판" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">병원 입구</div>
         <div class="pc-desc">두암한방병원 입구입니다. 안내에 따라 편하게 내원하세요.</div>
@@ -1574,7 +1618,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-hands"/></svg></div>
-      <img src="두암한방병원/facility-herbal-therapy.jpg" alt="두암한방병원 한방요법실" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-herbal-therapy.webp" type="image/webp">
+        <img src="두암한방병원/facility-herbal-therapy.jpg" alt="두암한방병원 한방요법실" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">한방요법실</div>
         <div class="pc-desc">침·뜸·부항 등 한방 치료가 이루어지는 공간입니다.</div>
@@ -1582,7 +1629,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
-      <img src="두암한방병원/facility-corridor-b.jpg" alt="두암한방병원 병동 복도" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-corridor-b.webp" type="image/webp">
+        <img src="두암한방병원/facility-corridor-b.jpg" alt="두암한방병원 병동 복도" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">병동 복도</div>
         <div class="pc-desc">밝고 쾌적하게 관리되는 병동 복도입니다.</div>
@@ -1590,7 +1640,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
-      <img src="두암한방병원/facility-ward-bath.jpg" alt="두암한방병원 병실 내 욕실" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-ward-bath.webp" type="image/webp">
+        <img src="두암한방병원/facility-ward-bath.jpg" alt="두암한방병원 병실 내 욕실" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">병실 욕실</div>
         <div class="pc-desc">입원 환자를 위한 병실 내 욕실·샤워 시설입니다.</div>
@@ -1669,7 +1722,10 @@ section { padding: 96px 28px; }
     <div class="photo-grid" style="margin-top:20px">
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-xray"/></svg></div>
-      <img src="두암한방병원/equipment-xray.jpg" alt="두암한방병원 디지털 X-ray 촬영실" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/equipment-xray.webp" type="image/webp">
+        <img src="두암한방병원/equipment-xray.jpg" alt="두암한방병원 디지털 X-ray 촬영실" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">디지털 X-ray</div>
         <div class="pc-desc">척추·관절 상태를 정밀하게 촬영해 진단에 활용합니다.</div>
@@ -1677,7 +1733,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-bed"/></svg></div>
-      <img src="두암한방병원/equipment-bed.jpg" alt="두암한방병원 베드형 치료 장비" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/equipment-bed.webp" type="image/webp">
+        <img src="두암한방병원/equipment-bed.jpg" alt="두암한방병원 베드형 치료 장비" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">치료 베드</div>
         <div class="pc-desc">환자 상태에 맞춰 활용하는 베드형 치료 장비입니다.</div>
@@ -1685,7 +1744,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-xray"/></svg></div>
-      <img src="두암한방병원/facility-xray-hall.jpg" alt="두암한방병원 X-ray 검사실 앞 복도" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-xray-hall.webp" type="image/webp">
+        <img src="두암한방병원/facility-xray-hall.jpg" alt="두암한방병원 X-ray 검사실 앞 복도" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">검사실 복도</div>
         <div class="pc-desc">X-ray 검사실 앞 대기 공간입니다.</div>
@@ -1846,7 +1908,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="ps-grid2">
   <div class="ps-body rv-l"><p>한의사가 손과 기구를 이용해 틀어진 척추와 관절, 근육을 바로잡는 한방 수기 치료입니다. 수술 후 무너진 신체 균형을 회복하는 데 효과적입니다.</p></div>
-  <div class="visual-panel has-photo rv-r"><img src="두암한방병원/treatment-chuna.jpg" alt="추나요법·도수치료 치료 장면" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
+  <div class="visual-panel has-photo rv-r"><picture><source srcset="두암한방병원/treatment-chuna.webp" type="image/webp"><img src="두암한방병원/treatment-chuna.jpg" alt="추나요법·도수치료 치료 장면" loading="lazy" onerror="this.parentNode.style.display='none'"></picture></div>
 </div><div class="callout sky rv"><div class="callout-head">추나요법이 도움이 되는 경우</div><div class="callout-body">수술 후 비대칭 자세, 보상 작용으로 인한 근골격 불균형, 관절 가동 제한 등</div></div>
   </div>
 </section>
@@ -1882,7 +1944,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="ps-grid2">
   <div class="ps-body rv-l"><p>통원이 어렵거나 집중적인 재활이 필요한 환자를 위해 <strong>입원 치료 프로그램</strong>을 운영합니다. 침·한약·물리·운동치료를 하루 일정으로 집중 제공합니다.</p></div>
-  <div class="visual-panel has-photo rv-r"><img src="두암한방병원/facility-ward-room.jpg" alt="두암한방병원 입원실 내부" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
+  <div class="visual-panel has-photo rv-r"><picture><source srcset="두암한방병원/facility-ward-room.webp" type="image/webp"><img src="두암한방병원/facility-ward-room.jpg" alt="두암한방병원 입원실 내부" loading="lazy" onerror="this.parentNode.style.display='none'"></picture></div>
 </div><ul class="check-list rv"><li>하루 단위 집중 재활 프로그램</li><li>교통사고·수술 후 회복기 환자 적합</li><li>자동차보험·실손보험 상담 가능</li></ul>
   </div>
 </section>
@@ -1902,7 +1964,10 @@ section { padding: 96px 28px; }
     <div class="photo-grid" style="margin-top:20px">
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-leg"/></svg></div>
-      <img src="두암한방병원/facility-rehab-hall.jpg" alt="두암한방병원 재활치료실 전경" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-rehab-hall.webp" type="image/webp">
+        <img src="두암한방병원/facility-rehab-hall.jpg" alt="두암한방병원 재활치료실 전경" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">재활치료실</div>
         <div class="pc-desc">보행 훈련과 운동치료가 이루어지는 재활치료 공간입니다.</div>
@@ -1910,7 +1975,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-leg"/></svg></div>
-      <img src="두암한방병원/facility-rehab-equipment.jpg" alt="두암한방병원 재활 운동 장비" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-rehab-equipment.webp" type="image/webp">
+        <img src="두암한방병원/facility-rehab-equipment.jpg" alt="두암한방병원 재활 운동 장비" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">재활 운동 장비</div>
         <div class="pc-desc">회복 단계에 맞춘 재활 훈련 장비를 갖추고 있습니다.</div>
@@ -1918,7 +1986,10 @@ section { padding: 96px 28px; }
     </figure>
     <figure class="photo-card rv">
       <div class="pc-ph"><svg class="icon"><use href="#i-muscle"/></svg></div>
-      <img src="두암한방병원/facility-exercise.jpg" alt="두암한방병원 운동치료실" loading="lazy" onerror="this.style.display='none'">
+      <picture>
+        <source srcset="두암한방병원/facility-exercise.webp" type="image/webp">
+        <img src="두암한방병원/facility-exercise.jpg" alt="두암한방병원 운동치료실" loading="lazy" onerror="this.closest('picture').style.display='none';this.closest('figure').querySelector('.pc-ph').style.display='flex'">
+      </picture>
       <figcaption class="pc-overlay">
         <div class="pc-title">운동치료실</div>
         <div class="pc-desc">유산소·근력 운동 기구로 체력 회복을 돕습니다.</div>
@@ -2020,6 +2091,29 @@ section { padding: 96px 28px; }
     </div>
   </div>
 </section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "접수번호가 없어도 치료가 되나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "네, 먼저 내원해 상담 후 보험사 접수를 진행할 수 있습니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "한방 치료도 보험 처리가 되나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "침·약침·추나·한약 등 교통사고 한방 치료도 자동차보험 적용 대상입니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "통원 치료만 가능한가요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "통원과 입원 모두 가능하며, 증상에 따라 의료진과 상의해 결정합니다." }
+    }
+  ]
+}
+</script>
 <div class="cta-band">
   <div class="cta-band-inner">
     <div class="cta-band-text">
@@ -2195,7 +2289,7 @@ section { padding: 96px 28px; }
       <div class="sec-label">병원소식</div>
       <h2 class="ps-title">공지사항</h2>
     </div>
-    <div class="notice-list"><div class="notice-row rv"><span class="nr-badge new">공지</span><span class="nr-title">공휴일 진료 일정 안내 — 방문 전 전화 문의 부탁드립니다</span><span class="nr-date">2025.05.20</span></div><div class="notice-row rv"><span class="nr-badge">안내</span><span class="nr-title">독감·대상포진·폐렴구균 예방접종 시행 안내</span><span class="nr-date">2025.04.15</span></div><div class="notice-row rv"><span class="nr-badge">안내</span><span class="nr-title">토요일 오전 진료 운영 안내 (09:00~12:30)</span><span class="nr-date">2025.03.02</span></div><div class="notice-row rv"><span class="nr-badge">공지</span><span class="nr-title">점심시간(12:00~14:00) 진료 중단 안내</span><span class="nr-date">2025.02.10</span></div></div>
+    <div class="notice-list"><div class="notice-row rv"><span class="nr-badge">공지</span><span class="nr-title">공휴일 진료 일정 안내 — 방문 전 전화 문의 부탁드립니다</span><span class="nr-date">2025.05.20</span></div><div class="notice-row rv"><span class="nr-badge">안내</span><span class="nr-title">독감·대상포진·폐렴구균 예방접종 시행 안내</span><span class="nr-date">2025.04.15</span></div><div class="notice-row rv"><span class="nr-badge">안내</span><span class="nr-title">토요일 오전 진료 운영 안내 (09:00~12:30)</span><span class="nr-date">2025.03.02</span></div><div class="notice-row rv"><span class="nr-badge">공지</span><span class="nr-title">점심시간(12:00~14:00) 진료 중단 안내</span><span class="nr-date">2025.02.10</span></div></div>
   </div>
 </section>
 <section class="page-section" id="news-column">
@@ -2363,6 +2457,7 @@ section { padding: 96px 28px; }
     </div>
   </div>
 </section>
+<!-- 치료 후기 섹션 임시 숨김 (2026-08-04) — 의료법 제56조 2항 2·3호 위반 소지로 화면에서 제외. 복원 시 아래 siteMap news 앵커에 review 항목도 함께 되살릴 것.
 <section class="page-section" id="news-review">
   <div class="ps-inner">
     <div class="ps-head rv">
@@ -2381,6 +2476,7 @@ section { padding: 96px 28px; }
     </div>
   </div>
 </section>
+-->
 <div class="cta-band">
   <div class="cta-band-inner">
     <div class="cta-band-text">
@@ -2419,7 +2515,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="footer-divider"></div>
     <div class="footer-bottom">
-      <span>© 2025 두암한방병원. All rights reserved.</span>
+      <span>© 2026 두암한방병원. All rights reserved.</span>
       <span>광주광역시 동구 갈마로 46</span>
     </div>
   </div>
@@ -2491,7 +2587,7 @@ section { padding: 96px 28px; }
     { key:"cancer", title:"암 자율신경 면역 클리닉", navTitle:"암면역클리닉", group:"care", solo:true, anchors:[] },
     { key:"news", title:"공지사항", group:"news", anchors:[
       ["notice","공지사항"],["column","건강 칼럼"],
-      ["price","비급여 수가"],["inquiry","진료 문의"],["review","치료 후기"]
+      ["price","비급여 수가"],["inquiry","진료 문의"]
     ]}
   ];
   // ================================================================
@@ -2815,19 +2911,32 @@ section { padding: 96px 28px; }
   }
   function setGnbActive(key){
     // .treat-item 등 a가 아닌 요소에도 data-page가 있어, 지울 때는 .active 전체를 훑는다
-    document.querySelectorAll('.nav-gnb .active, #megaPanel .active').forEach(function(el){el.classList.remove('active');});
-    document.querySelectorAll('.nav-gnb [data-page="'+key+'"], #megaPanel [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');});
+    document.querySelectorAll('.nav-gnb .active, #megaPanel .active').forEach(function(el){el.classList.remove('active');el.removeAttribute('aria-current');});
+    document.querySelectorAll('.nav-gnb [data-page="'+key+'"], #megaPanel [data-page="'+key+'"]').forEach(function(el){el.classList.add('active');el.setAttribute('aria-current','page');});
     // 진료 5개 페이지면 진료안내 그룹 대분류도 active로 표시
     var g=careGroupOf(key);
-    if(g&&gnbHost){var gl=gnbHost.querySelector('.gnb-link[data-group="'+g+'"]');if(gl)gl.classList.add('active');}
+    if(g&&gnbHost){var gl=gnbHost.querySelector('.gnb-link[data-group="'+g+'"]');if(gl){gl.classList.add('active');gl.setAttribute('aria-current','page');}}
   }
   // ---- DRAWER ----
   var megaBtn=document.getElementById('megaBtn'), megaDrawer=document.getElementById('megaDrawer'), megaOverlay=document.getElementById('megaOverlay');
-  function openDrawer(){megaBtn.classList.add('open');megaBtn.setAttribute('aria-expanded','true');megaDrawer.classList.add('open');megaOverlay.classList.add('open');megaDrawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-  function closeDrawer(){if(!megaBtn)return;megaBtn.classList.remove('open');megaBtn.setAttribute('aria-expanded','false');megaDrawer.classList.remove('open');megaOverlay.classList.remove('open');megaDrawer.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  function openDrawer(){megaBtn.classList.add('open');megaBtn.setAttribute('aria-expanded','true');megaDrawer.classList.add('open');megaOverlay.classList.add('open');megaDrawer.setAttribute('aria-hidden','false');megaDrawer.removeAttribute('inert');document.body.style.overflow='hidden';var first=megaDrawer.querySelector('.drawer-parent, .drawer-solo, a[href]');if(first)first.focus();}
+  function closeDrawer(){if(!megaBtn)return;megaBtn.classList.remove('open');megaBtn.setAttribute('aria-expanded','false');megaDrawer.classList.remove('open');megaOverlay.classList.remove('open');megaDrawer.setAttribute('aria-hidden','true');megaDrawer.setAttribute('inert','');document.body.style.overflow='';}
   if(megaBtn){
     megaBtn.addEventListener('click',function(){megaDrawer.classList.contains('open')?closeDrawer():openDrawer();});
-    megaOverlay.addEventListener('click',closeDrawer);
+    megaOverlay.addEventListener('click',function(){closeDrawer();megaBtn.focus();});
+    // 같은 해시로 재이동(hashchange 미발생)해도 드로어가 닫히도록 링크 클릭 시 직접 닫는다
+    megaDrawer.addEventListener('click',function(e){ if(e.target.closest('a')) closeDrawer(); });
+    // ESC로 닫기 + 열려있는 동안 포커스를 드로어 내부로 가두는 포커스 트랩
+    document.addEventListener('keydown',function(e){
+      if(!megaDrawer.classList.contains('open'))return;
+      if(e.key==='Escape'){closeDrawer();megaBtn.focus();return;}
+      if(e.key!=='Tab')return;
+      var f=megaDrawer.querySelectorAll('a[href], button:not([disabled])');
+      if(!f.length)return;
+      var first=f[0], last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    });
     document.querySelectorAll('.drawer-parent').forEach(function(btn){
       btn.addEventListener('click',function(){
         var panel=document.getElementById(btn.dataset.target); if(!panel)return;
@@ -2839,12 +2948,12 @@ section { padding: 96px 28px; }
   }
   function setDrawerActive(key){
     document.querySelectorAll('.drawer-parent.active').forEach(function(b){b.classList.remove('active');var p=document.getElementById(b.dataset.target);if(p)p.style.maxHeight='0';});
-    document.querySelectorAll('.drawer-child.active').forEach(function(a){a.classList.remove('active');});
+    document.querySelectorAll('.drawer-child.active').forEach(function(a){a.classList.remove('active');a.removeAttribute('aria-current');});
     // 진료 5개 페이지면 진료안내 아코디언을 열고 해당 항목을 강조, 그 외엔 페이지별 아코디언
     var g=careGroupOf(key);
     var btn=g?document.querySelector('.drawer-parent[data-group="'+g+'"]'):document.querySelector('.drawer-parent[data-page="'+key+'"]');
     if(btn){btn.classList.add('active');var panel=document.getElementById(btn.dataset.target);if(panel){var inner=panel.querySelector('.drawer-children-inner');panel.style.maxHeight=(inner?inner.scrollHeight+16:panel.scrollHeight)+'px';}}
-    if(g){var child=document.querySelector('.drawer-child[data-page="'+key+'"]');if(child)child.classList.add('active');}
+    if(g){var child=document.querySelector('.drawer-child[data-page="'+key+'"]');if(child){child.classList.add('active');child.setAttribute('aria-current','page');}}
   }
   // ---- 진료 문의 폼 (Formspree, 페이지 이동 없이 전송) ----
   var inquiryForm=document.getElementById('inquiryForm');
@@ -2895,11 +3004,23 @@ section { padding: 96px 28px; }
     view.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){el.classList.add('in');});
     setDrawerActive(key);
     setGnbActive(key);
+    // 접근성: SPA 특성상 실제 페이지 이동이 없어 스크린리더가 화면 전환을 인지하지 못한다 —
+    // document.title 갱신 + 새 페이지 제목으로 포커스 이동 + 라이브 리전으로 전환을 알린다.
+    var page=findPage(key);
+    var pageTitle=page&&page.title?page.title:'홈';
+    document.title=(key==='home')?'두암한방병원 | 광주 동구 한방·일반 협진':(pageTitle+' | 두암한방병원');
+    var heading=view.querySelector('h1');
+    if(heading){
+      if(!heading.hasAttribute('tabindex'))heading.setAttribute('tabindex','-1');
+      heading.focus({preventScroll:true});
+    }
+    var announcer=document.getElementById('routeAnnouncer');
+    if(announcer)announcer.textContent=pageTitle+' 페이지로 이동했습니다.';
     if(anchor){
       var t=document.getElementById(key+'-'+anchor);
-      if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-126,behavior:'auto'});return;}
+      if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-126,behavior:'instant'});return;}
     }
-    window.scrollTo(0,0);
+    window.scrollTo({top:0,left:0,behavior:'instant'});
   }
   function parseHash(){
     var h=location.hash.replace(/^#\/?/,'');
