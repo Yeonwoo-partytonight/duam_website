@@ -1135,6 +1135,7 @@ section { padding: 96px 28px; }
 .inquiry-form .adm-tool { background: var(--pearl); color: var(--text-mid); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 9px 15px; font-size: 0.88rem; font-weight: 600; }
 .inquiry-form .adm-tool:hover { background: var(--sky-pale); color: var(--sky2); border-color: var(--sky-light); }
 .adm-tools { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.adm-actor-etc { margin-top: 10px; }
 .adm-hint { font-size: 0.86rem; color: var(--text-mid); line-height: 1.7; margin-top: 8px; }
 .adm-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .adm-check { display: flex; align-items: center; gap: 12px; cursor: pointer; margin-bottom: 4px; }
@@ -2490,9 +2491,12 @@ section { padding: 96px 28px; }
       <div class="field">
         <label for="adm-actor">이름</label>
         <select id="adm-actor">
-          <option value="원무과">원무과</option>
-          <option value="원장님">원장님</option>
+          <option value="김미성 원무과과장님">김미성 원무과과장님</option>
+          <option value="배광희 원장님">배광희 원장님</option>
+          <option value="관리자">관리자</option>
+          <option value="기타">기타</option>
         </select>
+        <input id="adm-actor-etc" class="adm-actor-etc" type="text" maxlength="20" placeholder="이름을 적어주세요 (안 쓰셔도 됩니다)" aria-label="기타 이름" autocomplete="off" hidden>
         <p class="adm-hint">누가 글을 올리고 고쳤는지 “최근 활동”에 남기기 위한 표시입니다.</p>
       </div>
       <button type="submit">확인</button>
@@ -3337,9 +3341,27 @@ section { padding: 96px 28px; }
   var admGate=document.getElementById('adminGate');
   var admApp=document.getElementById('adminApp');
   if(admGate&&admApp){
-    // 지난번에 고른 이름을 그대로 띄워 둔다.
     var actorSel=document.getElementById('adm-actor');
-    if(actorSel&&admActor()) actorSel.value=admActor();
+    var actorEtc=document.getElementById('adm-actor-etc');
+    // '기타'를 골랐을 때만 직접 입력칸을 보여준다.
+    function admActorSync(){ if(actorEtc) actorEtc.hidden = !actorSel || actorSel.value!=='기타'; }
+    // 실제로 기록할 이름. '기타'인데 비워 두면 빈 값으로 보내고 서버가 '이름 없음'으로 남긴다.
+    function admActorValue(){
+      if(!actorSel) return '';
+      if(actorSel.value!=='기타') return actorSel.value;
+      return actorEtc ? (actorEtc.value||'').trim().slice(0,20) : '';
+    }
+    if(actorSel){
+      // 지난번에 고른 이름을 그대로 띄워 둔다. 목록에 없는 이름이면 '기타'로 되살린다.
+      var savedActor=admActor();
+      if(savedActor){
+        var known=Array.prototype.some.call(actorSel.options,function(o){ return o.value===savedActor; });
+        if(known) actorSel.value=savedActor;
+        else { actorSel.value='기타'; if(actorEtc) actorEtc.value=savedActor; }
+      }
+      admActorSync();
+      actorSel.addEventListener('change',admActorSync);
+    }
     admGate.addEventListener('submit',function(e){
       e.preventDefault();
       var input=document.getElementById('adm-pin');
@@ -3352,7 +3374,7 @@ section { padding: 96px 28px; }
       }
       btn.disabled=true; btn.textContent='확인 중…';
       admSetPin(val);
-      admSetActor(actorSel?actorSel.value:'');
+      admSetActor(admActorValue());
       adminApi({ action:'ping' }).then(function(){
         input.value='';
         admUnlock();
