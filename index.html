@@ -1155,6 +1155,11 @@ section { padding: 96px 28px; }
 .adm-check span { font-size: 0.95rem; font-weight: 600; color: var(--text); }
 .adm-thumb { display: block; width: 100%; max-width: 280px; border-radius: var(--r-sm); border: 1px solid var(--border); margin-top: 12px; }
 .adm-foot { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+/* 최근 활동 표 — 비급여 수가표(.price-table) 모양을 그대로 쓰고 정렬만 바꾼다 */
+.adm-log { width: 100%; overflow-x: auto; }
+.adm-log .price-table { min-width: 520px; margin-top: 0; }
+.adm-log .price-table td:first-child { white-space: nowrap; font-weight: 500; color: var(--text-mid); }
+.adm-log .price-table td:last-child { text-align: left; font-weight: 400; color: var(--text-mid); }
 .adm-preview { margin-top: 24px; padding: 26px; background: var(--cloud); border-radius: var(--r-md); border: 1px solid var(--border); }
 .adm-preview-label { font-size: 0.78rem; font-weight: 700; color: var(--sky2); letter-spacing: 0.08em; margin-bottom: 16px; }
 .adm-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); max-width: 90vw; background: var(--text); color: white; padding: 15px 28px; border-radius: var(--r-pill); font-size: 0.95rem; font-weight: 600; line-height: 1.5; box-shadow: var(--shadow-md); z-index: 1500; }
@@ -2537,6 +2542,14 @@ section { padding: 96px 28px; }
         <label for="adm-pin">관리자 비밀번호</label>
         <input id="adm-pin" name="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="6" placeholder="숫자 4~6자리" required aria-required="true">
       </div>
+      <div class="field">
+        <label for="adm-actor">이름</label>
+        <select id="adm-actor">
+          <option value="원무과">원무과</option>
+          <option value="원장님">원장님</option>
+        </select>
+        <p class="adm-hint">누가 글을 올리고 고쳤는지 “최근 활동”에 남기기 위한 표시입니다.</p>
+      </div>
       <button type="submit">확인</button>
       <p class="form-status" id="admGateMsg" role="status" aria-live="polite" hidden></p>
     </form>
@@ -2544,10 +2557,14 @@ section { padding: 96px 28px; }
       <div class="adm-tabs">
         <button type="button" class="adm-tab active" data-pane="notices">공지사항</button>
         <button type="button" class="adm-tab" data-pane="columns">건강 칼럼</button>
+        <button type="button" class="adm-tab" data-pane="trash">휴지통</button>
+        <button type="button" class="adm-tab" data-pane="log">최근 활동</button>
         <button type="button" class="adm-logout" id="admLogout">잠그기</button>
       </div>
       <div class="adm-pane active" id="admPane-notices"></div>
       <div class="adm-pane" id="admPane-columns"></div>
+      <div class="adm-pane" id="admPane-trash"></div>
+      <div class="adm-pane" id="admPane-log"></div>
     </div>
     <p class="adm-toast" id="admToast" role="status" aria-live="polite" hidden></p>
   </div>
@@ -3287,12 +3304,17 @@ section { padding: 96px 28px; }
   // 화면에 적혀 있는 안내 문구(전화·주소 등)를 기본값으로 두고,
   // 올라온 공지가 있으면 그 제목으로 바꿔 준다. 못 불러오면 기본 문구가 그대로 남는다.
   var noticeTrack=document.getElementById('noticeTrack');
+  var BANNER_DEFAULT=noticeTrack?noticeTrack.innerHTML:'';   // 화면에 적혀 있던 기본 안내 문구
   var BANNER_ICONS={ notice:'i-info', closed:'i-clock', event:'i-sparkle' };
   var BANNER_MAX=6;
   var BANNER_SEC_PER_ITEM=16;   // 1건이 지나가는 데 걸리는 시간 (느릴수록 읽기 편하다)
   function renderBanner(items){
     var list=publishedNotices(items).slice(0,BANNER_MAX);
-    if(!list.length) return;
+    if(!list.length){   // 올라온 공지가 없으면 기본 안내 문구로 되돌린다
+      noticeTrack.innerHTML=BANNER_DEFAULT;
+      noticeTrack.style.animationDuration='';
+      return;
+    }
     var html=list.map(function(n){
       return '<span class="notice-item"><svg class="icon"><use href="#'+(BANNER_ICONS[n.type]||'i-info')+'"/></svg> '
         +esc(n.title)+'</span>';
@@ -3345,10 +3367,19 @@ section { padding: 96px 28px; }
   // ================================================================
   var ADMIN_API = 'https://REPLACE-ME.workers.dev';
   var ADMIN_PIN_KEY = 'duam_admin_pin';
-  var admState = { notices:null, columns:null };
+  var ADMIN_ACTOR_KEY = 'duam_admin_actor';
+  var ADMIN_LOG_FILE = 'data/log.json';
+  var TRASH_DAYS = 7;                  // 휴지통에서 되살릴 수 있는 기간
+  var admState = { notices:null, columns:null, log:null };
   var admLabels = {
     notices:{ one:'공지사항', neu:'공지', add:'새 공지 쓰기' },
     columns:{ one:'건강 칼럼', neu:'칼럼',  add:'새 칼럼 쓰기' }
+  };
+  var ADM_ACTIONS = { create:'새로 씀', update:'고침', delete:'휴지통으로 옮김', restore:'되살림', purge:'완전 삭제' };
+  var ADM_SAVED = {
+    delete:'휴지통으로 옮겼습니다. “휴지통”에서 다시 되살릴 수 있습니다.',
+    restore:'되살렸습니다. 실제 홈페이지에는 1~2분 뒤 반영됩니다.',
+    purge:'완전히 삭제했습니다.'
   };
 
   function admToast(msg,isError){
@@ -3362,13 +3393,16 @@ section { padding: 96px 28px; }
   function admPin(){ try{ return sessionStorage.getItem(ADMIN_PIN_KEY)||''; }catch(e){ return ''; } }
   function admSetPin(v){ try{ sessionStorage.setItem(ADMIN_PIN_KEY,v); }catch(e){} }
   function admClearPin(){ try{ sessionStorage.removeItem(ADMIN_PIN_KEY); }catch(e){} }
+  // 이름은 인증이 아니라 "누가 고쳤는지" 기록용이라 고른 값을 그대로 저장한다.
+  function admActor(){ try{ return sessionStorage.getItem(ADMIN_ACTOR_KEY)||''; }catch(e){ return ''; } }
+  function admSetActor(v){ try{ sessionStorage.setItem(ADMIN_ACTOR_KEY,v); }catch(e){} }
 
   // Worker 호출 공통 처리. 비밀번호는 매 요청에 함께 보내고 서버가 대조한다.
   function adminApi(payload){
     if(ADMIN_API.indexOf('REPLACE-ME')>-1){
       return Promise.reject(new Error('저장 서버 주소가 아직 설정되지 않았습니다. "설정 안내.md"의 4단계를 확인해 주세요.'));
     }
-    var body={ pin:admPin() };
+    var body={ pin:admPin(), actor:admActor() };
     for(var k in payload){ if(Object.prototype.hasOwnProperty.call(payload,k)) body[k]=payload[k]; }
     return fetch(ADMIN_API,{
       method:'POST',
@@ -3388,6 +3422,9 @@ section { padding: 96px 28px; }
   var admGate=document.getElementById('adminGate');
   var admApp=document.getElementById('adminApp');
   if(admGate&&admApp){
+    // 지난번에 고른 이름을 그대로 띄워 둔다.
+    var actorSel=document.getElementById('adm-actor');
+    if(actorSel&&admActor()) actorSel.value=admActor();
     admGate.addEventListener('submit',function(e){
       e.preventDefault();
       var input=document.getElementById('adm-pin');
@@ -3400,6 +3437,7 @@ section { padding: 96px 28px; }
       }
       btn.disabled=true; btn.textContent='확인 중…';
       admSetPin(val);
+      admSetActor(actorSel?actorSel.value:'');
       adminApi({ action:'ping' }).then(function(){
         input.value='';
         admUnlock();
@@ -3414,7 +3452,7 @@ section { padding: 96px 28px; }
     document.getElementById('admLogout').addEventListener('click',function(){
       admClearPin();
       admApp.hidden=true; admGate.hidden=false;
-      admState.notices=null; admState.columns=null;
+      admState.notices=null; admState.columns=null; admState.log=null;
       admToast('관리 화면을 잠갔습니다.');
       var input=document.getElementById('adm-pin'); if(input) input.focus();
     });
@@ -3425,6 +3463,9 @@ section { padding: 96px 28px; }
         tab.classList.add('active');
         var pane=document.getElementById('admPane-'+tab.dataset.pane);
         if(pane) pane.classList.add('active');
+        // 활동 기록은 열어볼 때마다 새로 읽어 온다(저장 직후에는 1~2분 뒤 반영).
+        if(tab.dataset.pane==='log') admLoadLog();
+        if(tab.dataset.pane==='trash') admRenderTrash();
       });
     });
   }
@@ -3437,6 +3478,7 @@ section { padding: 96px 28px; }
       loadContent(type,true).then(function(items){
         admState[type]=items;
         admRenderList(type);
+        admRenderTrash();
       }).catch(function(){
         pane.innerHTML='<div class="adm-empty">'+admLabels[type].one+'을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.</div>';
       });
@@ -3444,15 +3486,18 @@ section { padding: 96px 28px; }
   }
 
   // ---- 2단계: 목록 ----
+  // 휴지통에 든 글은 이 목록에서 빼되, 나머지 항목의 번호(data-idx)는 원래 자리를 그대로 쓴다.
   function admRenderList(type){
     var pane=document.getElementById('admPane-'+type);
     var items=admState[type]||[];
     var L=admLabels[type];
-    var rows=items.map(function(it,i){ return type==='notices'?admNoticeRow(it,i):admColumnRow(it,i); }).join('');
+    var live=items.map(function(it,i){ return { it:it, i:i }; })
+      .filter(function(o){ return o.it.status!=='deleted'; });
+    var rows=live.map(function(o){ return type==='notices'?admNoticeRow(o.it,o.i):admColumnRow(o.it,o.i); }).join('');
     pane.innerHTML='<div class="adm-bar">'
       +'<button type="button" class="adm-new" data-act="new">＋ '+L.add+'</button>'
-      +'<span class="adm-count">전체 '+items.length+'개</span></div>'
-      +(items.length?'<div class="adm-list">'+rows+'</div>'
+      +'<span class="adm-count">전체 '+live.length+'개</span></div>'
+      +(live.length?'<div class="adm-list">'+rows+'</div>'
         :'<div class="adm-empty">아직 등록된 '+L.neu+'가 없습니다. 위의 “'+L.add+'”를 눌러 시작해 보세요.</div>');
     pane.querySelector('[data-act="new"]').addEventListener('click',function(){ admOpenEditor(type,null); });
     pane.querySelectorAll('[data-idx]').forEach(function(btn){
@@ -3460,10 +3505,16 @@ section { padding: 96px 28px; }
     });
   }
   function admStatusChip(status){
+    if(status==='deleted') return '<span class="adm-chip">휴지통</span>';
     var s=findBy(NOTICE_STATUS,status)||NOTICE_STATUS[0];
     if(s.key==='published') return '<span class="nr-badge">게시</span>';
     if(s.key==='draft') return '<span class="nr-badge new">임시저장</span>';
     return '<span class="adm-chip">숨김</span>';
+  }
+  // 마지막으로 고친 사람·날짜 (없으면 아무것도 안 보여준다)
+  function admEditedBy(it){
+    if(!it.lastEditedBy) return '';
+    return '<span>수정 '+esc(it.lastEditedBy)+(dotDate(it.lastEditedAt)?' · '+dotDate(it.lastEditedAt):'')+'</span>';
   }
   function admActs(idx,extra){
     return '<div class="adm-acts">'+extra
@@ -3481,25 +3532,32 @@ section { padding: 96px 28px; }
       +(n.pinned?'<span class="nr-badge new">고정</span>':'')
       +'<span class="adm-chip">'+esc(type.name)+'</span>'+admStatusChip(n.status)
       +'<span>'+(dotDate(n.date)||'날짜 없음')+(scheduled?' 예약':'')+'</span>'
+      +admEditedBy(n)
       +'</div></div>'+admActs(i,extra)+'</div>';
   }
   function admColumnRow(c,i){
     var cat=findBy(COLUMN_CATS,c.category);
-    var extra='<button type="button" class="adm-btn" data-act="toggle" data-idx="'+i+'">'+(c.status==='published'?'임시저장으로':'게시하기')+'</button>';
+    // 임시저장 글은 저장할 때 미리보기 주소가 함께 만들어진다.
+    var extra=(c.status==='draft'&&c.previewToken
+      ? '<button type="button" class="adm-btn" data-act="copy" data-idx="'+i+'">미리보기 링크 복사</button>' : '')
+      +'<button type="button" class="adm-btn" data-act="toggle" data-idx="'+i+'">'+(c.status==='published'?'임시저장으로':'게시하기')+'</button>';
     return '<div class="adm-row">'
       +'<div class="adm-row-main"><div class="adm-row-title">'+esc(c.title)+'</div>'
       +'<div class="adm-row-meta">'
       +'<span class="adm-chip">'+esc(c.tag||(cat?cat.name:'분류 없음'))+'</span>'+admStatusChip(c.status)
       +(c.author?'<span>'+esc(c.author)+'</span>':'')
       +(dotDate(c.date)?'<span>'+dotDate(c.date)+'</span>':'')
+      +(youtubeId(c.videoId)?'<span class="adm-chip">영상</span>':'')
+      +admEditedBy(c)
       +'</div></div>'+admActs(i,extra)+'</div>';
   }
   function admRowAction(type,act,idx){
     var item=(admState[type]||[])[idx];
     if(!item) return;
     if(act==='edit'){ admOpenEditor(type,item); return; }
+    if(act==='copy'){ admCopyPreview(item); return; }
     if(act==='delete'){
-      if(!window.confirm('“'+item.title+'”\n\n정말 삭제하시겠습니까?\n삭제하면 되돌릴 수 없습니다.')) return;
+      if(!window.confirm('“'+item.title+'”\n\n휴지통으로 옮기시겠습니까?\n'+TRASH_DAYS+'일 안에는 “휴지통”에서 다시 되살릴 수 있습니다.')) return;
       admSave(type,'delete',item,null); return;
     }
     var next={};
@@ -3516,7 +3574,97 @@ section { padding: 96px 28px; }
     admSave(type,'update',next,null);
   }
   function admPinnedCount(exceptIdx){
-    return (admState.notices||[]).filter(function(n,i){ return n.pinned&&i!==exceptIdx; }).length;
+    return (admState.notices||[]).filter(function(n,i){ return n.pinned&&i!==exceptIdx&&n.status!=='deleted'; }).length;
+  }
+  // 임시저장 글을 미리 보여 드릴 주소를 클립보드에 담는다.
+  function admCopyPreview(c){
+    if(!c.previewToken){ admToast('먼저 한 번 저장하시면 미리보기 주소가 만들어집니다.',true); return; }
+    var url=location.origin+location.pathname+'#/preview/'+c.previewToken;
+    function ok(){ admToast('미리보기 주소를 복사했습니다. 붙여넣어 전달해 주세요.'); }
+    function manual(){ window.prompt('아래 주소를 복사해 주세요.',url); }
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok,manual);
+    else manual();
+  }
+
+  // ---- 휴지통 ----
+  // 삭제해도 글은 남아 있고 status만 'deleted'로 바뀐다. 여기서 되살리거나 완전히 지운다.
+  function admDaysLeft(deletedAt){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(deletedAt||'')) return null;   // 날짜를 모르면 기간을 따지지 않는다
+    return TRASH_DAYS-Math.floor((Date.parse(todayISO())-Date.parse(deletedAt))/86400000);
+  }
+  function admTrashItems(){
+    var out=[];
+    ['notices','columns'].forEach(function(type){
+      (admState[type]||[]).forEach(function(it,i){
+        if(it.status!=='deleted') return;
+        var left=admDaysLeft(it.deletedAt);
+        if(left!==null&&left<=0) return;
+        out.push({ type:type, item:it, idx:i, left:left });
+      });
+    });
+    return out.sort(function(a,b){ return String(b.item.deletedAt||'').localeCompare(String(a.item.deletedAt||'')); });
+  }
+  function admTrashRow(t,i){
+    return '<div class="adm-row">'
+      +'<div class="adm-row-main"><div class="adm-row-title">'+esc(t.item.title)+'</div>'
+      +'<div class="adm-row-meta"><span class="adm-chip">'+admLabels[t.type].one+'</span>'
+      +'<span>'+(dotDate(t.item.deletedAt)?dotDate(t.item.deletedAt)+' 삭제':'삭제한 날짜 모름')+'</span>'
+      +(t.left===null?'':'<span>되살릴 수 있는 기간 '+t.left+'일</span>')
+      +'</div></div>'
+      +'<div class="adm-acts">'
+      +'<button type="button" class="adm-btn" data-trash="'+i+'" data-act="restore">되살리기</button>'
+      +'<button type="button" class="adm-btn danger" data-trash="'+i+'" data-act="purge">완전 삭제</button>'
+      +'</div></div>';
+  }
+  function admRenderTrash(){
+    var pane=document.getElementById('admPane-trash'); if(!pane) return;
+    var list=admTrashItems();
+    pane.innerHTML='<p class="adm-hint" style="margin-bottom:20px">삭제한 글은 '+TRASH_DAYS+'일 동안 이곳에서 되살릴 수 있습니다. '
+      +'그 뒤에는 목록에서 사라져 되살릴 수 없습니다. “완전 삭제”를 누르면 바로 지워집니다.</p>'
+      +(list.length?'<div class="adm-list">'+list.map(admTrashRow).join('')+'</div>'
+        :'<div class="adm-empty">휴지통이 비어 있습니다.</div>');
+    pane.querySelectorAll('[data-trash]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var t=list[parseInt(btn.dataset.trash,10)]; if(!t) return;
+        if(btn.dataset.act==='purge'
+          &&!window.confirm('“'+t.item.title+'”\n\n완전히 삭제하시겠습니까?\n이 글은 다시 되살릴 수 없습니다.')) return;
+        admSave(t.type,btn.dataset.act,t.item,btn);
+      });
+    });
+  }
+
+  // ---- 최근 활동 (data/log.json) ----
+  function admLoadLog(){
+    var pane=document.getElementById('admPane-log'); if(!pane) return;
+    pane.innerHTML='<div class="adm-empty">불러오는 중입니다…</div>';
+    fetch(ADMIN_LOG_FILE+'?t='+Date.now(),{cache:'no-store'})
+      .then(function(res){ if(!res.ok) throw new Error('HTTP '+res.status); return res.json(); })
+      .then(function(json){
+        admState.log=(json&&Array.isArray(json.items))?json.items:[];
+        admRenderLog();
+      }).catch(function(){
+        pane.innerHTML='<div class="adm-empty">최근 활동을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.</div>';
+      });
+  }
+  // 기록은 세계표준시로 저장되므로 보실 때는 이 컴퓨터의 시간으로 바꿔 보여 드린다.
+  function admLogTime(at){
+    var d=new Date(at);
+    if(isNaN(d.getTime())) return esc(String(at||''));
+    return d.getFullYear()+'.'+pad2(d.getMonth()+1)+'.'+pad2(d.getDate())+' '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+  }
+  function admRenderLog(){
+    var pane=document.getElementById('admPane-log');
+    var items=admState.log||[];
+    var rows=items.map(function(e){
+      var what=(admLabels[e.itemType]?admLabels[e.itemType].neu+' ':'')+(ADM_ACTIONS[e.action]||e.action||'');
+      return '<tr><td>'+admLogTime(e.at)+'</td><td>'+esc(e.actor||'')+'</td>'
+        +'<td>'+esc(what)+'</td><td>'+esc(e.title||'')+'</td></tr>';
+    }).join('');
+    pane.innerHTML='<p class="adm-hint" style="margin-bottom:20px">최근에 있었던 변경을 새것부터 보여 드립니다. (최대 100건)</p>'
+      +(items.length?'<div class="adm-log"><table class="price-table">'
+        +'<thead><tr><th>시간</th><th>이름</th><th>한 일</th><th>글 제목</th></tr></thead>'
+        +'<tbody>'+rows+'</tbody></table></div>'
+        :'<div class="adm-empty">아직 남은 활동 기록이 없습니다.</div>');
   }
 
   // ---- 3단계: 작성 · 수정 ----
@@ -3564,7 +3712,8 @@ section { padding: 96px 28px; }
   }
   function admBlank(type){
     if(type==='notices') return { id:'', title:'', date:todayISO(), type:'notice', status:'published', pinned:false, body:'' };
-    return { id:'', title:'', tag:'', category:'spine', author:'', date:todayISO(), status:'published', image:'', imageAlt:'', body:'' };
+    return { id:'', title:'', tag:'', category:'spine', author:'', date:todayISO(), status:'published',
+      image:'', imageAlt:'', videoId:'', previewToken:'', body:'' };
   }
   function admNoticeFields(d){
     return admField('af-title','제목','<input id="af-title" type="text" value="'+esc(d.title)+'" maxlength="120" required aria-required="true" placeholder="예) 설 연휴 진료 일정 안내">')
@@ -3597,7 +3746,10 @@ section { padding: 96px 28px; }
       +admField('af-date','작성 날짜','<input id="af-date" type="date" value="'+esc(d.date)+'">','비워 두면 날짜를 표시하지 않습니다.')
       +'</div>'
       +admField('af-status','상태','<select id="af-status">'+admOptions(NOTICE_STATUS.slice(0,2),d.status,'key','name')+'</select>',
-        '“임시저장”으로 두면 홈페이지에는 보이지 않습니다.')
+        '“임시저장”으로 두면 홈페이지에는 보이지 않습니다. 저장하면 미리 보여 드릴 주소가 만들어집니다.')
+      +admField('af-video','유튜브 영상 링크 (없어도 됩니다)',
+        '<input id="af-video" type="text" value="'+esc(d.videoId?'https://youtu.be/'+d.videoId:'')+'" placeholder="예) https://youtu.be/xxxxxxxxxxx">',
+        '유튜브에서 “공유”를 눌러 나온 주소를 그대로 붙여넣으시면 됩니다. 글 제목 아래에 영상이 함께 나옵니다.')
       +'<div class="field"><label for="af-image">대표 사진 (없어도 됩니다)</label>'
       +'<input id="af-image" type="file" accept="image/*">'
       +'<input id="af-image-path" type="hidden" value="'+esc(d.image)+'">'
@@ -3711,6 +3863,11 @@ section { padding: 96px 28px; }
       out.author=val('af-author');
       out.image=val('af-image-path');
       out.imageAlt=out.imageAlt||'';
+      var video=val('af-video');
+      out.videoId=youtubeId(video);
+      if(video&&!out.videoId){
+        admToast('유튜브 영상 주소를 알아보지 못했습니다. 주소창의 주소를 그대로 붙여넣어 주세요.',true); return null;
+      }
     }
     if(!out.id){
       out.id=(type==='notices'?'n-':'c-')+todayISO().replace(/-/g,'')+'-'+Math.random().toString(36).slice(2,6);
@@ -3739,8 +3896,9 @@ section { padding: 96px 28px; }
       admState[type]=res.items||[];
       contentCache[type]=Promise.resolve(admState[type]);
       admRenderList(type);
+      admRenderTrash();
       admRefreshSite(type);
-      admToast('저장했습니다. 실제 홈페이지에는 1~2분 뒤 반영됩니다.');
+      admToast(ADM_SAVED[action]||'저장했습니다. 실제 홈페이지에는 1~2분 뒤 반영됩니다.');
     }).catch(function(err){
       if(err.code==='PIN'){
         admClearPin(); admApp.hidden=true; admGate.hidden=false;
@@ -3755,6 +3913,7 @@ section { padding: 96px 28px; }
   // 저장 직후 같은 화면 안의 병원소식 페이지도 새 내용으로 다시 그린다.
   function admRefreshSite(type){
     if(type==='notices'&&noticeHost) renderNotices(admState.notices,noticeHost);
+    if(type==='notices'&&noticeTrack) renderBanner(admState.notices);
     if(type==='columns'&&columnHost) renderColumns(admState.columns,columnHost);
   }
 
