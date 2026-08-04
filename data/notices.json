@@ -3,6 +3,19 @@
   "updatedAt": "2026-08-04",
   "items": [
     {
+      "id": "n-20260804-zaw3",
+      "title": "테스트",
+      "date": "2026-08-04",
+      "type": "notice",
+      "status": "hidden",
+      "pinned": false,
+      "previousStatus": "",
+      "deletedAt": "",
+      "lastEditedBy": "원장님",
+      "lastEditedAt": "2026-08-04",
+      "body": "이렇게 작성해보겠습니다."
+    },
+    {
       "id": "n-20250520-1",
       "title": "공휴일 진료 일정 안내 — 방문 전 전화 문의 부탁드립니다",
       "date": "2025-05-20",
