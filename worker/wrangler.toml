@@ -1,0 +1,21 @@
+# 두암한방병원 관리자 저장 서버 설정
+# 배포:  cd worker  →  npx wrangler deploy
+# 자세한 순서는 저장소 루트의 "설정 안내.md" 참고
+
+name = "duam-admin"
+main = "admin-worker.js"
+compatibility_date = "2026-08-01"
+
+# 여기 값들은 공개돼도 괜찮은 설정값이다.
+# 비밀번호(ADMIN_PIN)와 GitHub 토큰(GITHUB_TOKEN)은 여기 적지 말고
+# 반드시 secret 으로 따로 등록한다:
+#   npx wrangler secret put ADMIN_PIN
+#   npx wrangler secret put GITHUB_TOKEN
+[vars]
+GITHUB_OWNER = "Yeonwoo-partytonight"
+GITHUB_REPO = "duam_website"
+GITHUB_BRANCH = "main"
+
+# 관리자페이지를 열 수 있는 주소 목록(쉼표로 구분).
+# 여기 없는 주소에서 온 요청은 거부한다.
+ALLOWED_ORIGINS = "https://duamhanbang.co.kr,https://www.duamhanbang.co.kr"
