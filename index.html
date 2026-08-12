@@ -495,16 +495,20 @@ a.mega-col-head:hover, a.mega-col-head:focus-visible,
   background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
   top: 50%; left: 50%; transform: translate(-50%, -50%);
 }
-/* 히어로 대표 이미지 (병원 입구·간판) */
+/* 히어로 대표 이미지 (1층 로비·접수 데스크) */
 .hero-photo {
   position: absolute; inset: 0; z-index: 0;
   animation: fadeUp 0.9s 0.15s both;
 }
+/* 세로로 긴 히어로 영역에 3:2 가로 사진을 담으므로 좌우가 잘린다.
+   center 기준일 때 접수 데스크·기둥이 화면에 남고 오른쪽 흰 문은 잘려나간다. */
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-/* 사진 위 카드 가독성 확보용 오버레이 */
+/* 사진 위 카드 가독성 확보용 오버레이 (밝은 천장·바닥과 흰 카드가 겹쳐도 대비 유지) */
 .hero-photo::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(120deg, rgba(46,74,99,0.45) 0%, rgba(46,74,99,0.18) 55%, rgba(91,164,207,0.28) 100%);
+  background:
+    linear-gradient(180deg, rgba(26,48,68,0.30) 0%, rgba(26,48,68,0.52) 50%, rgba(26,48,68,0.34) 100%),
+    linear-gradient(120deg, rgba(46,74,99,0.45) 0%, rgba(46,74,99,0.18) 55%, rgba(91,164,207,0.28) 100%);
 }
 .hero-cards { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; z-index: 1; position: relative; }
 .hero-card {
@@ -1319,8 +1323,8 @@ section { padding: 96px 28px; }
   <div class="hero-right">
     <div class="hero-photo">
       <picture>
-        <source srcset="두암한방병원/facility-entrance.webp" type="image/webp">
-        <img src="두암한방병원/facility-entrance.jpg" alt="두암한방병원 정문 입구와 간판" fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').style.display='none'">
+        <source srcset="두암한방병원/hero-lobby.webp" type="image/webp">
+        <img src="두암한방병원/hero-lobby.jpg" alt="두암한방병원 1층 접수 데스크와 대기 로비 전경" width="1600" height="1066" fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').style.display='none'">
       </picture>
     </div>
     <div class="hero-cards">
