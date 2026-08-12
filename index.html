@@ -430,11 +430,11 @@ a.mega-col-head:hover, a.mega-col-head:focus-visible,
 /* ============================================================
    HERO (홈)
 ============================================================ */
-#hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: var(--nav-h); overflow: hidden; }
+#hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: var(--nav-h); overflow: hidden; position: relative; }
 .hero-left {
   display: flex; flex-direction: column; justify-content: center;
   padding: 60px 60px 60px 80px;
-  background: var(--white); position: relative; z-index: 1;
+  background: transparent; position: relative; z-index: 2;
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 6px;
@@ -486,34 +486,48 @@ a.mega-col-head:hover, a.mega-col-head:focus-visible,
 .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 2.1rem; color: var(--sky2); line-height: 1; margin-bottom: 4px; }
 .hero-stat-label { font-size: 0.82rem; color: var(--text-light); letter-spacing: 0.03em; }
 .hero-right {
-  background: linear-gradient(145deg, var(--sky-pale) 0%, #D5ECFB 50%, var(--mint-pale) 100%);
+  background: transparent;
   display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden; padding: 60px 40px;
+  position: relative; overflow: hidden; padding: 60px 40px; z-index: 2;
 }
-.hero-right::before {
-  content: ''; position: absolute; width: 360px; height: 360px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
+/* 히어로 대표 이미지 (1층 로비·접수 데스크) — 히어로 전체 폭을 채우는 풀블리드 배경.
+   상단은 고정 헤더(--nav-h)만큼 비워서 사진이 GNB 뒤로 비치지 않게 한다. */
+.hero-photo { position: absolute; inset: var(--nav-h) 0 0 0; z-index: 0; }
+/* 3:2 가로 사진을 히어로 박스에 cover로 채운다.
+   가로가 잘리는 좁은 폭에서도 접수 데스크·대리석 카운터가 남도록 x를 46%로 당기고
+   (오른쪽 흰 문·빈 벽이 중앙에 오지 않게), 폭이 넓어 세로가 잘릴 때는 천장을 더
+   덜어내고 카운터를 남기도록 y를 58%로 내렸다. */
+.hero-photo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 46% 58%; display: block;
 }
-/* 히어로 대표 이미지 (1층 로비·접수 데스크) */
-.hero-photo {
-  position: absolute; inset: 0; z-index: 0;
-  animation: fadeUp 0.9s 0.15s both;
-}
-/* 세로로 긴 히어로 영역에 3:2 가로 사진을 담으므로 좌우가 잘린다.
-   center 기준일 때 접수 데스크·기둥이 화면에 남고 오른쪽 흰 문은 잘려나간다. */
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-/* 사진 위 카드 가독성 확보용 오버레이 (밝은 천장·바닥과 흰 카드가 겹쳐도 대비 유지) */
-.hero-photo::after {
-  content: ''; position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg, rgba(26,48,68,0.30) 0%, rgba(26,48,68,0.52) 50%, rgba(26,48,68,0.34) 100%),
-    linear-gradient(120deg, rgba(46,74,99,0.45) 0%, rgba(46,74,99,0.18) 55%, rgba(91,164,207,0.28) 100%);
+/* 좌측 흰색 그라데이션 스크림 — 사진 위(z:1), 콘텐츠 아래(z:2).
+   왼쪽 텍스트 칼럼은 흰색으로 덮고 오른쪽으로 갈수록 사진을 그대로 드러낸다.
+   정지점 조정 근거(실측):
+   ① 원안의 0.97/0.95로는 접수 데스크 안쪽 어두운 창이 글자 뒤로 들어와
+      본문 대비가 4.45 → 4.04로 떨어졌다. 그래서 글자가 놓이는 구간은 1.0(순백)으로 둔다.
+   ② 정지점을 %로 잡으면 폭이 좁아질수록 글자가 스크림 밖으로 밀려난다. 글자 블록의
+      실제 폭은 폰트 크기 상한 때문에 화면 폭과 무관하게 약 510px로 고정이므로,
+      보호 구간도 px로 고정하는 것이 맞다. 덕분에 넓은 화면일수록 사진이 더 일찍
+      드러나 접수 데스크·대리석 카운터가 살아난다. 감쇠 곡선은 원안(0.72 → 0.20 → 0). */
+.hero-scrim {
+  position: absolute; inset: var(--nav-h) 0 0 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(95deg,
+    rgba(255,255,255,1) 0,
+    rgba(255,255,255,1) 600px,
+    rgba(255,255,255,0.72) 700px,
+    rgba(255,255,255,0.20) 820px,
+    rgba(255,255,255,0) 940px);
 }
 .hero-cards { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; z-index: 1; position: relative; }
+/* 밝은 흰색 로비 사진 위에 흰 카드가 놓이므로, 그림자를 진하게 하고
+   1px 테두리로 경계선을 함께 준다 (그림자만으로는 흰 천장·타일 바닥과 맞닿는
+   구간에서 카드 가장자리가 뭉개진다). */
 .hero-card {
   background: white; border-radius: var(--r-md); padding: 18px 22px;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 20px rgba(30,50,80,0.14);
+  border: 1px solid rgba(46,74,99,0.16);
   display: flex; align-items: flex-start; gap: 14px;
   animation: slideCard 0.6s both;
 }
@@ -991,8 +1005,13 @@ section { padding: 96px 28px; }
 ============================================================ */
 @media (max-width: 960px) {
   #hero { grid-template-columns: 1fr; min-height: auto; padding-top: var(--nav-h); }
-  .hero-left { padding: 50px 28px 36px; order: 2; }
-  .hero-right { order: 1; min-height: 280px; padding: 40px 28px; }
+  /* 한 컬럼으로 바뀌면 가로 그라데이션으로는 텍스트 가독성을 확보할 수 없다.
+     기존 모바일 흐름대로 위=사진(+카드) / 아래=흰 배경 텍스트로 분리한다.
+     사진은 절대배치를 풀고 카드와 같은 그리드 칸에 넣어, 그 칸 높이에만 cover된다. */
+  .hero-scrim { display: none; }
+  .hero-photo { position: relative; inset: auto; grid-area: 1 / 1; }
+  .hero-left { padding: 50px 28px 36px; grid-area: 2 / 1; background: var(--white); }
+  .hero-right { grid-area: 1 / 1; min-height: 280px; padding: 40px 28px; }
   .hero-cards { flex-direction: row; max-width: 100%; flex-wrap: wrap; }
   .hero-card:nth-child(2) { margin-left: 0; }
   .hero-card { width: calc(50% - 7px); }
@@ -1298,6 +1317,13 @@ section { padding: 96px 28px; }
 <main id="main">
 <div class="route" id="page-home" data-key="home">
 <section id="hero">
+  <div class="hero-photo">
+    <picture>
+      <source srcset="두암한방병원/hero-lobby.webp" type="image/webp">
+      <img src="두암한방병원/hero-lobby.jpg" alt="두암한방병원 1층 접수 데스크와 대기 로비 전경" width="1600" height="1066" fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').style.display='none'">
+    </picture>
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-left">
     <div class="hero-badge">개원 10년차 · 한방+일반 협진 병원</div>
     <h1 class="hero-title">
@@ -1321,12 +1347,6 @@ section { padding: 96px 28px; }
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-photo">
-      <picture>
-        <source srcset="두암한방병원/hero-lobby.webp" type="image/webp">
-        <img src="두암한방병원/hero-lobby.jpg" alt="두암한방병원 1층 접수 데스크와 대기 로비 전경" width="1600" height="1066" fetchpriority="high" decoding="async" onerror="this.closest('.hero-photo').style.display='none'">
-      </picture>
-    </div>
     <div class="hero-cards">
       <a href="#/about" class="hero-card">
         <div class="hc-icon blue"><svg class="icon"><use href="#i-leaf"/></svg></div>
