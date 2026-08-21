@@ -454,6 +454,10 @@ a.mega-col-head:hover, a.mega-col-head:focus-visible,
 }
 .hero-title em { font-style: normal; color: var(--sky2); }
 .hero-title .accent { color: var(--coral); }
+/* 라우팅 시 스크린리더용으로 h1에 프로그램적 포커스를 주는데,
+   h1은 조작 대상이 아니므로 브라우저 기본 포커스 링은 숨긴다. */
+h1[tabindex="-1"]:focus,
+h1[tabindex="-1"]:focus-visible { outline: none; }
 .hero-desc {
   font-size: 1.18rem; line-height: 1.7; color: var(--text-mid);
   max-width: 460px; margin-bottom: 28px; animation: fadeUp 0.7s 0.3s both;
