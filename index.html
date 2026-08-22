@@ -765,8 +765,9 @@ section { padding: 96px 28px; }
   transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
 }
 .float-btn:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(240,123,110,0.5); }
-.float-btn.talk { background: var(--sky); box-shadow: 0 6px 24px rgba(91,164,207,0.4); }
-.float-btn.talk:hover { box-shadow: 0 10px 30px rgba(91,164,207,0.5); }
+.float-btn.talk { background: #03C75A; color: #fff; box-shadow: 0 6px 24px rgba(3,199,90,0.35); }
+.float-btn.talk:hover { box-shadow: 0 10px 30px rgba(3,199,90,0.45); }
+.float-btn.talk .icon { width: 30px; height: 30px; fill: currentColor; stroke: none; }
 .float-btn.kakao { background: #FAE100; color: #3C1E1E; box-shadow: 0 6px 24px rgba(250,225,0,0.4); }
 .float-btn.kakao:hover { box-shadow: 0 10px 30px rgba(250,225,0,0.5); }
 .float-btn-label {
@@ -1270,6 +1271,7 @@ section { padding: 96px 28px; }
   <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.6" cy="7.4" r="1"/></symbol>
   <symbol id="i-blog" viewBox="0 0 24 24"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v5h5"/><path d="M7.5 13h7M7.5 16.5h5"/></symbol>
   <symbol id="i-talk" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.8V16H5.5A1.5 1.5 0 0 1 4 14.5z"/><path d="M8 8.5h8M8 11.5h5"/></symbol>
+  <symbol id="i-naver" viewBox="0 0 24 24"><path d="M6 5H10.05L14.4 12.09V5H18V19H13.95L9.6 11.91V19H6Z" fill="currentColor" stroke="none"/></symbol>
 </svg>
 <nav id="mainNav">
   <div class="nav-inner">
@@ -2615,7 +2617,7 @@ section { padding: 96px 28px; }
   -->
   <a href="https://talk.naver.com/ct/w4dd84" class="float-btn talk" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담 (새 창)">
     <span class="float-btn-label">네이버 톡톡 상담</span>
-    <svg class="icon"><use href="#i-talk"/></svg>
+    <svg class="icon"><use href="#i-naver"/></svg>
   </a>
   <a href="tel:062-716-7160" class="float-btn" aria-label="전화 예약">
     <span class="float-btn-label">전화 예약</span>
