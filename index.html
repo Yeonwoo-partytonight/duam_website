@@ -39,7 +39,7 @@
   "medicalSpecialty": ["Physiotherapy"],
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "갈마로 46",
+    "streetAddress": "갈마로 46 5-7층",
     "addressLocality": "동구",
     "addressRegion": "광주광역시",
     "addressCountry": "KR"
@@ -722,6 +722,18 @@ section { padding: 96px 28px; }
 .ai-icon { width: 38px; height: 38px; border-radius: var(--r-sm); background: var(--sky-pale); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
 .ai-title { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
 .ai-body { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; }
+.ai-body strong { color: var(--text); font-weight: 700; }
+/* 오시는 길 — 랜드마크 배지와 버스 정류장 안내.
+   어르신 방문자가 많아 정류장 이름은 크게, 도보 시간은 배지로, 노선 번호는
+   칩 단위 nowrap으로 묶어 번호가 중간에서 끊기지 않게 한다. */
+.ai-landmark { display: inline-block; margin-top: 7px; padding: 3px 12px; border-radius: var(--r-pill); background: var(--sky-pale); color: var(--sky2); font-size: 0.8rem; font-weight: 600; }
+.bus-stop + .bus-stop { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border2); }
+.bs-name { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1.5; }
+.bs-walk { padding: 2px 10px; border-radius: var(--r-pill); background: var(--sky-pale); color: var(--sky2); font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+.bs-walk.near { background: var(--coral-pale); color: var(--coral2); }
+.bs-note { margin-top: 5px; font-size: 0.78rem; color: var(--text-light); }
+.bs-lines { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.bs-lines span { padding: 3px 9px; border-radius: var(--r-sm); background: var(--cloud); border: 1px solid var(--border2); font-size: 0.8rem; color: var(--text-mid); white-space: nowrap; }
 /* ============================================================
    FOOTER
 ============================================================ */
@@ -1202,7 +1214,7 @@ section { padding: 96px 28px; }
     <h1 style="font-size:1.3rem;margin-bottom:12px">두암한방병원</h1>
     <p>이 페이지는 자바스크립트가 꺼져 있어 정상적으로 표시되지 않습니다. 브라우저에서 자바스크립트를 허용해 주시거나, 아래 연락처로 문의해 주세요.</p>
     <p style="margin-top:16px"><strong>전화</strong>: <a href="tel:062-716-7160">062-716-7160</a><br>
-    <strong>주소</strong>: 광주광역시 동구 갈마로 46 (산수동)<br>
+    <strong>주소</strong>: 광주광역시 동구 갈마로 46 (산수동) 5-7층 (두암타운사거리 광주은행건물)<br>
     <strong>진료시간</strong>: 평일 09:00–17:30(점심 12:00–14:00) · 토요일 09:00–12:30 · 일요일·공휴일 휴진</p>
   </div>
 </noscript>
@@ -1377,12 +1389,12 @@ section { padding: 96px 28px; }
         <span class="notice-item"><svg class="icon"><use href="#i-info"/></svg> 공휴일 진료 여부는 사전 전화 문의 바랍니다</span>
         <span class="notice-item"><svg class="icon"><use href="#i-phone"/></svg> 전화 문의: 062-716-7160</span>
         <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 접수 마감 17:00, 토요일 마감 12:00</span>
-        <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동)</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동) 5-7층 · 두암타운사거리 광주은행건물</span>
         <span class="notice-item"><svg class="icon"><use href="#i-syringe"/></svg> 독감 · 대상포진 · 폐렴구균 예방접종 가능</span>
         <span class="notice-item"><svg class="icon"><use href="#i-info"/></svg> 공휴일 진료 여부는 사전 전화 문의 바랍니다</span>
         <span class="notice-item"><svg class="icon"><use href="#i-phone"/></svg> 전화 문의: 062-716-7160</span>
         <span class="notice-item"><svg class="icon"><use href="#i-clock"/></svg> 접수 마감 17:00, 토요일 마감 12:00</span>
-        <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동)</span>
+        <span class="notice-item"><svg class="icon"><use href="#i-pin"/></svg> 광주광역시 동구 갈마로 46 (산수동) 5-7층 · 두암타운사거리 광주은행건물</span>
         <span class="notice-item"><svg class="icon"><use href="#i-syringe"/></svg> 독감 · 대상포진 · 폐렴구균 예방접종 가능</span>
       </div>
     </div>
@@ -1575,10 +1587,10 @@ section { padding: 96px 28px; }
         <iframe src="https://maps.google.com/maps?q=광주광역시+동구+갈마로+46&hl=ko&z=16&output=embed" allowfullscreen loading="lazy" title="두암한방병원 위치"></iframe>
       </div>
       <div class="access-info rv-r">
-        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-pin"/></svg></div><div><div class="ai-title">주소</div><div class="ai-body">광주광역시 동구 갈마로 46 (산수동)<br>두암3동 행정복지센터, 광주은행 인근</div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-pin"/></svg></div><div><div class="ai-title">주소</div><div class="ai-body">광주광역시 동구 갈마로 46 (산수동) <strong>5-7층</strong><br><span class="ai-landmark">두암타운사거리 광주은행건물</span></div></div></div>
         <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-phone"/></svg></div><div><div class="ai-title">전화</div><div class="ai-body"><a href="tel:062-716-7160" style="color:var(--sky2);font-weight:600">062-716-7160</a></div></div></div>
-        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-bus"/></svg></div><div><div class="ai-title">대중교통</div><div class="ai-body">버스 정류장 '산수동' 하차 후 도보 이동<br>광주 도심에서 접근 편리</div></div></div>
-        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-parking"/></svg></div><div><div class="ai-title">주차</div><div class="ai-body">병원 인근 공용주차장 이용 가능</div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-bus"/></svg></div><div><div class="ai-title">대중교통</div><div class="ai-body"><div class="bus-stop"><div class="bs-name"><span>율곡초교 정류장</span><span class="bs-walk near">도보 약 1~2분</span></div><div class="bs-note">병원에서 가장 가까운 정류장입니다</div><div class="bs-lines"><span>진월17</span><span>금호36</span><span>봉선27</span><span>두암81</span><span>충효188</span></div></div><div class="bus-stop"><div class="bs-name"><span>두암지구입구 정류장</span><span class="bs-walk">도보 약 10분</span></div><div class="bs-lines"><span>순환01</span><span>일곡28</span><span>운림35</span><span>송암74</span><span>충효187</span></div></div></div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-parking"/></svg></div><div><div class="ai-title">주차</div><div class="ai-body">건물 지하주차장 이용 (입구 뒷편)<br>율곡초교 옆 공용주차장도 이용 가능합니다</div></div></div>
         <a href="tel:062-716-7160" class="btn-primary" style="width:100%;text-align:center;display:block"><svg class="icon"><use href="#i-phone"/></svg> 062-716-7160 전화 문의</a>
       </div>
     </div>
@@ -1784,9 +1796,9 @@ section { padding: 96px 28px; }
     <div class="ps-grid2">
       <div class="access-map rv-l" style="aspect-ratio:4/3"><iframe src="https://maps.google.com/maps?q=광주광역시+동구+갈마로+46&hl=ko&z=16&output=embed" allowfullscreen loading="lazy" title="두암한방병원 위치"></iframe></div>
       <div class="access-info rv-r">
-        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-pin"/></svg></div><div><div class="ai-title">주소</div><div class="ai-body">광주광역시 동구 갈마로 46 (산수동)<br>두암3동 행정복지센터, 광주은행 인근</div></div></div>
-        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-bus"/></svg></div><div><div class="ai-title">대중교통</div><div class="ai-body">버스 정류장 '산수동' 하차 후 도보 이동</div></div></div>
-        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-parking"/></svg></div><div><div class="ai-title">주차</div><div class="ai-body">병원 인근 공용주차장 이용 가능</div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-pin"/></svg></div><div><div class="ai-title">주소</div><div class="ai-body">광주광역시 동구 갈마로 46 (산수동) <strong>5-7층</strong><br><span class="ai-landmark">두암타운사거리 광주은행건물</span></div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-bus"/></svg></div><div><div class="ai-title">대중교통</div><div class="ai-body"><div class="bus-stop"><div class="bs-name"><span>율곡초교 정류장</span><span class="bs-walk near">도보 약 1~2분</span></div><div class="bs-note">병원에서 가장 가까운 정류장입니다</div><div class="bs-lines"><span>진월17</span><span>금호36</span><span>봉선27</span><span>두암81</span><span>충효188</span></div></div><div class="bus-stop"><div class="bs-name"><span>두암지구입구 정류장</span><span class="bs-walk">도보 약 10분</span></div><div class="bs-lines"><span>순환01</span><span>일곡28</span><span>운림35</span><span>송암74</span><span>충효187</span></div></div></div></div></div>
+        <div class="ai-card"><div class="ai-icon"><svg class="icon"><use href="#i-parking"/></svg></div><div><div class="ai-title">주차</div><div class="ai-body">건물 지하주차장 이용 (입구 뒷편)<br>율곡초교 옆 공용주차장도 이용 가능합니다</div></div></div>
       </div></div>
   </div>
 </section>
@@ -2578,7 +2590,8 @@ section { padding: 96px 28px; }
       <div class="footer-brand">
         <div class="fb-name">두암한방병원</div>
         <div class="fb-addr">
-          광주광역시 동구 갈마로 46 (산수동)<br>
+          광주광역시 동구 갈마로 46 (산수동) 5-7층<br>
+          두암타운사거리 광주은행건물<br>
           대표전화: 062-716-7160
         </div>
       </div>
@@ -2601,7 +2614,7 @@ section { padding: 96px 28px; }
     <div class="footer-bottom">
       <span>© 2026 두암한방병원. All rights reserved.</span>
       <span class="fb-end">
-        광주광역시 동구 갈마로 46
+        광주광역시 동구 갈마로 46 (산수동) 5-7층
         <a href="#/admin" class="fb-admin">관리자 페이지</a>
       </span>
     </div>
