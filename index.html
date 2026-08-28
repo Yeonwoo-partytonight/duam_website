@@ -883,6 +883,10 @@ section { padding: 96px 28px; }
 /* 사진 원본 배경이 제각각이라 동일한 단색 프레임 + 동일 비율로 통일감을 준다 */
 .doc-photo {
   position: relative; aspect-ratio: 4/5;
+  /* 약력이 긴 카드는 행 높이가 4:5 프레임보다 커지는데, 이때 aspect-ratio가 늘어난
+     높이에서 가로폭을 역산해 컬럼 폭(300px)을 넘어 텍스트 위로 올라탄다.
+     가로폭을 명시해 세로만 늘어나게 고정한다. */
+  width: 100%;
   background: var(--cloud);
   border-right: 1px solid var(--border2);
   /* 원장 사진은 동일 규격(4:5, 머리 위 여백 7%, 인물 크기 통일)으로 재컷팅되어 있어 프레임 보정 여백이 필요 없다 */
@@ -1060,7 +1064,7 @@ section { padding: 96px 28px; }
   .ps-grid2 { grid-template-columns: 1fr; }
   .doctor-profile .dp-photo { max-width: 380px; margin: 0 auto; width: 100%; }
   .doc-card { grid-template-columns: 240px 1fr; }
-  .doc-info { padding: 26px 28px; }
+  .doc-info { padding: 26px 32px; }
   .info-grid, .info-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
   .steps, .steps.cols-3 { grid-template-columns: repeat(2, 1fr); }
@@ -1338,7 +1342,7 @@ section { padding: 96px 28px; }
     <div class="drawer-hospital-name">두암한방병원</div>
     <div class="drawer-tel-bar">062-716-7160</div>
     <div class="drawer-top-tags">
-      <span class="drawer-top-tag">개원 10년차</span>
+      <span class="drawer-top-tag">2018년 개원</span>
       <span class="drawer-top-tag">한방+일반 협진</span>
       <span class="drawer-top-tag">주말 진료</span>
     </div>
@@ -1360,7 +1364,7 @@ section { padding: 96px 28px; }
   </div>
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-left">
-    <div class="hero-badge">개원 10년차 · 한방+일반 협진 병원</div>
+    <div class="hero-badge">2018년 개원 · 한방+일반 협진 병원</div>
     <h1 class="hero-title">
       몸과 마음을<br>
       <em>바르게</em> 세우는<br>
