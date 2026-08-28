@@ -612,7 +612,7 @@ section { padding: 96px 28px; }
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235BA4CF' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .about-big-num {
-  font-family: 'DM Serif Display', serif; font-size: 5rem;
+  font-family: 'DM Serif Display', serif; font-size: 3.4rem;
   color: var(--sky); opacity: 0.25; line-height: 1;
   position: absolute; top: 24px; right: 28px;
 }
@@ -896,7 +896,9 @@ section { padding: 96px 28px; }
 .doc-photo picture { display: block; width: 100%; height: 100%; }
 .doc-photo img {
   width: 100%; height: 100%;
-  object-fit: contain; object-position: bottom center; display: block;
+  /* 프레임이 4:5보다 세로로 길어질 때 남는 여백을 위아래로 나눠, 한쪽에만 몰린
+     띠가 아니라 액자 여백처럼 보이게 한다(사진은 잘리지 않는다). */
+  object-fit: contain; object-position: center; display: block;
 }
 .doc-info { padding: 34px 38px; display: flex; flex-direction: column; justify-content: center; }
 .doc-dept { font-size: 0.9rem; font-weight: 500; color: var(--text-mid); letter-spacing: 0.01em; margin-bottom: 6px; }
@@ -1426,9 +1428,9 @@ section { padding: 96px 28px; }
     <div class="about-grid">
       <div class="about-visual rv-l">
         <div class="about-main-card">
-          <div class="about-big-num">9</div>
+          <div class="about-big-num">2018</div>
           <div class="about-card-text">
-            <div class="about-card-kw">SINCE 2016 · 동구 산수동</div>
+            <div class="about-card-kw">SINCE 2018 · 동구 산수동</div>
             <div class="about-card-title">지역과 함께 성장한<br>믿음직한 한방병원</div>
           </div>
         </div>
