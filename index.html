@@ -927,6 +927,7 @@ section { padding: 96px 28px; }
 .check-list li::before { content: '✓'; color: var(--sky2); font-weight: 700; flex-shrink: 0; }
 /* 단계 (process) */
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 8px; }
+.steps.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .step-card { background: white; border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px 20px; position: relative; }
 .step-num { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--sky-light); line-height: 1; margin-bottom: 12px; }
 .step-title { font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
@@ -1053,7 +1054,7 @@ section { padding: 96px 28px; }
   .doc-info { padding: 26px 28px; }
   .info-grid, .info-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: repeat(2, 1fr); }
+  .steps, .steps.cols-3 { grid-template-columns: repeat(2, 1fr); }
   .cta-band-inner { flex-direction: column; align-items: flex-start; }
 }
 /* 대분류가 4개로 짧아져 로고·전화예약 버튼과 겹치지 않는 992px까지 GNB를 노출,
@@ -1109,7 +1110,7 @@ section { padding: 96px 28px; }
   .doc-info { padding: 24px 22px 26px; }
   .doc-name { font-size: 1.45rem; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .steps { grid-template-columns: 1fr; }
+  .steps, .steps.cols-3 { grid-template-columns: 1fr; }
   .float-stack { bottom: 20px; right: 16px; gap: 14px; }
   .float-btn { width: 60px; height: 60px; font-size: 1.4rem; }
   .float-btn.talk .icon { width: 34px; height: 34px; }
@@ -2268,7 +2269,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="page-hero-label">WOMEN'S CARE</div>
     <h1 class="page-hero-title">여성의 건강과 아름다움을<br>한방으로 케어합니다</h1>
-    <p class="page-hero-desc">체질에 맞춘 한방 다이어트부터 산후조리, 갱년기 관리까지. 여성의 생애주기별 건강을 세심하게 돌봅니다.</p>
+    <p class="page-hero-desc">체질에 맞춘 한방 다이어트부터 산후조리, 갱년기 관리까지. 여성의 생애주기별 건강을 세심하게 돌봅니다. 체중 관리는 한방 관리와 마운자로 처방을 함께 고려해 상담해 드립니다.</p>
   </div>
 </section>
 <section class="page-section" id="women-diet">
@@ -2283,6 +2284,51 @@ section { padding: 96px 28px; }
 </div><ul class="check-list rv"><li>체질별 맞춤 한약 처방</li><li>체성분 분석 기반 관리</li><li>식욕·대사 조절로 요요 방지</li></ul>
   </div>
 </section>
+<section class="page-section" id="women-mounjaro">
+  <div class="ps-inner">
+    <div class="ps-head rv">
+      <div class="sec-label">여성·다이어트</div>
+      <h2 class="ps-title">마운자로</h2>
+    </div>
+    <div class="ps-grid2">
+  <div class="ps-body rv-l"><p>마운자로는 <strong>의료진 진료 후 처방되는 체중 관리 주사제</strong>입니다. 식사 조절과 운동만으로 체중 관리가 어려우신 경우, 진료를 통해 함께 고려해볼 수 있습니다.</p><p class="ps-note">효과와 반응에는 개인차가 있으며, 반드시 의료진의 진단과 처방 하에 진행됩니다. 상담 시 앓고 계신 질환과 복용 중인 약을 알려주세요.</p></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-scale"/></svg></span><span class="vp-num">02</span></div>
+</div>
+    <div class="sec-label rv" style="margin-top:36px">약제 정보</div>
+    <div class="info-grid cols-2">
+      <div class="info-card rv">
+        <div class="ic-icon"><svg class="icon"><use href="#i-flask"/></svg></div>
+        <div class="ic-title">주성분</div>
+        <div class="ic-desc">티제파타이드(Tirzepatide) 성분의 전문의약품입니다.</div>
+      </div>
+      <div class="info-card rv">
+        <div class="ic-icon"><svg class="icon"><use href="#i-pulse"/></svg></div>
+        <div class="ic-title">작용 방식</div>
+        <div class="ic-desc">GLP-1과 GIP 두 가지 호르몬에 함께 작용하는 주사제로, 식욕과 혈당 조절에 관여합니다.</div>
+      </div>
+      <div class="info-card rv">
+        <div class="ic-icon"><svg class="icon"><use href="#i-syringe"/></svg></div>
+        <div class="ic-title">투여 방식</div>
+        <div class="ic-desc">주 1회 피하주사하는 펜 타입이며, 자가 투여 방법은 진료 시 직접 안내해 드립니다.</div>
+      </div>
+      <div class="info-card rv">
+        <div class="ic-icon"><svg class="icon"><use href="#i-stethoscope"/></svg></div>
+        <div class="ic-title">처방</div>
+        <div class="ic-desc">의료진 진료 후 개인의 몸 상태에 맞춰 용량을 정해 처방합니다.</div>
+      </div>
+    </div>
+    <div class="sec-label rv" style="margin-top:36px">진행 순서</div>
+    <div class="steps cols-3">
+      <div class="step-card rv"><div class="step-num">01</div><div class="step-title">상담 및 체성분 분석</div><div class="step-desc">체중·체성분과 생활습관을 함께 확인하고, 건강 상태와 복용 중인 약을 점검합니다.</div></div>
+      <div class="step-card rv"><div class="step-num">02</div><div class="step-title">맞춤 용량 처방</div><div class="step-desc">개인 상태에 맞춰 용량을 정하고, 펜 사용법과 투여 방법을 안내해 드립니다.</div></div>
+      <div class="step-card rv"><div class="step-num">03</div><div class="step-title">주기적 경과 관찰</div><div class="step-desc">정기적으로 내원하시면 변화와 몸 상태를 함께 점검하며 용량을 조절합니다.</div></div>
+    </div>
+    <div class="sec-label rv" style="margin-top:36px">한방 다이어트와 병행</div>
+    <div class="ps-body rv"><p>저희는 한방과 일반진료를 함께 운영하고 있어, 주사 처방만 단독으로 진행하기보다 <strong>체질에 맞춘 한방 관리와 함께</strong> 몸 상태를 살피며 진행하실 수 있습니다. 어떤 방식이 맞을지는 상담을 통해 함께 정합니다.</p></div>
+    <ul class="check-list rv"><li>체질별 맞춤 한약을 병행해 몸의 균형을 함께 살핍니다</li><li>체성분 분석으로 체중뿐 아니라 근육·체지방 변화를 확인합니다</li><li>한방·양방 협진으로 소화 상태와 전반적인 컨디션을 함께 관리합니다</li></ul>
+    <div class="callout coral rv"><div class="callout-head">처방 가능 시간 안내</div><div class="callout-body">마운자로는 양방 진료 시간에 처방 가능합니다. 일요일은 양방 진료가 휴진이므로 마운자로 처방은 어렵습니다. 방문 전 062-716-7160으로 진료 시간을 확인해 주시면 더욱 편리합니다.</div></div>
+  </div>
+</section>
 <section class="page-section" id="women-postpartum">
   <div class="ps-inner">
     <div class="ps-head rv">
@@ -2291,7 +2337,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="ps-grid2">
   <div class="ps-body rv-l"><p>출산 후 약해진 기혈을 보강하고 <strong>부종·관절 통증·산후풍을 예방</strong>하는 한방 관리입니다. 산모의 빠른 회복과 체력 보강을 돕습니다.</p><p class="ps-note">출산 후 회복 상태에 따라 처방이 달라지므로, 내원 상담을 통해 시작 시기를 정하는 것이 좋습니다.</p></div>
-  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-baby"/></svg></span><span class="vp-num">02</span></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-baby"/></svg></span><span class="vp-num">03</span></div>
 </div>
   </div>
 </section>
@@ -2303,7 +2349,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="ps-grid2">
   <div class="ps-body rv-l"><p>출산 후 늘어난 체중과 변화된 체형을 <strong>건강을 해치지 않는 범위에서</strong> 회복하도록 돕습니다. 수유 여부를 고려한 맞춤 관리를 제공합니다.</p></div>
-  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-baby"/></svg></span><span class="vp-num">03</span></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-baby"/></svg></span><span class="vp-num">04</span></div>
 </div><ul class="check-list rv"><li>수유 상태를 고려한 안전한 관리</li><li>골반·체형 교정 병행</li><li>산후 부종 개선</li></ul>
   </div>
 </section>
@@ -2315,7 +2361,7 @@ section { padding: 96px 28px; }
     </div>
     <div class="ps-grid2">
   <div class="ps-body rv-l"><p>호르몬 변화로 인한 <strong>안면홍조·불면·우울감·피로</strong> 등 갱년기 증상을 한약과 침 치료로 완화합니다. 몸과 마음의 균형을 되찾도록 돕습니다.</p></div>
-  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-flower"/></svg></span><span class="vp-num">04</span></div>
+  <div class="visual-panel rv-r"><span class="vp-emoji"><svg class="icon"><use href="#i-flower"/></svg></span><span class="vp-num">05</span></div>
 </div><ul class="check-list rv"><li>안면홍조·식은땀 완화</li><li>불면·불안·우울감 개선</li><li>기력 저하와 만성피로 회복</li></ul>
   </div>
 </section>
@@ -2693,8 +2739,9 @@ section { padding: 96px 28px; }
       ["insurance","보험 처리"],["faq","자주 묻는 질문"]
     ]},
     { key:"women", title:"여성 · 다이어트", group:"care", anchors:[
-      ["diet","다이어트"],["postpartum","산후조리"],
-      ["postdiet","산후다이어트"],["menopause","갱년기"]
+      ["diet","다이어트"],["mounjaro","마운자로"],
+      ["postpartum","산후조리"],["postdiet","산후다이어트"],
+      ["menopause","갱년기"]
     ]},
     { key:"fatigue", title:"만성피로", group:"care", anchors:[
       ["fatigue","만성피로"],["injection","주사요법"]
