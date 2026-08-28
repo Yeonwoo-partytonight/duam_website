@@ -905,7 +905,7 @@ section { padding: 96px 28px; }
   width: 5px; height: 5px; border-radius: 50%; background: var(--sky-light);
 }
 .doc-career li:last-child { margin-bottom: 0; }
-.doc-career-empty { font-size: 0.9rem; color: var(--text-light); line-height: 1.7; }
+.doc-career li strong { font-weight: 600; color: var(--text); }
 /* 시설 사진 카드 */
 .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
 .photo-card { margin: 0; position: relative; aspect-ratio: 3/4; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); background: linear-gradient(140deg, var(--sky-pale) 0%, var(--mint-pale) 100%); transition: box-shadow 0.22s, transform 0.22s; }
@@ -1663,8 +1663,11 @@ section { padding: 96px 28px; }
         <div class="doc-name">권윤희 <span>원장</span></div>
         <p class="doc-desc">침구·한약·추나 등 한방 치료를 담당합니다. 환자 한 분 한 분의 상태에 맞춰 치료 계획을 세워 회복을 돕습니다.</p>
         <span class="doc-career-label">약력</span>
-        <!-- TODO: 원장님 학력·경력 확인 후 <ul class="doc-career"><li>…</li></ul> 로 교체 -->
-        <p class="doc-career-empty">약력 정보는 준비 중입니다.</p>
+        <ul class="doc-career">
+          <li>우석대학교 한의학과 졸업</li>
+          <li>대한한의사협회 정회원</li>
+          <li><strong>현 두암한방병원 원장</strong></li>
+        </ul>
       </div>
     </div>
     <div class="doc-card rv">
@@ -1679,8 +1682,13 @@ section { padding: 96px 28px; }
         <div class="doc-name">최종구 <span>원장</span></div>
         <p class="doc-desc">양방 진료를 담당합니다. 정확한 진단을 바탕으로 한·양방 통합 치료 계획을 세워 환자를 살핍니다.</p>
         <span class="doc-career-label">약력</span>
-        <!-- TODO: 원장님 학력·경력 확인 후 <ul class="doc-career"><li>…</li></ul> 로 교체 -->
-        <p class="doc-career-empty">약력 정보는 준비 중입니다.</p>
+        <ul class="doc-career">
+          <li>1990년 3월 조선대학교 의과대학 졸업</li>
+          <li>1995년 2월 조선대학교병원 외과 전문의 취득</li>
+          <li>1999년 3월 참생명바른외과의원 자연치유 재활클리닉 원장</li>
+          <li>2012년 365mc의원 비만클리닉 원장</li>
+          <li><strong>현 두암한방병원 양방 원장</strong></li>
+        </ul>
       </div>
     </div></div>
   </div>
