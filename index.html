@@ -4061,5 +4061,91 @@ section { padding: 96px 28px; }
   })();
 })();
 </script>
+<!-- ===== 공지 팝업 (메인 진입 시 1회) =====
+     공지 내용 수정: 아래 .npop-title / .npop-list / .npop-note 텍스트만 고치면 됨.
+     다시 띄우려면 스크립트의 KEY 버전(v1 → v2)을 올릴 것.
+     배경 이미지: 두암한방병원/notice-chuseok-2026.webp 를 넣으면 자동 적용(없으면 한지톤 배경만 표시). -->
+<style>
+.npop-dim{
+  /* 팝업 전용 한지 톤 — 명절 공지에만 쓰는 국소 변수(전역 :root 토큰은 건드리지 않음) */
+  --np-hanji:#F6F2EA; --np-line:rgba(46,74,99,.14); --np-band:#EFE9DD;
+  position:fixed;inset:0;background:rgba(46,74,99,.55);z-index:1200;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.npop-dim.on{display:flex;}
+.npop{background:var(--white);box-shadow:var(--shadow-lg);max-width:400px;width:100%;overflow:hidden;border-radius:var(--r-sm);}
+.npop-art{height:132px;background:var(--np-band);border-bottom:1px solid var(--np-line);overflow:hidden;}
+.npop-art img{width:100%;height:100%;object-fit:cover;}
+.npop-body{padding:26px 24px 22px;background:var(--np-hanji);}
+.npop-org{font-size:.8rem;letter-spacing:.16em;color:var(--text-mid);}
+.npop-title{font-family:'Noto Serif KR',serif;font-size:1.75rem;font-weight:600;line-height:1.35;margin-top:12px;letter-spacing:-.03em;color:var(--text);}
+.npop-title em{font-style:normal;display:block;color:var(--sky2);}
+.npop-line{width:34px;height:1px;background:var(--text);margin:18px 0;}
+.npop-list{margin:0;padding:0;list-style:none;}
+.npop-list li{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--np-line);font-size:1.02rem;}
+.npop-list li:last-child{border-bottom:0;}
+.npop-list .d{font-weight:700;min-width:92px;color:var(--text);}
+.npop-list .s{font-weight:700;color:var(--sky2);}
+.npop-list .h{margin-left:auto;color:var(--text-mid);font-variant-numeric:tabular-nums;}
+.npop-note{margin-top:18px;font-size:.9rem;color:var(--text-mid);line-height:1.75;}
+.npop-note b{color:var(--text);font-variant-numeric:tabular-nums;}
+.npop-foot{display:flex;border-top:1px solid var(--border);background:var(--white);}
+.npop-foot button{flex:1;border:0;background:transparent;padding:18px 10px;font-family:inherit;font-size:1rem;color:var(--text-mid);cursor:pointer;}
+.npop-foot button+button{border-left:1px solid var(--border);color:var(--sky2);font-weight:700;}
+.npop-foot button:hover,.npop-foot button:focus-visible{background:var(--sky-pale);}
+@media(max-width:560px){
+  .npop-title{font-size:1.55rem;}
+  .npop-body{padding:22px 18px 20px;}
+  .npop-list li{font-size:.98rem;}
+  .npop-art{height:108px;}
+}
+</style>
+<div class="npop-dim" id="noticePopup" role="dialog" aria-modal="true" aria-labelledby="noticePopupTitle">
+  <div class="npop">
+    <div class="npop-art"><img src="두암한방병원/notice-chuseok-2026.webp" alt="" onerror="this.style.display='none'"></div>
+    <div class="npop-body">
+      <div class="npop-org">두암한방병원</div>
+      <h2 class="npop-title" id="noticePopupTitle">추석 연휴<em>진료 안내</em></h2>
+      <div class="npop-line"></div>
+      <ul class="npop-list">
+        <li><span class="d">9월 24일 목</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
+        <li><span class="d">9월 25일 금</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
+        <li><span class="d">9월 26일 토</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
+      </ul>
+      <p class="npop-note">
+        접수 마감은 <b>12:00</b>입니다.<br>
+        문의 · 예약 <b>062-716-7160</b>
+      </p>
+    </div>
+    <div class="npop-foot">
+      <button type="button" id="noticePopupHide">오늘 하루 보지 않기</button>
+      <button type="button" id="noticePopupClose">닫기</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='duam_notice_popup_v1';        // 공지 내용을 바꾸면 v2, v3... 로 올리면 다시 노출됨
+  var UNTIL=new Date(2026,8,27,0,0,0);   // 이 시각 이후 자동 종료(2026-09-27 00:00, 연휴 종료 다음날)
+  var dim=document.getElementById('noticePopup');
+  if(!dim)return;
+  if(Date.now()>UNTIL.getTime())return;                 // 기간 지나면 안 뜸
+  var h=location.hash.replace(/^#\/?/,'').split('/')[0];
+  if(h&&h!=='home')return;                              // 메인 진입 시에만
+  try{ if(Date.now()<Number(localStorage.getItem(KEY)||0))return; }catch(e){}
+  var last=document.activeElement;
+  function close(){dim.classList.remove('on');document.removeEventListener('keydown',esc);if(last&&last.focus)last.focus();}
+  function esc(e){if(e.key==='Escape')close();}
+  dim.classList.add('on');
+  document.addEventListener('keydown',esc);
+  document.getElementById('noticePopupClose').addEventListener('click',close);
+  document.getElementById('noticePopupHide').addEventListener('click',function(){
+    try{localStorage.setItem(KEY,String(Date.now()+864e5));}catch(e){}
+    close();
+  });
+  dim.addEventListener('click',function(e){if(e.target===dim)close();});
+  document.getElementById('noticePopupClose').focus();
+})();
+</script>
 </body>
 </html>
