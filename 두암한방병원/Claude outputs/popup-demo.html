@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>두암한방병원 팝업 시안 v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1F2933;        /* 본문 먹색 */
+  --ink-2:#5A6672;      /* 보조 */
+  --line:#D8D3CA;       /* 괘선 */
+  --paper:#FFFFFF;
+  --hanji:#F6F2EA;      /* 한지 */
+  --seal:#A6382E;       /* 직인 붉은색 */
+  --navy:#22364C;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Noto Sans KR',sans-serif;background:#E7E4DE;color:var(--ink);padding:30px 16px 70px;-webkit-font-smoothing:antialiased}
+h1{font-size:1.15rem;text-align:center;margin:0 0 6px;font-weight:700}
+.lead{text-align:center;color:var(--ink-2);font-size:.88rem;margin:0 auto 30px;max-width:620px;line-height:1.75}
+.wrap{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:flex-start}
+.col{width:370px;max-width:100%}
+.tag{font-size:.8rem;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em}
+.desc{font-size:.8rem;color:var(--ink-2);line-height:1.65;margin:12px 2px 0}
+.stage{background:rgba(31,41,51,.35);padding:22px;border-radius:2px}
+.pop{background:var(--paper);box-shadow:0 14px 40px rgba(31,41,51,.22)}
+.foot{display:flex;border-top:1px solid var(--line)}
+.foot button{flex:1;border:0;background:transparent;padding:16px 8px;font-family:inherit;font-size:.95rem;color:var(--ink-2);cursor:pointer;letter-spacing:-.01em}
+.foot button+button{border-left:1px solid var(--line);color:var(--ink);font-weight:700}
+.imgzone{position:relative}
+.imgnote{position:absolute;right:8px;bottom:6px;font-size:.65rem;color:#9A8E79;background:rgba(255,255,255,.8);padding:2px 6px;letter-spacing:-.02em}
+
+/* 생성 이미지가 들어갈 자리: 절제된 한지+먹 느낌 */
+.art{background:var(--hanji)}
+.art.strip{height:8px;background:var(--navy)}
+.art.band{
+  height:132px;
+  background:
+    radial-gradient(circle at 78% 40%, rgba(255,255,255,.9) 0 30px, transparent 31px),
+    linear-gradient(180deg,#F8F5EE,#EFE9DD);
+  border-bottom:1px solid var(--line);
+}
+.art.side{
+  width:86px;flex:0 0 86px;
+  background:linear-gradient(180deg,#F2ECE0,#E8E0D0);
+  border-right:1px solid var(--line);
+}
+
+/* ── 1안: 병원 공고문 ── */
+.a-top{padding:22px 26px 0}
+.a-kicker{font-size:.72rem;letter-spacing:.22em;color:var(--seal);font-weight:700}
+.a-title{font-family:'Noto Serif KR',serif;font-weight:700;font-size:1.5rem;margin-top:10px;letter-spacing:-.03em}
+.a-rule{height:2px;background:var(--ink);margin:14px 0 0}
+.a-sub{font-size:.92rem;color:var(--ink-2);margin-top:14px;line-height:1.6}
+table.sched{width:100%;border-collapse:collapse;margin-top:16px;font-size:.98rem}
+table.sched th{text-align:left;font-size:.74rem;letter-spacing:.1em;color:var(--ink-2);font-weight:500;padding:0 0 7px;border-bottom:1px solid var(--line)}
+table.sched td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:baseline}
+table.sched td.day{font-weight:700;white-space:nowrap}
+table.sched td.stat{font-weight:700;color:var(--navy);white-space:nowrap}
+table.sched td.hr{text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.sched tr.rest td.stat{color:#96938D;font-weight:500}
+table.sched tr.rest td.day{color:#96938D}
+.a-note{font-size:.85rem;color:var(--ink-2);line-height:1.7;margin:14px 0 0}
+.a-tel{display:flex;justify-content:space-between;align-items:center;margin:18px 0 22px;padding:14px 16px;background:var(--hanji);border-left:3px solid var(--seal);text-decoration:none;color:inherit}
+.a-tel span{font-size:.8rem;color:var(--ink-2)}
+.a-tel b{font-size:1.2rem;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* ── 2안: 세로 한지 포스터 ── */
+.b-body{padding:26px 24px 22px;background:var(--hanji);position:relative}
+.b-org{font-size:.78rem;letter-spacing:.18em;color:var(--ink-2)}
+.b-title{font-family:'Noto Serif KR',serif;font-size:1.85rem;font-weight:600;line-height:1.35;margin-top:12px;letter-spacing:-.04em}
+.b-title em{font-style:normal;display:block;color:var(--seal)}
+.b-line{width:34px;height:1px;background:var(--ink);margin:18px 0}
+.b-list{margin:0;padding:0;list-style:none}
+.b-list li{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid rgba(31,41,51,.12);font-size:.98rem}
+.b-list li:last-child{border-bottom:0}
+.b-list .d{font-weight:700;min-width:92px}
+.b-list .s{color:var(--navy);font-weight:700}
+.b-list .h{margin-left:auto;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.b-list li.rest .s,.b-list li.rest .d{color:#9A968E;font-weight:500}
+.b-foot-note{margin-top:18px;font-size:.84rem;color:var(--ink-2);line-height:1.7}
+.b-seal{position:absolute;right:22px;bottom:20px;width:54px;height:54px;border:1.5px solid var(--seal);color:var(--seal);display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-size:.72rem;line-height:1.25;text-align:center;opacity:.85}
+
+/* ── 3안: 좌측 이미지 세로띠 ── */
+.c-flex{display:flex}
+.c-main{flex:1;padding:24px 24px 20px;min-width:0}
+.c-eyebrow{font-size:.74rem;letter-spacing:.16em;color:var(--ink-2)}
+.c-title{font-size:1.3rem;font-weight:700;margin-top:8px;letter-spacing:-.03em;line-height:1.4}
+.c-row{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:.95rem}
+.c-row:first-of-type{margin-top:16px}
+.c-row .d{font-weight:700;min-width:86px}
+.c-row .s{color:var(--navy);font-weight:700}
+.c-row .h{margin-left:auto;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.c-row.rest .s,.c-row.rest .d{color:#9A968E;font-weight:500}
+.c-tel{display:block;margin-top:18px;text-align:center;border:1px solid var(--navy);color:var(--navy);font-weight:700;padding:13px;text-decoration:none;font-size:1.02rem;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.col{width:100%;max-width:410px}}
+</style>
+</head>
+<body>
+
+<h1>팝업 시안 v2 — 병원 공고문 톤</h1>
+<p class="lead">
+둥근 모서리·그라데이션·파스텔을 걷어내고, 실제 병원 게시물처럼 <b>괘선·활자 대비·여백</b>으로 정리했습니다.
+연한 한지색 면이 생성 이미지가 들어갈 자리이고, 글자는 전부 HTML입니다.<br>
+※ 날짜·시간은 예시, 번호는 실제 대표번호입니다.
+</p>
+
+<div class="wrap">
+
+  <!-- 1안 -->
+  <div class="col">
+    <div class="tag">1안 · 공고문형 (이미지 최소)</div>
+    <div class="stage">
+      <div class="pop">
+        <div class="art strip"></div>
+        <div class="a-top">
+          <div class="a-kicker">공 지</div>
+          <div class="a-title">추석 연휴 진료 안내</div>
+          <div class="a-rule"></div>
+          <p class="a-sub">연휴 기간에도 오전 진료를 운영합니다.</p>
+          <table class="sched">
+            <tr><th>날짜</th><th></th><th style="text-align:right">진료시간</th></tr>
+            <tr><td class="day">9월 24일 (목)</td><td class="stat">오전 진료</td><td class="hr">09:00 – 13:00</td></tr>
+            <tr><td class="day">9월 25일 (금)</td><td class="stat">오전 진료</td><td class="hr">09:00 – 13:00</td></tr>
+            <tr class="rest"><td class="day">9월 26일 (토)</td><td class="stat">휴진</td><td class="hr">—</td></tr>
+          </table>
+          <p class="a-note">접수는 진료 마감 30분 전까지 부탁드립니다.<br>입원 환자 문의는 전화로 안내해 드립니다.</p>
+          <a class="a-tel" href="tel:0627167160"><span>문의 · 예약</span><b>062-716-7160</b></a>
+        </div>
+        <div class="foot">
+          <button type="button">오늘 하루 보지 않기</button>
+          <button type="button">닫기</button>
+        </div>
+      </div>
+    </div>
+    <p class="desc">이미지는 상단 먹색 띠뿐. 가장 신뢰감 있고 가독성이 높으며, AI 이미지 품질에 좌우되지 않습니다.</p>
+  </div>
+
+  <!-- 2안 -->
+  <div class="col">
+    <div class="tag">2안 · 한지 포스터형</div>
+    <div class="stage">
+      <div class="pop">
+        <div class="imgzone">
+          <div class="art band"></div>
+          <span class="imgnote">생성 이미지 (문양·달)</span>
+        </div>
+        <div class="b-body">
+          <div class="b-org">두암한방병원</div>
+          <div class="b-title">추석 연휴<em>진료 안내</em></div>
+          <div class="b-line"></div>
+          <ul class="b-list">
+            <li><span class="d">9월 24일 목</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
+            <li><span class="d">9월 25일 금</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
+            <li class="rest"><span class="d">9월 26일 토</span><span class="s">휴진</span><span class="h">—</span></li>
+          </ul>
+          <p class="b-foot-note">문의 · 예약 062-716-7160<br>광주 동구 갈마로 46</p>
+          <div class="b-seal">두암<br>한방</div>
+        </div>
+        <div class="foot">
+          <button type="button">오늘 하루 보지 않기</button>
+          <button type="button">닫기</button>
+        </div>
+      </div>
+    </div>
+    <p class="desc">명절 정서를 담되 장식은 상단 한 면으로 제한. 직인 표식은 실제 병원 로고로 교체하면 더 자연스럽습니다.</p>
+  </div>
+
+  <!-- 3안 -->
+  <div class="col">
+    <div class="tag">3안 · 좌측 세로띠형</div>
+    <div class="stage">
+      <div class="pop">
+        <div class="c-flex">
+          <div class="art side imgzone"></div>
+          <div class="c-main">
+            <div class="c-eyebrow">추석 연휴 안내</div>
+            <div class="c-title">연휴에도<br>오전 진료합니다</div>
+            <div class="c-row"><span class="d">9월 24일 목</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></div>
+            <div class="c-row"><span class="d">9월 25일 금</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></div>
+            <div class="c-row rest"><span class="d">9월 26일 토</span><span class="s">휴진</span><span class="h">—</span></div>
+            <a class="c-tel" href="tel:0627167160">062-716-7160</a>
+          </div>
+        </div>
+        <div class="foot">
+          <button type="button">오늘 하루 보지 않기</button>
+          <button type="button">닫기</button>
+        </div>
+      </div>
+    </div>
+    <p class="desc">가로폭이 좁은 모바일에서 세로띠가 얇아져 텍스트 공간이 넉넉합니다. 이미지는 세로 패턴 한 줄이면 충분.</p>
+  </div>
+
+</div>
+</body>
+</html>
