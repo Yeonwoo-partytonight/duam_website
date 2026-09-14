@@ -3,6 +3,14 @@
   "updatedAt": "2026-09-14",
   "items": [
     {
+      "at": "2026-09-14T02:21:39.192Z",
+      "actor": "배광희 원장님",
+      "action": "delete",
+      "itemType": "columns",
+      "itemId": "c-20260914-wd9e",
+      "title": "테스트 페이지 입니다."
+    },
+    {
       "at": "2026-09-14T02:08:46.155Z",
       "actor": "배광희 원장님",
       "action": "create",
