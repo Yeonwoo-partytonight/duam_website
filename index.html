@@ -4112,6 +4112,7 @@ section { padding: 96px 28px; }
         <li><span class="d">9월 24일 목</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
         <li><span class="d">9월 25일 금</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
         <li><span class="d">9월 26일 토</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
+        <li><span class="d">9월 27일 일</span><span class="s">오전 진료</span><span class="h">09:00–13:00</span></li>
       </ul>
       <p class="npop-note">
         접수 마감은 <b>12:00</b>입니다.<br>
@@ -4127,7 +4128,7 @@ section { padding: 96px 28px; }
 <script>
 (function(){
   var KEY='duam_notice_popup_v1';        // 공지 내용을 바꾸면 v2, v3... 로 올리면 다시 노출됨
-  var UNTIL=new Date(2026,8,27,0,0,0);   // 이 시각 이후 자동 종료(2026-09-27 00:00, 연휴 종료 다음날)
+  var UNTIL=new Date(2026,8,28,0,0,0);   // 이 시각 이후 자동 종료(2026-09-28 00:00, 연휴 종료 다음날)
   var dim=document.getElementById('noticePopup');
   if(!dim)return;
   if(Date.now()>UNTIL.getTime())return;                 // 기간 지나면 안 뜸
