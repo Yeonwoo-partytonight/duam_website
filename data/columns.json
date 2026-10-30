@@ -1,7 +1,25 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-10-30",
   "items": [
+    {
+      "id": "c-20261030-vblo",
+      "title": "경추손상",
+      "tag": "",
+      "category": "accident",
+      "author": "배광희 병원장",
+      "date": "2026-10-30",
+      "status": "published",
+      "image": "",
+      "imageAlt": "",
+      "videoId": "bPOsMBrWAt0",
+      "previewToken": "",
+      "previousStatus": "",
+      "deletedAt": "",
+      "lastEditedBy": "배광희 원장님",
+      "lastEditedAt": "2026-10-30",
+      "body": "경추 손상에 관한 내용입니다."
+    },
     {
       "id": "c-20260914-wd9e",
       "title": "테스트 페이지 입니다.",
