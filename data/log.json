@@ -1,7 +1,15 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-10-30",
   "items": [
+    {
+      "at": "2026-10-30T00:17:57.353Z",
+      "actor": "배광희 원장님",
+      "action": "create",
+      "itemType": "columns",
+      "itemId": "c-20261030-vblo",
+      "title": "경추손상"
+    },
     {
       "at": "2026-09-14T02:21:39.192Z",
       "actor": "배광희 원장님",
